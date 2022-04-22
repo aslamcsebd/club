@@ -75,7 +75,8 @@ table.dataTable thead th, table.dataTable.no-footer{ border-bottom: unset; }
 
 table.dataTable thead th, 
 table.dataTable thead td { padding: 2px 20px; text-transform: capitalize; 
-   background-color: turquoise; text-align: center;
+    /*background-color: turquoise;*/
+   text-align: center;
 }
 
 table.dataTable tbody td { text-align: center; vertical-align: middle; padding: 2px; }

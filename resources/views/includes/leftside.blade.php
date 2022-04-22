@@ -35,7 +35,15 @@
                   <i class="nav-icon fas fa-book-reader"></i>
                   <p>Member Category</p>
                </a>
-            </li>          
+            </li>
+
+            {{-- Category --}}
+            <li class="nav-item ">
+               <a href="{{ route('settings') }}" class="nav-link {{ (request()->routeIs('settings*'))  ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-book-reader"></i>
+                  <p>Settings</p>
+               </a>
+            </li>         
 
            {{--  <li class="nav-header">Alternative Book</li>
 

@@ -11,12 +11,14 @@ use DB;
 use Carbon\Carbon;
 
 use App\Models\MemberCategory;
+use App\Models\CustomField;
 
 class MemberController extends Controller{
 
    // Member registration
    public function new(){
-      return view('admin.member.registration');
+      $data['customFields'] = CustomField::where('status', 1)->get();
+      return view('admin.member.registration', $data);      
    }
 
    // Add new member
@@ -49,18 +51,27 @@ class MemberController extends Controller{
          }
       }else{
          $photoLink = imagePath($default);
-      }  
+      }
 
-      DB::table('members')->insert([
+      $insertId = DB::table('members')->insertGetId([
          'name' => $request->name,
          'email' => $request->email,
          'password' => Hash::make($request->password),
          'mobile' => $request->mobile,
          'address' => $request->address,
          'gender' => $request->gender,
+         'blood' => $request->blood,
          'date' => $request->date,
          'photo' => $photoLink
-     ]);
+      ]);
+      $customFields = CustomField::where('status', 1)->get();
+
+      foreach ($customFields as $field) {
+         $title = $field->name;
+         DB::table('members')->where('id', $insertId)->update([
+            $title => $request->$title
+         ]);
+      }
       return back()->with('success','New member add successfully');
    }
 
@@ -74,6 +85,7 @@ class MemberController extends Controller{
    // Show single member
    public function view($id, $model, $tab){
       $data['single'] =  $itemId = DB::table($model)->find($id);
+      $data['customFields'] = CustomField::where('status', 1)->get();      
       return view('admin.member.view', $data);
    }
 
@@ -106,8 +118,14 @@ class MemberController extends Controller{
       return back()->with('success','New category add successfully');
    }
 
-
-
+   // Add custom field   
+   public function customField(){
+      $table  = 'members';
+      $column = 'abc';
+      DB::select("ALTER TABLE $table ADD $column VARCHAR(255)");
+      DB::statement("ALTER TABLE $table ADD $column VARCHAR(255)");
+      return view('admin.member.registration');      
+   }
 
    // Status [Active vs Inactive]
    public function itemStatus($id, $model, $tab){
@@ -126,7 +144,5 @@ class MemberController extends Controller{
       }
       DB::table($model)->where('id', $id)->delete();
       return back()->with('success', $model.' delete successfully')->withInput(['tab' => $tab]);
-   }
-
-    
+   }    
 }

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 21, 2022 at 10:22 AM
--- Server version: 5.7.33
--- PHP Version: 7.4.19
+-- Generation Time: Apr 22, 2022 at 01:51 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Database: `club`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `custom_fields`
+--
+
+CREATE TABLE `custom_fields` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -50,9 +64,11 @@ CREATE TABLE `members` (
   `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `blood` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `Abdur_Rahim` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -61,9 +77,9 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `date`, `photo`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Md Karim', 'karim@gmail.com', '$2y$10$l6qox2m.I73AUfB2gOCCWuLyxRHrQXJldKhmt3aNLGGxHoye2j6Dq', '01680607293', 'Agrabad, commerce college road, Chittagong', 'Male', '02-February-2000', 'images/photo/1650535745.png', 0, NULL, NULL),
-(2, 'Md Rahim', 'rahim@gmail.com', '$2y$10$BWXASLvcBhK8S130DtV5Z.xCOHmHYbi3dNwkBgibNZ8uZNaYOBr/C', '01689745632', 'ইংরেজি থেকে অনুবাদ করা হয়েছে-প্রকাশনা এবং গ্রাফিক ডিজাইনে, Lorem ipsum হল একটি স্থানধারক পাঠ্য যা সাধারণত অর্থপূর্ণ বিষয়বস্তুর উপর নির্ভর না করে একটি নথি বা টাইপফেসের ভিজ্যুয়াল ফর্ম প্রদর্শন করতে ব্যবহৃত হয়। চূড়ান্ত অনুলিপি উপলব্ধ হওয়ার আগে Lorem ipsum একটি স্থানধারক হিসাবে ব্যবহার করা যেতে পারে। উইকিপিডিয়া (ইংরেজি)', 'Male', '02-February-2001', 'images/photo/1650535842.png', 1, NULL, NULL);
+INSERT INTO `members` (`id`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `date`, `photo`, `status`, `Abdur_Rahim`, `created_at`, `updated_at`) VALUES
+(1, 'Md Karim', 'karim@gmail.com', '$2y$10$l6qox2m.I73AUfB2gOCCWuLyxRHrQXJldKhmt3aNLGGxHoye2j6Dq', '01680607293', 'Agrabad, commerce college road, Chittagong', 'Male', NULL, '02-February-2000', 'images/photo/1650535745.png', 1, NULL, NULL, NULL),
+(2, 'Md Rahim', 'rahim@gmail.com', '$2y$10$BWXASLvcBhK8S130DtV5Z.xCOHmHYbi3dNwkBgibNZ8uZNaYOBr/C', '01689745632', 'ইংরেজি থেকে অনুবাদ করা হয়েছে-প্রকাশনা এবং গ্রাফিক ডিজাইনে, Lorem ipsum হল একটি স্থানধারক পাঠ্য যা সাধারণত অর্থপূর্ণ বিষয়বস্তুর উপর নির্ভর না করে একটি নথি বা টাইপফেসের ভিজ্যুয়াল ফর্ম প্রদর্শন করতে ব্যবহৃত হয়। চূড়ান্ত অনুলিপি উপলব্ধ হওয়ার আগে Lorem ipsum একটি স্থানধারক হিসাবে ব্যবহার করা যেতে পারে। উইকিপিডিয়া (ইংরেজি)', 'Male', NULL, '02-February-2001', 'images/photo/1650535842.png', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -111,7 +127,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2014_10_12_100000_create_password_resets_table', 1),
 (8, '2019_08_19_000000_create_failed_jobs_table', 1),
 (9, '2022_04_20_101630_create_members_table', 1),
-(11, '2022_04_21_091057_create_member_categories_table', 2);
+(11, '2022_04_21_091057_create_member_categories_table', 2),
+(12, '2022_04_22_080652_create_custom_fields_table', 3);
 
 -- --------------------------------------------------------
 
@@ -174,6 +191,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 
 --
+-- Indexes for table `custom_fields`
+--
+ALTER TABLE `custom_fields`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -221,6 +244,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `custom_fields`
+--
+ALTER TABLE `custom_fields`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -242,7 +271,7 @@ ALTER TABLE `member_categories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `refresh_status`

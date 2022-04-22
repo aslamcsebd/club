@@ -67,10 +67,25 @@
                   </tr>
                   <tr>
                      <td width="20%">
+                        <label>Blood Group</label>
+                     </td>
+                     <td>{{$single->blood}}</td>
+                  </tr>
+                  <tr>
+                     <td width="20%">
                         <label>Date of Birth</label>
                      </td>
                      <td>{{$single->date}}</td>
                   </tr>
+                  @foreach($customFields as $field)
+                     @php $title = $field->name; @endphp
+                     <tr>
+                        <td width="20%">
+                           <label class="capitalize">{{$title}}</label>
+                        </td>
+                        <td>{{$single->$title}}</td>
+                     </tr>
+                  @endforeach
                </table>             
             </div>
 

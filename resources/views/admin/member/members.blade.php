@@ -13,10 +13,10 @@
             <div class="card-header p-1">
                <ul class="nav nav-pills" id="tabMenu">
                   <li class="nav-item">
-                     <a class="nav-link active btn-sm py-1 m-1" data-toggle="pill" href="#activeMember">Active Member [{{$activeMembers->count()}}]</a>
+                     <a class="nav-link active btn-sm py-1 m-1" data-toggle="pill" href="#activeMember">Active Member {{$activeMembers->count() ? '['.$activeMembers->count().']': ''}}</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#inactiveMember">Inactive Member [{{$inactiveMembers->count()}}]</a>
+                     <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#inactiveMember">Inactive Member {{$inactiveMembers->count() ? '['.$inactiveMembers->count().']': ''}}</a>
                   </li>
                </ul>
             </div>

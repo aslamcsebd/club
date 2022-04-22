@@ -19,10 +19,23 @@ Route::middleware(['auth'])->group(function(){
    Route::get('/member/category', 'MemberController@category')->name('category');
    Route::post('/add-category', 'MemberController@addCategory')->name('addCategory');
 
+   // Settings
+   Route::get('/settings', 'SettingController@settings')->name('settings');
+   Route::post('/add-custom-field', 'SettingController@addCustomField')->name('addCustomField');
 
    // All status change   
    Route::get('itemStatus/{id}/{model}/{tab}','MemberController@itemStatus')->name('itemStatus');
    Route::get('view/{id}/{model}/{tab}','MemberController@view')->name('view');
    Route::get('itemDelete/{id}/{model}/{tab}','MemberController@itemDelete')->name('itemDelete');
   
+});
+
+Route::get('/clear', function() {
+   Artisan::call('cache:clear');
+   Artisan::call('config:clear');
+   Artisan::call('config:cache');
+   Artisan::call('view:clear');
+   Artisan::call('route:clear');   
+   
+   return "Cleared!";
 });
