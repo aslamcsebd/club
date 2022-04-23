@@ -41,8 +41,8 @@
                                  <td>{!!$member->name!!}</td>
                                  <td>{!!$member->email!!}</td>
                                  <td>{!!$member->mobile!!}</td>
-                                 <td>{!! date('d-M-Y', strtotime($member->date)) !!} <br>
-                                    [{{\Carbon\Carbon::parse($member->date)->diff(\Carbon\Carbon::now())->format(' %y years ')}}]
+                                 <td>{!! date('d-M-Y', strtotime($member->dob)) !!} <br>
+                                    [{{\Carbon\Carbon::parse($member->dob)->diff(\Carbon\Carbon::now())->format(' %y years ')}}]
                                  </td>
                                  <td width="15">
                                     <div class="btn-group">

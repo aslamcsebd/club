@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function(){
    // Settings
    Route::get('/settings', 'SettingController@settings')->name('settings');
    Route::post('/add-custom-field', 'SettingController@addCustomField')->name('addCustomField');
+   Route::post('/add-user-type', 'SettingController@addUserType')->name('addUserType');
 
    // All status change   
    Route::get('itemStatus/{id}/{model}/{tab}','MemberController@itemStatus')->name('itemStatus');

@@ -12,12 +12,14 @@ use Carbon\Carbon;
 
 use App\Models\MemberCategory;
 use App\Models\CustomField;
+use App\Models\UserType;
 
 class SettingController extends Controller{
 
    // Add custom field
    public function settings(){
       $data['customFields'] = CustomField::all();
+      $data['userTypes'] = UserType::all();
       return view('admin.settings', $data);      
    }
 
@@ -44,27 +46,26 @@ class SettingController extends Controller{
       if ($addColumn > 0) {
          CustomField::insert(['name' => $column]);
       }else{
-         return back()->with('Column add fail')->withInput(['tab' => $tab]);
+         return back()->with('fail', 'Column add fail')->withInput(['tab' => $tab]);
       }      
-      return back()->with('Column add successfully')->withInput(['tab' => $tab]);      
+      return back()->with('success', 'Column add successfully')->withInput(['tab' => $tab]);      
    }
 
-   // Status [Active vs Inactive]
-   public function itemStatus($id, $model, $tab){
-      //Much code because save() function not working...
-      $itemId = DB::table($model)->find($id);
-      ($itemId->status == true) ? $action=$itemId->status = false : $action=$itemId->status = true;     
-      DB::table($model)->where('id', $id)->update(['status' => $action]);
-      return back()->with('success', $model.' status change')->withInput(['tab' => $tab]);
-   }
+   // Add user type 
+   public function addUserType(Request $request){
+      
+      $validator = Validator::make($request->all(), [
+         'name'=>'required|unique:user_types'
+      ]);
 
-   // Delete
-   public function itemDelete($id, $model, $tab){
-      $itemId = DB::table($model)->find($id);
-      if (Schema::hasColumn($model, 'image')){
-         ($itemId->image!=null) ? (file_exists($itemId->image) ? unlink($itemId->image) : '') : '';
+      if($validator->fails()){
+         $messages = $validator->messages();
+         return Redirect::back()->withErrors($validator);
       }
-      DB::table($model)->where('id', $id)->delete();
-      return back()->with('success', $model.' delete successfully')->withInput(['tab' => $tab]);
+
+      $tab = 'userType';
+      UserType::insert(['name' => $request->name]);
+      return back()->with('success', 'User type add successfully')->withInput(['tab' => $tab]);      
    }
+   
 }

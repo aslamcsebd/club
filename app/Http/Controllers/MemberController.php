@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
+
 
 use Validator;
 use Redirect;
 use DB;
 use Carbon\Carbon;
 
+use App\Models\Member;
 use App\Models\MemberCategory;
 use App\Models\CustomField;
+use App\Models\UserType;
 
 class MemberController extends Controller{
 
    // Member registration
    public function new(){
       $data['customFields'] = CustomField::where('status', 1)->get();
+      $data['user_types'] = UserType::where('status', 1)->get();
       return view('admin.member.registration', $data);      
    }
 
@@ -32,7 +37,7 @@ class MemberController extends Controller{
          'mobile'=>'required',
          'address'=>'required',
          'gender'=>'required',
-         'date'=>'required'
+         'dob'=>'required'
       ]);
 
       if($validator->fails()){
@@ -54,6 +59,9 @@ class MemberController extends Controller{
       }
 
       $insertId = DB::table('members')->insertGetId([
+         'user_type' => $request->user_type,
+         'formNo' => $request->formNo,
+         'deviceId' => $request->deviceId,
          'name' => $request->name,
          'email' => $request->email,
          'password' => Hash::make($request->password),
@@ -61,9 +69,10 @@ class MemberController extends Controller{
          'address' => $request->address,
          'gender' => $request->gender,
          'blood' => $request->blood,
-         'date' => $request->date,
+         'dob' => date('Y-m-d', strtotime($request->dob)),
          'photo' => $photoLink
       ]);
+
       $customFields = CustomField::where('status', 1)->get();
 
       foreach ($customFields as $field) {

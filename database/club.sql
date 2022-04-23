@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 22, 2022 at 01:51 PM
+-- Generation Time: Apr 23, 2022 at 05:22 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.19
 
@@ -58,17 +58,19 @@ CREATE TABLE `failed_jobs` (
 
 CREATE TABLE `members` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `blood` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `photo` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `formNo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `deviceId` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `blood` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
-  `Abdur_Rahim` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -77,9 +79,9 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `date`, `photo`, `status`, `Abdur_Rahim`, `created_at`, `updated_at`) VALUES
-(1, 'Md Karim', 'karim@gmail.com', '$2y$10$l6qox2m.I73AUfB2gOCCWuLyxRHrQXJldKhmt3aNLGGxHoye2j6Dq', '01680607293', 'Agrabad, commerce college road, Chittagong', 'Male', NULL, '02-February-2000', 'images/photo/1650535745.png', 1, NULL, NULL, NULL),
-(2, 'Md Rahim', 'rahim@gmail.com', '$2y$10$BWXASLvcBhK8S130DtV5Z.xCOHmHYbi3dNwkBgibNZ8uZNaYOBr/C', '01689745632', 'ইংরেজি থেকে অনুবাদ করা হয়েছে-প্রকাশনা এবং গ্রাফিক ডিজাইনে, Lorem ipsum হল একটি স্থানধারক পাঠ্য যা সাধারণত অর্থপূর্ণ বিষয়বস্তুর উপর নির্ভর না করে একটি নথি বা টাইপফেসের ভিজ্যুয়াল ফর্ম প্রদর্শন করতে ব্যবহৃত হয়। চূড়ান্ত অনুলিপি উপলব্ধ হওয়ার আগে Lorem ipsum একটি স্থানধারক হিসাবে ব্যবহার করা যেতে পারে। উইকিপিডিয়া (ইংরেজি)', 'Male', NULL, '02-February-2001', 'images/photo/1650535842.png', 1, NULL, NULL, NULL);
+INSERT INTO `members` (`id`, `user_type`, `formNo`, `deviceId`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Teacher', '1020', 'abcd1234', 'Abdur Rahim', 'rahim@gmail.com', '$2y$10$qB9ci752XJ2Gr6rFztmGrO3FYUwhf3wg6CPqJhA6N0BV3VVsiR/bO', '01680607596', 'mirpur-12', 'Male', '+O', '2002-04-06', 'images/default.jpg', 1, NULL, NULL),
+(2, 'Student', '2030', '1234abcd', 'Abdur Raihan', 'raihan@gmail.com', '$2y$10$.VV9teOt4eZ14dTsPLchOuh.KKIR7Swb5sEcFBc3GvOvduFVUp4ki', '01598745632', 'Agrabad, ctg', 'Male', '-B', '2001-04-20', 'images/default.jpg', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -126,9 +128,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (6, '2014_10_12_000000_create_users_table', 1),
 (7, '2014_10_12_100000_create_password_resets_table', 1),
 (8, '2019_08_19_000000_create_failed_jobs_table', 1),
-(9, '2022_04_20_101630_create_members_table', 1),
 (11, '2022_04_21_091057_create_member_categories_table', 2),
-(12, '2022_04_22_080652_create_custom_fields_table', 3);
+(12, '2022_04_22_080652_create_custom_fields_table', 3),
+(13, '2022_04_22_163151_create_user_types_table', 4),
+(17, '2022_04_20_101630_create_members_table', 5);
 
 -- --------------------------------------------------------
 
@@ -186,6 +189,28 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Aslam', 'admin@gmail.com', NULL, '$2y$10$qs0VXXwNndVNWzlxbloRx.t3nm7hfxEVpG183vkQw16/lPdZEUmWu', NULL, '2022-04-20 15:17:04', '2022-04-20 15:17:04', NULL);
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_types`
+--
+
+CREATE TABLE `user_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `user_types`
+--
+
+INSERT INTO `user_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Student', 1, NULL, NULL),
+(2, 'abc', 0, NULL, NULL);
+
 --
 -- Indexes for dumped tables
 --
@@ -240,6 +265,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_email_unique` (`email`);
 
 --
+-- Indexes for table `user_types`
+--
+ALTER TABLE `user_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -271,7 +302,7 @@ ALTER TABLE `member_categories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `refresh_status`
@@ -284,6 +315,12 @@ ALTER TABLE `refresh_status`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `user_types`
+--
+ALTER TABLE `user_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

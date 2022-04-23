@@ -45,7 +45,7 @@
       }, 5000);
 
       $(".datepicker").datepicker({
-         format: "dd-MM-yyyy",
+         format: "dd-mm-yyyy",
          // startView: "months", 
          // minViewMode: "months"
       });

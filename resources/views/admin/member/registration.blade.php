@@ -48,7 +48,7 @@
                   <div class="row">
                      <div class="form-group col-6">
                         <label for="address">Gender*</label>
-                        <select class="form-control" name="gender">
+                        <select class="form-control" name="gender" required>
                           <option value="">Select Gender</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
@@ -73,8 +73,8 @@
                   </div>
 
                   <div class="form-group">
-                     <label for="date">Date of Birth*</label>
-                     <input type="text" class="form-control datepicker" name="date" placeholder="Day-Month-Year" required />
+                     <label for="dob">Date of Birth*</label>
+                     <input type="text" class="form-control datepicker" name="dob" placeholder="Day-Month-Year" required/>
                   </div>  
 
                   <div class="form-group">
@@ -89,6 +89,27 @@
                         <input type="text" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}">
                      </div>
                   @endforeach
+                  <hr>
+                  <div class="row">
+                     <div class="form-group col">
+                        <label for="address">User Type*</label>
+                        <select class="form-control" name="user_type" required>
+                           <option value="">Select user type</option>
+                           @foreach($user_types as $user)
+                              <option value="{{$user->name}}">{{$user->name}}</option>
+                           @endforeach
+                        </select>
+                     </div>
+                     <div class="form-group col">
+                        <label for="formNo">Form No*</label>
+                        <input type="text" class="form-control" name="formNo" placeholder="Form No" />
+                     </div>
+                     <div class="form-group col">
+                        <label for="deviceId">Device User ID*</label>
+                        <input type="text" class="form-control" name="deviceId" placeholder="" />
+                     </div>
+                  </div>
+
                </div>
 
                <div class="card-footer">

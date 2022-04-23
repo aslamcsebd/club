@@ -4,27 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-class HomeController extends Controller
-{
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+use App\Models\Member;
+use App\Models\MemberCategory;
+use App\Models\CustomField;
+use App\Models\UserType;
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('home');
-    }
+
+class HomeController extends Controller{
+    
+   public function __construct(){
+      $this->middleware('auth');
+   }
+  
+   public function index(){
+      $data['member'] = Member::all();      
+      $data['memberCategory'] = MemberCategory::all();      
+      $data['customField'] = CustomField::all();      
+      $data['userType'] = UserType::all();      
+      return view('home', $data);
+   }
 
 
    public function refreshStatus($value){

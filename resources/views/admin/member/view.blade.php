@@ -49,6 +49,12 @@
                   </tr>
                   <tr>
                      <td width="20%">
+                        <label>User type</label>
+                     </td>
+                     <td>{{$single->user_type}}</td>
+                  </tr>
+                  <tr>
+                     <td width="20%">
                         <label>Mobile</label>
                      </td>
                      <td>{{$single->mobile}}</td>
@@ -75,7 +81,7 @@
                      <td width="20%">
                         <label>Date of Birth</label>
                      </td>
-                     <td>{{$single->date}}</td>
+                     <td>{{date('d-M-Y', strtotime($single->dob))}}</td>
                   </tr>
                   @foreach($customFields as $field)
                      @php $title = $field->name; @endphp

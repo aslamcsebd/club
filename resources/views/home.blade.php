@@ -15,62 +15,63 @@
             </div>
          </div>   
       </div>
+
       <section class="content">
          <div class="container-fluid">
             <div class="row">
                <div class="col-lg-3 col-6">
                   <div class="small-box bg-info">
                      <div class="inner text-center">
-                        <h3>150</h3>
-                        <p>New Orders</p>
+                        <h3>{{$member->count() ? $member->count() :'0'}}</h3>
+                        <p>All member</p>
                      </div>
                      <div class="icon">
                         <i class="ion ion-bag"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="{{ route('member.all') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
 
                <div class="col-lg-3 col-6">
                   <div class="small-box bg-primary">
                      <div class="inner text-center">
-                        <h3>140<sup style="font-size: 20px">%</sup></h3>
-                        <p>Bounce Rate</p>
+                        <h3>{{$memberCategory->count() ? $memberCategory->count() :'0'}}</h3>
+                        <p>Member Category</p>
                      </div>
                      <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="{{ route('category') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
 
                <div class="col-lg-3 col-6">
                   <div class="small-box bg-secondary">
                      <div class="inner text-center">
-                        <h3>130</h3>
-                        <p>User Registrations</p>
+                        <h3>{{$customField->count() ? $customField->count() :'0'}}</h3>
+                        <p>Custom Field</p>
                      </div>
                      <div class="icon">
                         <i class="ion ion-person-add"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="{{ route('settings') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
 
                <div class="col-lg-3 col-6">
                   <div class="small-box bg-danger">
                      <div class="inner text-center">
-                        <h3>120</h3>
-                        <p>Unique Visitors</p>
+                        <h3>{{$userType->count() ? $userType->count() :'0'}}</h3>
+                        <p>User Type</p>
                      </div>
                      <div class="icon">
                         <i class="ion ion-pie-graph"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="{{ route('settings') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
 
-               <div class="col-lg-3 col-6">
+              {{--  <div class="col-lg-3 col-6">
                   <div class="small-box bg-warning">
                      <div class="inner text-center">
                         <h3>110</h3>
@@ -121,7 +122,7 @@
                      <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
-
+ --}}
             </div>           
          </div>
       </section>
