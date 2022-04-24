@@ -14,10 +14,17 @@ Route::middleware(['auth'])->group(function(){
    Route::post('/add-new-member', 'MemberController@addMember')->name('addMember');
    Route::get('/member/all', 'MemberController@all')->name('member.all');
 
-
    // Member category
    Route::get('/member/category', 'MemberController@category')->name('category');
    Route::post('/add-category', 'MemberController@addCategory')->name('addCategory');
+
+   // Notice
+   Route::get('/notice/new', 'NoticeController@new')->name('notice.new');
+   Route::post('/notice/add', 'NoticeController@add')->name('notice.add');
+   Route::get('/notice/all', 'NoticeController@all')->name('notice.all');
+   Route::get('viewSingleNotice/{id}/{model}/{tab}','NoticeController@viewSingleNotice')->name('viewSingleNotice');   
+   Route::get('editNotice/{id}/{model}/{tab}','NoticeController@editNotice')->name('editNotice');
+   Route::post('/notice/edit', 'NoticeController@editNoticeNow')->name('editNoticeNow');
 
    // Settings
    Route::get('/settings', 'SettingController@settings')->name('settings');

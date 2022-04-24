@@ -37,7 +37,29 @@
                </a>
             </li>
 
-            {{-- Category --}}
+            {{-- Notices --}}
+            <li class="nav-item start as-treeview {{ (request()->routeIs('notice*'))  ? 'menu-open' : '' }}">
+               <a href="#" class="nav-link {{ (request()->routeIs('notice*'))  ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>Notices<i class="right fas fa-angle-left"></i></p>
+               </a>
+               <ul class="nav nav-treeview pl-3 sub-menu">
+                  <li class="nav-item">
+                     <a href="{{ route('notice.new') }}" class="nav-link {{ (request()->routeIs('notice.new*'))  ? 'active' : '' }}">
+                       <i class="far fa-address-book nav-icon"></i>
+                        <p>Add notice</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="{{ route('notice.all') }}" class="nav-link {{ (request()->routeIs('notice.all*'))  ? 'active' : '' }}">
+                        <i class="far fa-address-book nav-icon"></i>
+                        <p>All notice</p>
+                     </a>
+                  </li>
+               </ul>
+            </li>
+
+            {{-- Settings --}}
             <li class="nav-item ">
                <a href="{{ route('settings') }}" class="nav-link {{ (request()->routeIs('settings*'))  ? 'active' : '' }}">
                   <i class="nav-icon fas fa-book-reader"></i>

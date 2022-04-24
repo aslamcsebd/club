@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 23, 2022 at 05:22 AM
--- Server version: 5.7.24
--- PHP Version: 7.2.19
+-- Generation Time: Apr 24, 2022 at 07:51 AM
+-- Server version: 5.7.33
+-- PHP Version: 7.4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,6 +34,13 @@ CREATE TABLE `custom_fields` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `custom_fields`
+--
+
+INSERT INTO `custom_fields` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'abc', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -71,6 +78,7 @@ CREATE TABLE `members` (
   `dob` date DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `abc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -79,9 +87,9 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `user_type`, `formNo`, `deviceId`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Teacher', '1020', 'abcd1234', 'Abdur Rahim', 'rahim@gmail.com', '$2y$10$qB9ci752XJ2Gr6rFztmGrO3FYUwhf3wg6CPqJhA6N0BV3VVsiR/bO', '01680607596', 'mirpur-12', 'Male', '+O', '2002-04-06', 'images/default.jpg', 1, NULL, NULL),
-(2, 'Student', '2030', '1234abcd', 'Abdur Raihan', 'raihan@gmail.com', '$2y$10$.VV9teOt4eZ14dTsPLchOuh.KKIR7Swb5sEcFBc3GvOvduFVUp4ki', '01598745632', 'Agrabad, ctg', 'Male', '-B', '2001-04-20', 'images/default.jpg', 1, NULL, NULL);
+INSERT INTO `members` (`id`, `user_type`, `formNo`, `deviceId`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `abc`, `created_at`, `updated_at`) VALUES
+(1, 'Teacher', '1020', 'abcd1234', 'Abdur Rahim', 'rahim@gmail.com', '$2y$10$qB9ci752XJ2Gr6rFztmGrO3FYUwhf3wg6CPqJhA6N0BV3VVsiR/bO', '01680607596', 'mirpur-12', 'Male', '+O', '2002-04-06', 'images/default.jpg', 1, NULL, NULL, NULL),
+(2, 'Student', '2030', '1234abcd', 'Abdur Raihan', 'raihan@gmail.com', '$2y$10$.VV9teOt4eZ14dTsPLchOuh.KKIR7Swb5sEcFBc3GvOvduFVUp4ki', '01598745632', 'Agrabad, ctg', 'Male', '-B', '2001-04-20', 'images/default.jpg', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -131,7 +139,33 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2022_04_21_091057_create_member_categories_table', 2),
 (12, '2022_04_22_080652_create_custom_fields_table', 3),
 (13, '2022_04_22_163151_create_user_types_table', 4),
-(17, '2022_04_20_101630_create_members_table', 5);
+(17, '2022_04_20_101630_create_members_table', 5),
+(18, '2022_04_23_120505_create_notices_table', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notices`
+--
+
+CREATE TABLE `notices` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notices`
+--
+
+INSERT INTO `notices` (`id`, `title`, `user_type`, `description`, `status`, `created_at`, `updated_at`) VALUES
+(3, 'Holiday', 'Teacher', '1st may holiday', 1, '2022-04-24 01:49:05', '2022-04-24 01:49:05'),
+(4, 'Summer vacation', 'All', 'All member\'s holiday', 1, '2022-04-24 01:50:13', '2022-04-24 01:50:13'),
+(5, 'Holiday', 'Teacher', 'Teacher\'s day.', 1, '2022-04-24 01:50:46', '2022-04-24 01:50:46');
 
 -- --------------------------------------------------------
 
@@ -209,7 +243,9 @@ CREATE TABLE `user_types` (
 
 INSERT INTO `user_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Student', 1, NULL, NULL),
-(2, 'abc', 0, NULL, NULL);
+(2, 'Teacher', 1, NULL, NULL),
+(3, 'Sub-admin', 1, NULL, NULL),
+(4, 'Studen sub', 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -246,6 +282,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `notices`
+--
+ALTER TABLE `notices`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
@@ -278,7 +320,7 @@ ALTER TABLE `user_types`
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -302,7 +344,13 @@ ALTER TABLE `member_categories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `notices`
+--
+ALTER TABLE `notices`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `refresh_status`
@@ -320,7 +368,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_types`
 --
 ALTER TABLE `user_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

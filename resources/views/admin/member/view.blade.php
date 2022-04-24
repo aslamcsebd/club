@@ -4,30 +4,11 @@
    @endsection
 @section('content')
 @include('includes.alertMessage')
-<div class="content-wrapper p-3">
+<div class="content-wrapper p-3 view">
    <div class="row justify-content-center">
       <div class="col-md-10">
-         <div class="card card-success">
-            <div class="card-header p-1">
-               <h5 class="bg-success text-center">Single member</h5>              
-            </div>
-
-            <style type="text/css">
-               table.dataTable tbody td:first-child {
-                  text-align: right;
-                  padding-right: 5px
-                  vertical-align: unset;            
-               }
-               table.dataTable tbody td:first-child label{
-                  padding-right: 15px;                
-               }
-    
-               table.dataTable tbody td:last-child {
-                  text-align: unset;
-                  padding-left: 15px;                
-               }
-            </style>         
-
+         <div class="card">
+            <h6 class="card-header bg-success text-center py-2">Single member</h6>
             <div class="card-body">
                <table class="table table-bordered">                  
                   <tr>

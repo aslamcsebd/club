@@ -7,10 +7,8 @@
 <div class="content-wrapper p-3">
    <div class="row justify-content-center">
       <div class="col-md-10">
-         <div class="card card-success">
-            <div class="card-header p-1">
-               <h5 class="bg-success text-center">Register new member</h5>              
-            </div>
+         <div class="card">
+            <h6 class="card-header bg-success text-center py-2">Register new member</h6>
             <form action="{{ Route('addMember') }}" method="post" enctype="multipart/form-data">
                @csrf
                <div class="card-body">

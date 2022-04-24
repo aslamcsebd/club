@@ -24,7 +24,6 @@ class HomeController extends Controller{
       return view('home', $data);
    }
 
-
    public function refreshStatus($value){
       $dbInfo = DB::table('refresh_status')->first();
       if ($value=='status'){
