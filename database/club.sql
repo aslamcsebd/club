@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 25, 2022 at 08:03 AM
--- Server version: 5.7.33
--- PHP Version: 7.4.19
+-- Generation Time: Apr 25, 2022 at 06:42 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.2.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -81,6 +81,61 @@ INSERT INTO `files` (`id`, `name`, `user_type`, `file`, `status`, `created_at`, 
 (10, 'This is txt file', 'Teacher', 'file/1650873593.txt', 1, '2022-04-25 01:59:53', '2022-04-25 01:59:53'),
 (11, 'This is doc file', 'Sub-admin', 'file/1650873639.docx', 1, '2022-04-25 02:00:39', '2022-04-25 02:00:39'),
 (12, 'This is pdf file', 'All', 'file/1650873702.pdf', 1, '2022-04-25 02:01:42', '2022-04-25 02:01:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `head_infos`
+--
+
+CREATE TABLE `head_infos` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `head_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `material` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gift` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `parent_head` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `head_infos`
+--
+
+INSERT INTO `head_infos` (`id`, `name`, `head_type`, `material`, `gift`, `parent_head`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Pen2', 'Income', 'Yes', 'No', 'Bag', 1, '2022-04-25 11:41:06', '2022-04-25 12:32:02'),
+(2, 'Bag', 'Income', 'Yes', 'No', 'Discount', 1, '2022-04-25 11:41:20', '2022-04-25 11:41:20'),
+(3, 'Calculator', 'Income', 'Yes', 'No', 'Admission Fee', 1, '2022-04-25 11:41:42', '2022-04-25 11:41:42');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `head_parents`
+--
+
+CREATE TABLE `head_parents` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `head_parents`
+--
+
+INSERT INTO `head_parents` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Office Rent', 1, '2022-04-25 04:20:20', '2022-04-25 04:20:20'),
+(2, 'Guide Book', 1, '2022-04-25 04:20:31', '2022-04-25 04:20:31'),
+(3, 'Bag', 1, '2022-04-25 04:20:39', '2022-04-25 04:20:39'),
+(4, 'Admission Fee', 1, '2022-04-25 04:20:48', '2022-04-25 04:20:48'),
+(5, 'Monthly Fee', 1, '2022-04-25 04:20:58', '2022-04-25 04:20:58'),
+(6, 'Teacher Fee', 1, '2022-04-25 04:21:07', '2022-04-25 04:21:07'),
+(7, 'Staff Fee', 1, '2022-04-25 04:21:17', '2022-04-25 04:21:17'),
+(8, 'Discount', 1, '2022-04-25 04:21:25', '2022-04-25 04:21:25');
 
 -- --------------------------------------------------------
 
@@ -167,7 +222,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2022_04_22_163151_create_user_types_table', 4),
 (18, '2022_04_23_120505_create_notices_table', 6),
 (19, '2022_04_20_101630_create_members_table', 7),
-(20, '2022_04_24_095145_create_files_table', 8);
+(20, '2022_04_24_095145_create_files_table', 8),
+(21, '2022_04_25_083802_create_head_parents_table', 9),
+(24, '2022_04_25_085926_create_head_infos_table', 10);
 
 -- --------------------------------------------------------
 
@@ -190,7 +247,7 @@ CREATE TABLE `notices` (
 --
 
 INSERT INTO `notices` (`id`, `title`, `user_type`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(3, 'Holiday', 'Teacher', '1st may holiday', 1, '2022-04-24 01:49:05', '2022-04-24 01:49:05'),
+(3, 'Holiday', 'Teacher', '1st may holiday.', 1, '2022-04-24 01:49:05', '2022-04-25 12:32:53'),
 (4, 'Summer vacation', 'All', 'All member\'s holiday', 1, '2022-04-24 01:50:13', '2022-04-24 01:50:13'),
 (5, 'Holiday', 'Teacher', 'Teacher\'s day.', 1, '2022-04-24 01:50:46', '2022-04-24 01:50:46');
 
@@ -271,8 +328,7 @@ CREATE TABLE `user_types` (
 INSERT INTO `user_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Student', 1, NULL, NULL),
 (2, 'Teacher', 1, NULL, NULL),
-(3, 'Sub-admin', 1, NULL, NULL),
-(4, 'Studen sub', 1, NULL, NULL);
+(3, 'Sub-admin', 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -294,6 +350,18 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `files`
 --
 ALTER TABLE `files`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `head_infos`
+--
+ALTER TABLE `head_infos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `head_parents`
+--
+ALTER TABLE `head_parents`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -368,6 +436,18 @@ ALTER TABLE `files`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
+-- AUTO_INCREMENT for table `head_infos`
+--
+ALTER TABLE `head_infos`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `head_parents`
+--
+ALTER TABLE `head_parents`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
@@ -377,13 +457,13 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `member_categories`
 --
 ALTER TABLE `member_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `notices`

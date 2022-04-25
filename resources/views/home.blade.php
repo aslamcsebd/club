@@ -71,32 +71,32 @@
                   </div>
                </div>
 
-              {{--  <div class="col-lg-3 col-6">
+              <div class="col-lg-3 col-6">
                   <div class="small-box bg-warning">
                      <div class="inner text-center">
-                        <h3>110</h3>
-                        <p>New Orders</p>
+                        <h3>{{$files->count() ? $files->count() :'0'}}</h3>
+                        <p>Total file</p>
                      </div>
                      <div class="icon">
                         <i class="ion ion-bag"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="{{ route('file.all') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
 
                <div class="col-lg-3 col-6">
                   <div class="small-box bg-info">
                      <div class="inner text-center">
-                        <h3>100<sup style="font-size: 20px">%</sup></h3>
-                        <p>Bounce Rate</p>
+                        <h3>{{$headInfos->count() ? $headInfos->count() :'0'}}</h3>
+                        <p>Total Head</p>
                      </div>
                      <div class="icon">
                         <i class="ion ion-stats-bars"></i>
                      </div>
-                     <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                     <a href="{{ route('head.all') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                   </div>
                </div>
-
+ {{-- 
                <div class="col-lg-3 col-6">
                   <div class="small-box bg-light">
                      <div class="inner text-center">

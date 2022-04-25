@@ -8,19 +8,20 @@ use App\Models\Member;
 use App\Models\MemberCategory;
 use App\Models\CustomField;
 use App\Models\UserType;
-
+use App\Models\File;
+use App\Models\HeadInfo;
 
 class HomeController extends Controller{
     
-   public function __construct(){
-      $this->middleware('auth');
-   }
+   public function __construct(){ $this->middleware('auth'); }
   
    public function index(){
       $data['member'] = Member::all();      
       $data['memberCategory'] = MemberCategory::all();      
       $data['customField'] = CustomField::all();      
       $data['userType'] = UserType::all();      
+      $data['files'] = File::all();      
+      $data['headInfos'] = HeadInfo::all();      
       return view('home', $data);
    }
 
