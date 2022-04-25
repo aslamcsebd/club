@@ -59,6 +59,28 @@
                </ul>
             </li>
 
+            {{-- File --}}
+            <li class="nav-item start as-treeview {{ (request()->routeIs('file*'))  ? 'menu-open' : '' }}">
+               <a href="#" class="nav-link {{ (request()->routeIs('file*'))  ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>File<i class="right fas fa-angle-left"></i></p>
+               </a>
+               <ul class="nav nav-treeview pl-3 sub-menu">
+                  <li class="nav-item">
+                     <a href="{{ route('file.new') }}" class="nav-link {{ (request()->routeIs('file.new*'))  ? 'active' : '' }}">
+                       <i class="far fa-address-book nav-icon"></i>
+                        <p>Add file</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="{{ route('file.all') }}" class="nav-link {{ (request()->routeIs('file.all*'))  ? 'active' : '' }}">
+                        <i class="far fa-address-book nav-icon"></i>
+                        <p>All file</p>
+                     </a>
+                  </li>
+               </ul>
+            </li>
+
             {{-- Settings --}}
             <li class="nav-item ">
                <a href="{{ route('settings') }}" class="nav-link {{ (request()->routeIs('settings*'))  ? 'active' : '' }}">

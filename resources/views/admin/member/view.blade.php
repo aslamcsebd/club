@@ -22,55 +22,12 @@
                         </div>
                      </td>
                   </tr>
-                  <tr>
-                     <td width="20%">
-                        <label>Email</label>
-                     </td>
-                     <td>{{$single->email}}</td>
-                  </tr>
-                  <tr>
-                     <td width="20%">
-                        <label>User type</label>
-                     </td>
-                     <td>{{$single->user_type}}</td>
-                  </tr>
-                  <tr>
-                     <td width="20%">
-                        <label>Mobile</label>
-                     </td>
-                     <td>{{$single->mobile}}</td>
-                  </tr>
-                  <tr>
-                     <td width="20%">
-                        <label>Address</label>
-                     </td>
-                     <td>{{$single->address}}</td>
-                  </tr>
-                  <tr>
-                     <td width="20%">
-                        <label>Gender</label>
-                     </td>
-                     <td>{{$single->gender}}</td>
-                  </tr>
-                  <tr>
-                     <td width="20%">
-                        <label>Blood Group</label>
-                     </td>
-                     <td>{{$single->blood}}</td>
-                  </tr>
-                  <tr>
-                     <td width="20%">
-                        <label>Date of Birth</label>
-                     </td>
-                     <td>{{date('d-M-Y', strtotime($single->dob))}}</td>
-                  </tr>
-                  @foreach($customFields as $field)
-                     @php $title = $field->name; @endphp
+                  @foreach($needed_columns as $column)                  
                      <tr>
                         <td width="20%">
-                           <label class="capitalize">{{$title}}</label>
+                           <label class="capitalize">{{$column}}</label>
                         </td>
-                        <td>{{$single->$title}}</td>
+                        <td>{{$single->$column}}</td>
                      </tr>
                   @endforeach
                </table>             

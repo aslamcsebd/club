@@ -26,10 +26,17 @@ Route::middleware(['auth'])->group(function(){
    Route::get('editNotice/{id}/{model}/{tab}','NoticeController@editNotice')->name('editNotice');
    Route::post('/notice/edit', 'NoticeController@editNoticeNow')->name('editNoticeNow');
 
+   // File
+   Route::get('/file/new', 'FileController@new')->name('file.new');
+   Route::post('/file/add', 'FileController@add')->name('file.add');
+   Route::get('/file/all', 'FileController@all')->name('file.all');
+   Route::get('fileDelete/{id}/{model}/{tab}','FileController@fileDelete')->name('fileDelete');
+
    // Settings
    Route::get('/settings', 'SettingController@settings')->name('settings');
    Route::post('/add-custom-field', 'SettingController@addCustomField')->name('addCustomField');
    Route::post('/add-user-type', 'SettingController@addUserType')->name('addUserType');
+   Route::get('deleteCustomField/{id}/{model}/{tab}','SettingController@deleteCustomField')->name('deleteCustomField');
 
    // All status change   
    Route::get('itemStatus/{id}/{model}/{tab}','MemberController@itemStatus')->name('itemStatus');

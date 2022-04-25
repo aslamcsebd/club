@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-   All notices
+   All files
 @endsection
 @section('content')
 @include('includes.alertMessage')
@@ -9,7 +9,7 @@
       <div class="col-md-10">
          <div class="card border border-danger">
             <div class="card-header p-1">
-               <a href="{{ route('notice.new') }}" class="btn btn-sm btn-success text-light">Add notice</a>
+               <a href="{{ route('file.new') }}" class="btn btn-sm btn-success text-light">Add file</a>
             </div>
             <div class="card-body p-1">
                <table class="table table-bordered">
@@ -18,24 +18,23 @@
                      <th>Title</th>
                      <th>To</th>
                      <th>Created By</th>
-                     <th>Date</th>
                      <th>Action</th>
                   </thead>
                   <tbody>                   
-                     @foreach($notices as $notice)
+                     @foreach($files as $file)
                         <tr>
                            <td width="30">{{$loop->iteration}}</td>
-                           <td>{!!$notice->title!!}</td>
+                           <td>{!!$file->name!!}</td>
                            <td>
-                              <span class="bg-primary userType">{!!$notice->user_type!!}</span>
+                              <span class="bg-primary userType">{!!$file->user_type!!}</span>
                            </td>
-                           <td>Root</td>
-                           <td>{{date('d-M-Y', strtotime($notice->created_at))}}</td>
+                           <td>{{date('d-M-Y', strtotime($file->created_at))}}</td>
                            <td width="15">
                               <div class="btn-group">
-                                 <a href="{{ url('viewSingleNotice', [$notice->id, 'notices', 'tapName'])}}" class="btn btn-sm btn-outline-info py-1">View</a>
-                                 <a href="{{ url('editNotice', [$notice->id, 'notices', 'tapName'])}}" class="btn btn-sm btn-outline-primary py-1">Edit</a>
-                                 <a href="{{ url('itemDelete', [$notice->id, 'notices', 'tapName'])}}" class="btn btn-sm btn-outline-danger py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                 <a href="{{asset('')}}/{{$file->file}}" class="btn btn-sm btn-outline-info py-1">
+                                    <i class="fas fa-cloud-download-alt"></i>
+                                 </a>
+                                 <a href="{{ url('fileDelete', [$file->id, 'files', 'tapName'])}}" class="btn btn-sm btn-outline-danger py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                               </div>
                            </td>
                         </tr>

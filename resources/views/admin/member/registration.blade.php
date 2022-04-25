@@ -57,14 +57,14 @@
                         <label for="address">Blood Group*</label>
                         <select class="form-control" name="blood">
                           <option value="">Select Group</option>
-                          <option value="+O">+O</option>
-                          <option value="-O">-O</option>
-                          <option value="+A">+A</option>
-                          <option value="-A">-A</option>
-                          <option value="+B">+B</option>
-                          <option value="-B">-B</option>
-                          <option value="+AB">+AB</option>
-                          <option value="-AB">-AB</option>
+                          <option value="O+">O+</option>
+                          <option value="O-">O-</option>
+                          <option value="A+">A+</option>
+                          <option value="A-">A-</option>
+                          <option value="B+">B+</option>
+                          <option value="B-">B-</option>
+                          <option value="AB+">AB+</option>
+                          <option value="AB-">AB-</option>
                           <option value="Unknown">Unknown</option>
                         </select>
                      </div>
@@ -99,12 +99,12 @@
                         </select>
                      </div>
                      <div class="form-group col">
-                        <label for="formNo">Form No*</label>
-                        <input type="text" class="form-control" name="formNo" placeholder="Form No" />
+                        <label for="form_no">Form No*</label>
+                        <input type="text" class="form-control" name="form_no" placeholder="Form No" />
                      </div>
                      <div class="form-group col">
-                        <label for="deviceId">Device User ID*</label>
-                        <input type="text" class="form-control" name="deviceId" placeholder="" />
+                        <label for="device_id">Device User ID*</label>
+                        <input type="text" class="form-control" name="device_id" placeholder="" />
                      </div>
                   </div>
 

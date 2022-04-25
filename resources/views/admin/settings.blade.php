@@ -46,10 +46,11 @@
                                     <td width="15">
                                        <div class="btn-group">
                                           @if($field->status == 1)
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
+                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-outline-success py-1" title="Click for inactive">Active</a>
                                           @else
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
+                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-outline-danger py-1" title="Click for active">Inactive</a>
                                           @endif
+                                          <a href="{{ url('deleteCustomField', [$field->id, 'custom_fields', 'tapName'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>

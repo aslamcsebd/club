@@ -59,8 +59,8 @@ class MemberController extends Controller{
 
       $insertId = DB::table('members')->insertGetId([
          'user_type' => $request->user_type,
-         'formNo' => $request->formNo,
-         'deviceId' => $request->deviceId,
+         'form_no' => $request->form_no,
+         'device_id' => $request->device_id,
          'name' => $request->name,
          'email' => $request->email,
          'password' => Hash::make($request->password),
@@ -93,7 +93,11 @@ class MemberController extends Controller{
    // Show single member
    public function view($id, $model, $tab){
       $data['single'] =  $itemId = DB::table($model)->find($id);
-      $data['customFields'] = CustomField::where('status', 1)->get();      
+      $data['customFields'] = CustomField::where('status', 1)->get();
+
+      $allColumns = array_keys(json_decode(Member::first(), true));
+      $data['needed_columns'] = array_diff($allColumns, ['id', 'password', 'photo', 'status', 'created_at', 'updated_at']);
+      
       return view('admin.member.view', $data);
    }
 
@@ -105,7 +109,6 @@ class MemberController extends Controller{
 
    // Add member category
    public function addCategory(Request $request){
-
       $validator = Validator::make($request->all(),[
          'name'=>'required',
          'paymentType'=>'required',
@@ -125,16 +128,7 @@ class MemberController extends Controller{
       ]);
       return back()->with('success','New category add successfully');
    }
-
-   // Add custom field   
-   public function customField(){
-      $table  = 'members';
-      $column = 'abc';
-      DB::select("ALTER TABLE $table ADD $column VARCHAR(255)");
-      DB::statement("ALTER TABLE $table ADD $column VARCHAR(255)");
-      return view('admin.member.registration');      
-   }
-
+   
    // Status [Active vs Inactive]
    public function itemStatus($id, $model, $tab){
       //Much code because save() function not working...

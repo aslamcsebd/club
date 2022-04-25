@@ -51,6 +51,20 @@ class SettingController extends Controller{
       return back()->with('success', 'Column add successfully')->withInput(['tab' => $tab]);      
    }
 
+   // Delete custom field
+   public function deleteCustomField($id, $model, $tab){
+      $itemId = DB::table($model)->find($id);
+      $table  = 'members';
+      $column = $itemId->name;
+
+      // custom_fields
+      DB::table($model)->where('id', $id)->delete();
+      
+      // members
+      DB::select("ALTER TABLE $table DROP $column");
+      return back()->with('success', 'Column delete successfully')->withInput(['tab' => $tab]);
+   }
+
    // Add user type 
    public function addUserType(Request $request){
       

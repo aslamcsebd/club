@@ -61,8 +61,8 @@ class NoticeController extends Controller{
       return view('admin.notice.edit', $data);
    }
 
-   // Edit single notice now
-   public function editNoticeNow(Request $request){      
+   // Edit single notice
+   public function editNoticeNow(Request $request){
       $validator = Validator::make($request->all(),[
          'title'=>'required',
          'user_type'=>'required',

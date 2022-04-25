@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 24, 2022 at 07:51 AM
+-- Generation Time: Apr 25, 2022 at 08:03 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -40,7 +40,7 @@ CREATE TABLE `custom_fields` (
 --
 
 INSERT INTO `custom_fields` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'abc', 0, NULL, NULL);
+(7, 'Studen_sub', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -60,14 +60,39 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `files`
+--
+
+CREATE TABLE `files` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `files`
+--
+
+INSERT INTO `files` (`id`, `name`, `user_type`, `file`, `status`, `created_at`, `updated_at`) VALUES
+(10, 'This is txt file', 'Teacher', 'file/1650873593.txt', 1, '2022-04-25 01:59:53', '2022-04-25 01:59:53'),
+(11, 'This is doc file', 'Sub-admin', 'file/1650873639.docx', 1, '2022-04-25 02:00:39', '2022-04-25 02:00:39'),
+(12, 'This is pdf file', 'All', 'file/1650873702.pdf', 1, '2022-04-25 02:01:42', '2022-04-25 02:01:42');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `members`
 --
 
 CREATE TABLE `members` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `formNo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deviceId` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `form_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `device_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -78,7 +103,7 @@ CREATE TABLE `members` (
   `dob` date DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
-  `abc` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `Studen_sub` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -87,9 +112,10 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `user_type`, `formNo`, `deviceId`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `abc`, `created_at`, `updated_at`) VALUES
-(1, 'Teacher', '1020', 'abcd1234', 'Abdur Rahim', 'rahim@gmail.com', '$2y$10$qB9ci752XJ2Gr6rFztmGrO3FYUwhf3wg6CPqJhA6N0BV3VVsiR/bO', '01680607596', 'mirpur-12', 'Male', '+O', '2002-04-06', 'images/default.jpg', 1, NULL, NULL, NULL),
-(2, 'Student', '2030', '1234abcd', 'Abdur Raihan', 'raihan@gmail.com', '$2y$10$.VV9teOt4eZ14dTsPLchOuh.KKIR7Swb5sEcFBc3GvOvduFVUp4ki', '01598745632', 'Agrabad, ctg', 'Male', '-B', '2001-04-20', 'images/default.jpg', 1, NULL, NULL, NULL);
+INSERT INTO `members` (`id`, `user_type`, `form_no`, `device_id`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `Studen_sub`, `created_at`, `updated_at`) VALUES
+(1, 'Student', NULL, NULL, 'MD Rahim', 'rahim@gmail.com', '$2y$10$Cb34WhkfKqdUM.cebj.tfO9kjX.tv7vc17LVM9n4aRJAK54DDr72i', '01680607293', 'agrabad, chittagong', 'Male', '+O', '2022-04-13', 'images/default.jpg', 1, NULL, NULL, NULL),
+(2, 'Teacher', '1020', 'abcd1234', 'Abdur Rahim', 'rahim@gmail.com', '$2y$10$qB9ci752XJ2Gr6rFztmGrO3FYUwhf3wg6CPqJhA6N0BV3VVsiR/bO', '01680607596', 'mirpur-12', 'Male', '+O', '2002-04-06', 'images/default.jpg', 1, NULL, NULL, NULL),
+(3, 'Student', '2030', '1234abcd', 'Abdur Raihan', 'raihan@gmail.com', '$2y$10$.VV9teOt4eZ14dTsPLchOuh.KKIR7Swb5sEcFBc3GvOvduFVUp4ki', '01598745632', 'Agrabad, ctg', 'Male', '-B', '2001-04-20', 'images/default.jpg', 1, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -139,8 +165,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2022_04_21_091057_create_member_categories_table', 2),
 (12, '2022_04_22_080652_create_custom_fields_table', 3),
 (13, '2022_04_22_163151_create_user_types_table', 4),
-(17, '2022_04_20_101630_create_members_table', 5),
-(18, '2022_04_23_120505_create_notices_table', 6);
+(18, '2022_04_23_120505_create_notices_table', 6),
+(19, '2022_04_20_101630_create_members_table', 7),
+(20, '2022_04_24_095145_create_files_table', 8);
 
 -- --------------------------------------------------------
 
@@ -264,6 +291,12 @@ ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `files`
+--
+ALTER TABLE `files`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `members`
 --
 ALTER TABLE `members`
@@ -320,7 +353,7 @@ ALTER TABLE `user_types`
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -329,10 +362,16 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `files`
+--
+ALTER TABLE `files`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `member_categories`
@@ -344,7 +383,7 @@ ALTER TABLE `member_categories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `notices`
