@@ -79,7 +79,7 @@ class NoticeController extends Controller{
          'user_type' => $request->user_type,
          'description' => $request->description
       ]);
-      return back()->with('success','Social site edit successfully');
+      return back()->with('success','Notice edit successfully');
    }
   
 }

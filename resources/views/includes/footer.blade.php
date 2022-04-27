@@ -79,5 +79,17 @@
               $('#paidStatus [data_id="paidAction"]').parent().removeClass('active').css('display', 'block');
           }
       })
+
+      // Head Information
+      $("#material").click(function () {
+         var chkFormationDept = document.getElementById("material").checked;
+         if (chkFormationDept) {
+            $('#gift').removeAttr('disabled');
+
+         }else{
+            $('#gift').attr('disabled','disabled');
+            // $('#gift').attr('checked', true);            
+         }
+      })                       
       
    </script>

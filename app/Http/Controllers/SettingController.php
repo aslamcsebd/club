@@ -13,13 +13,15 @@ use Carbon\Carbon;
 use App\Models\MemberCategory;
 use App\Models\CustomField;
 use App\Models\UserType;
+use App\Models\HeadParent;
 
 class SettingController extends Controller{
 
-   // Add custom field
+   // All settings
    public function settings(){
       $data['customFields'] = CustomField::all();
       $data['userTypes'] = UserType::all();
+      $data['headParents'] = HeadParent::all();
       return view('admin.settings', $data);      
    }
 
@@ -80,6 +82,23 @@ class SettingController extends Controller{
       $tab = 'userType';
       UserType::insert(['name' => $request->name]);
       return back()->with('success', 'User type add successfully')->withInput(['tab' => $tab]);      
+   }
+
+   // Add head parents 
+   public function addHeadParent(Request $request){
+      
+      $validator = Validator::make($request->all(), [
+         'name'=>'required|unique:head_parents'
+      ]);
+
+      if($validator->fails()){
+         $messages = $validator->messages();
+         return Redirect::back()->withErrors($validator);
+      }
+
+      $tab = 'headParent';
+      HeadParent::create(['name' => $request->name]);
+      return back()->with('success', 'Head parent add successfully')->withInput(['tab' => $tab]);      
    }
    
 }

@@ -81,6 +81,28 @@
                </ul>
             </li>
 
+            {{-- Head Parent --}}
+            <li class="nav-item start as-treeview {{ (request()->routeIs('head*'))  ? 'menu-open' : '' }}">
+               <a href="#" class="nav-link {{ (request()->routeIs('head*'))  ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>Heads<i class="right fas fa-angle-left"></i></p>
+               </a>
+               <ul class="nav nav-treeview pl-3 sub-menu">
+                  <li class="nav-item">
+                     <a href="{{ route('head.new') }}" class="nav-link {{ (request()->routeIs('head.new*'))  ? 'active' : '' }}">
+                       <i class="far fa-address-book nav-icon"></i>
+                        <p>Add new</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="{{ route('head.all') }}" class="nav-link {{ (request()->routeIs('head.all*'))  ? 'active' : '' }}">
+                        <i class="far fa-address-book nav-icon"></i>
+                        <p>All Heads</p>
+                     </a>
+                  </li>
+               </ul>
+            </li>
+
             {{-- Settings --}}
             <li class="nav-item ">
                <a href="{{ route('settings') }}" class="nav-link {{ (request()->routeIs('settings*'))  ? 'active' : '' }}">
