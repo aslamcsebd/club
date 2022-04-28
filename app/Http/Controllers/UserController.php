@@ -11,29 +11,27 @@ use Redirect;
 use DB;
 use Carbon\Carbon;
 
-use App\Models\Member;
-use App\Models\MemberCategory;
-use App\Models\CustomField;
 use App\Models\UserType;
+use App\Models\AllUser;
 
-class MemberController extends Controller{
+class UserController extends Controller{
 
    // Member registration
    public function new(){
-      $data['customFields'] = CustomField::where('status', 1)->get();
       $data['user_types'] = UserType::where('status', 1)->get();
-      return view('admin.member.registration', $data);      
+      return view('admin.user.add', $data);      
    }
 
    // Add new member
-   public function addMember(Request $request){
-
+   public function addUser(Request $request){
+      
       $validator = Validator::make($request->all(),[
+         'user_type'=>'required',
          'name'=>'required',
          'email'=>'required|unique:members',
+         'mobile'=>'required',
          'password'=>'required|min:6',
          'confirm_password' => 'required|same:password|min:6',
-         'mobile'=>'required',
          'address'=>'required',
          'gender'=>'required',
          'dob'=>'required'
@@ -44,7 +42,7 @@ class MemberController extends Controller{
          return Redirect::back()->withErrors($validator);
       }
 
-      $path="member/";
+      $path="user/";
       $default="default.jpg";
       if ($request->hasFile('photo')){
          if($files=$request->file('photo')){
@@ -57,47 +55,33 @@ class MemberController extends Controller{
          $photoLink = imagePath($default);
       }
 
-      $insertId = DB::table('members')->insertGetId([
+      AllUser::create([
          'user_type' => $request->user_type,
-         'form_no' => $request->form_no,
-         'device_id' => $request->device_id,
          'name' => $request->name,
          'email' => $request->email,
-         'password' => Hash::make($request->password),
          'mobile' => $request->mobile,
+         'password' => Hash::make($request->password),
          'address' => $request->address,
          'gender' => $request->gender,
          'blood' => $request->blood,
          'dob' => date('Y-m-d', strtotime($request->dob)),
          'photo' => $photoLink
       ]);
-
-      $customFields = CustomField::where('status', 1)->get();
-
-      foreach ($customFields as $field) {
-         $title = $field->name;
-         DB::table('members')->where('id', $insertId)->update([
-            $title => $request->$title
-         ]);
-      }
-      return back()->with('success','New member add successfully');
+      return back()->with('success','New user add successfully');
    }
 
    // Show all member
    public function all(){
-      $data['activeMembers'] = DB::table('members')->where('status', 1)->get();
-      $data['inactiveMembers'] = DB::table('members')->where('status', 0)->get();
-      return view('admin.member.members', $data);
+      $data['activeUsers'] = AllUser::where('status', 1)->get();
+      $data['inactiveUsers'] = AllUser::where('status', 0)->get();
+      return view('admin.user.all', $data);
    }
 
-   // Show single member
-   public function view($id, $model, $tab){
+   // Show single user
+   public function userView($id, $model, $tab){
       $data['single'] =  $itemId = DB::table($model)->find($id);
-      $data['customFields'] = CustomField::where('status', 1)->get();
-
-      $allColumns = array_keys(json_decode(Member::first(), true));
+      $allColumns = array_keys(json_decode(AllUser::first(), true));
       $data['needed_columns'] = array_diff($allColumns, ['id', 'password', 'photo', 'status', 'created_at', 'updated_at']);
-      
       return view('admin.user.view', $data);
    }
 

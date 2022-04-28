@@ -9,14 +9,14 @@ use DB;
 use URL;
 use Carbon\Carbon;
 
-use App\Models\UserType;
+use App\Models\RecipientType;
 use App\Models\File;
 
 class FileController extends Controller{
 
    // File
    public function new(){
-      $data['user_types'] = UserType::where('status', 1)->get();
+      $data['recipientTypes'] = RecipientType::where('status', 1)->get();
       return view('admin.file.add', $data);      
    }
 
@@ -25,7 +25,7 @@ class FileController extends Controller{
 
       $validator = Validator::make($request->all(),[
          'name'=>'required',
-         'user_type'=>'required',
+         'recipient_type'=>'required',
          'file' => 'required|max:10240|mimes:pdf,doc,docx,txt,odt,xls,xlsx,jpeg,jpg,pngdoc,docx'
       ]);
       //Maximum file size: 10 MB.
@@ -49,7 +49,7 @@ class FileController extends Controller{
 
       File::create([
          'name' => $request->name,
-         'user_type' => $request->user_type,
+         'recipient_type' => $request->recipient_type,
          'file' => $fileLink
       ]);
       return back()->with('success','New file upload successfully');

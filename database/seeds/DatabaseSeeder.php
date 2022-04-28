@@ -11,6 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+         // $this->call(UserSeeder::class);
+         $path = 'database\club.sql'; 
+         $sql = file_get_contents($path);
+         DB::unprepared($sql);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-   All files
+   Member category
 @endsection
 @section('content')
 @include('includes.alertMessage')
@@ -9,32 +9,33 @@
       <div class="col-md-10">
          <div class="card border border-danger">
             <div class="card-header p-1">
-               <a href="{{ route('file.new') }}" class="btn btn-sm btn-success text-light">Add file</a>
+               <button class="btn btn-sm btn-success text-light" data-toggle="modal" data-original-title="test" data-target="#addCategory">Add category</button>
             </div>
             <div class="card-body p-1">
                <table class="table table-bordered">
                   <thead class="bg-info">
                      <th>Sl</th>
-                     <th>Title</th>
-                     <th>To</th>
-                     <th>Created By</th>
+                     <th>Name</th>
+                     <th>PaymentType</th>
+                     <th>Fee</th>
+                     <th>Percentage(%)</th>
                      <th>Action</th>
                   </thead>
-                  <tbody>                   
-                     @foreach($files as $file)
+                  <tbody>
+                     @foreach($categories as $category)
                         <tr>
                            <td width="30">{{$loop->iteration}}</td>
-                           <td>{!!$file->name!!}</td>
-                           <td>
-                              <span class="bg-primary userType">{!!$file->recipient_type!!}</span>
-                           </td>
-                           <td>{{date('d-M-Y', strtotime($file->created_at))}}</td>
+                           <td>{!!$category->name!!}</td>
+                           <td>{!!$category->paymentType!!}</td>
+                           <td>{!!$category->fee!!}</td>
+                           <td>{!!$category->percentage!!}</td>
                            <td width="15">
-                              <div class="btn-group">
-                                 <a href="{{asset('')}}/{{$file->file}}" class="btn btn-sm btn-outline-info py-1">
-                                    <i class="fas fa-cloud-download-alt"></i>
-                                 </a>
-                                 <a href="{{ url('fileDelete', [$file->id, 'files', 'tapName'])}}" class="btn btn-sm btn-outline-danger py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                              <div class="btn-group">                                
+                                 @if($category->status == 1)
+                                    <a href="{{ url('itemStatus', [$category->id, 'member_categories', 'activeMember'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
+                                 @else
+                                    <a href="{{ url('itemStatus', [$category->id, 'member_categories', 'activeMember'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
+                                 @endif
                               </div>
                            </td>
                         </tr>
@@ -81,18 +82,18 @@
                      <br>
                      <div class="radio-toolbar form-check form-check-inline">
                         <div class="radio">
-                           <input type="radio" id="paidNo" name="" value="no" checked>
+                           <input type="radio" id="paidNo" name="paid" value="no" checked>
                            <label for="paidNo">No</label>
                         </div>
                         <div class="radio ml-4">
-                           <input type="radio" id="paidYes" name="" value="yes">
+                           <input type="radio" id="paidYes" name="paid" value="yes">
                            <label for="paidYes">Yes</label> 
                         </div>
                      </div> 
                   </div>
 
                   <div class="hide" id="paidStatus">
-                     <div class="" data_id="paidAction">                        
+                     <div class="" data_id="paidAction"> 
                         <div class="form-group">
                            <label for="fee">Percentage(%) of total admission fee*</label>
                            <input type="number" name="percentage" class="form-control" id="fee" placeholder="10, 20, 30..."/>
