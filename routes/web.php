@@ -32,7 +32,7 @@ Route::middleware(['auth'])->group(function(){
    Route::get('/file/all', 'FileController@all')->name('file.all');
    Route::get('fileDelete/{id}/{model}/{tab}','FileController@fileDelete')->name('fileDelete');
 
-   // head
+   // Head
    Route::get('/head-parent/new', 'HeadController@new')->name('head.new');
    Route::post('/head/add', 'HeadController@add')->name('head.add');
    Route::get('/head/all', 'HeadController@all')->name('head.all');
@@ -40,11 +40,25 @@ Route::middleware(['auth'])->group(function(){
    Route::get('editHead/{id}/{model}/{tab}','HeadController@editHead')->name('editHead');
    Route::post('/head/edit', 'HeadController@editHeadNow')->name('editHeadNow');
 
+   // All user
+   Route::get('/user/new', 'UserController@new')->name('user.new');
+   Route::post('/user/add', 'UserController@addUser')->name('addUser');
+   Route::get('/user/all', 'UserController@all')->name('user.all');   
+   Route::get('userView/{id}/{model}/{tab}','UserController@userView')->name('userView');
+
+   Route::get('userDelete/{id}/{model}/{tab}','UserController@userDelete')->name('userDelete');
+   Route::get('editUser/{id}/{model}/{tab}','UserController@editUser')->name('editUser');
+   Route::post('/user/edit', 'UserController@editHeadNow')->name('editHeadNow');   
+
    // Settings
    Route::get('/settings', 'SettingController@settings')->name('settings');
+
    Route::post('/add-custom-field', 'SettingController@addCustomField')->name('addCustomField');
    Route::get('deleteCustomField/{id}/{model}/{tab}','SettingController@deleteCustomField')->name('deleteCustomField');
+
    Route::post('/add-user-type', 'SettingController@addUserType')->name('addUserType');
+   Route::post('/add-recipient-type', 'SettingController@addRecipientType')->name('addRecipientType');
+
    Route::post('/add-head-parent', 'SettingController@addHeadParent')->name('addHeadParent');
 
    // All status change   

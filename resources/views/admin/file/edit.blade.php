@@ -19,12 +19,12 @@
                   </div>
                   <div class="form-group">
                      <label for="address">Recipient Type*</label>
-                     <select class="form-control" name="user_type" required>
+                     <select class="form-control" name="recipient_type" required>
                         <option value="">Select recipient type</option>
-                        @foreach($user_types as $user)
-                           <option value="{{$user->name}}" {{ $single->user_type == $user->name ? 'selected' : '' }}>{{$user->name}}</option>
+                        @foreach($recipient_types as $recipient)
+                           <option value="{{$recipient->name}}" {{ $single->recipient_type == $recipient->name ? 'selected' : '' }}>{{$recipient->name}}</option>
                         @endforeach
-                        <option value="All" {{ $single->user_type ==  'All'? 'selected' : '' }}>All user</option>
+                        <option value="All" {{ $single->recipient_type ==  'All'? 'selected' : '' }}>All recipient</option>
                      </select>
                   </div>  
                   <div class="form-group">

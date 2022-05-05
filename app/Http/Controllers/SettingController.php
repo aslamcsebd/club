@@ -12,8 +12,9 @@ use Carbon\Carbon;
 
 use App\Models\MemberCategory;
 use App\Models\CustomField;
-use App\Models\UserType;
 use App\Models\HeadParent;
+use App\Models\RecipientType;
+use App\Models\UserType;
 
 class SettingController extends Controller{
 
@@ -21,6 +22,7 @@ class SettingController extends Controller{
    public function settings(){
       $data['customFields'] = CustomField::all();
       $data['userTypes'] = UserType::all();
+      $data['recipientTypes'] = RecipientType::all();
       $data['headParents'] = HeadParent::all();
       return view('admin.settings', $data);      
    }
@@ -82,6 +84,23 @@ class SettingController extends Controller{
       $tab = 'userType';
       UserType::insert(['name' => $request->name]);
       return back()->with('success', 'User type add successfully')->withInput(['tab' => $tab]);      
+   }
+
+   // Add recipient type 
+   public function addRecipientType(Request $request){
+      
+      $validator = Validator::make($request->all(), [
+         'name'=>'required|unique:recipient_types'
+      ]);
+
+      if($validator->fails()){
+         $messages = $validator->messages();
+         return Redirect::back()->withErrors($validator);
+      }
+
+      $tab = 'recipientType';
+      RecipientType::insert(['name' => $request->name]);
+      return back()->with('success', 'Recipient type add successfully')->withInput(['tab' => $tab]);      
    }
 
    // Add head parents 

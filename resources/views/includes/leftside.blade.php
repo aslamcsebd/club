@@ -91,13 +91,35 @@
                   <li class="nav-item">
                      <a href="{{ route('head.new') }}" class="nav-link {{ (request()->routeIs('head.new*'))  ? 'active' : '' }}">
                        <i class="far fa-address-book nav-icon"></i>
-                        <p>Add new</p>
+                        <p>Add head</p>
                      </a>
                   </li>
                   <li class="nav-item">
                      <a href="{{ route('head.all') }}" class="nav-link {{ (request()->routeIs('head.all*'))  ? 'active' : '' }}">
                         <i class="far fa-address-book nav-icon"></i>
-                        <p>All Heads</p>
+                        <p>All heads</p>
+                     </a>
+                  </li>
+               </ul>
+            </li>
+
+            {{-- Users --}}
+            <li class="nav-item start as-treeview {{ (request()->routeIs('user*'))  ? 'menu-open' : '' }}">
+               <a href="#" class="nav-link {{ (request()->routeIs('user*'))  ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-book"></i>
+                  <p>Users<i class="right fas fa-angle-left"></i></p>
+               </a>
+               <ul class="nav nav-treeview pl-3 sub-menu">
+                  <li class="nav-item">
+                     <a href="{{ route('user.new') }}" class="nav-link {{ (request()->routeIs('user.new*'))  ? 'active' : '' }}">
+                       <i class="far fa-address-book nav-icon"></i>
+                        <p>Add user</p>
+                     </a>
+                  </li>
+                  <li class="nav-item">
+                     <a href="{{ route('user.all') }}" class="nav-link {{ (request()->routeIs('user.all*'))  ? 'active' : '' }}">
+                        <i class="far fa-address-book nav-icon"></i>
+                        <p>All user</p>
                      </a>
                   </li>
                </ul>
@@ -109,94 +131,7 @@
                   <i class="nav-icon fas fa-book-reader"></i>
                   <p>Settings</p>
                </a>
-            </li>         
-
-           {{--  <li class="nav-header">Alternative Book</li>
-
-            <li class="nav-item">
-               <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-book-reader"></i>
-                  <p>All Class
-                     <i class="right fas fa-angle-left"></i>
-                  </p>
-               </a>
-               <ul class="nav nav-treeview pl-2">
-                  <li class="nav-item has-treeview">
-                     <a href="#" class="nav-link">
-                        <i class="far fa-address-book nav-icon"></i>
-                        <p>Class 1
-                           <i class="right fas fa-angle-left"></i>
-                        </p>
-                     </a>
-                     <ul class="nav nav-treeview pl-2">
-                        <li class="nav-item">
-                           <a href="#" class="nav-link">
-                              <i class="fas fa-book-open nav-icon"></i>
-                              <p>All Books
-                                 <i class="right fas fa-angle-left"></i>
-                              </p>
-                           </a>
-                           <ul class="nav nav-treeview pl-2">
-                              <li class="nav-item">
-                                 <a href="" class="nav-link">
-                                    <i class="fab fa-creative-commons-sampling nav-icon"></i>
-                                    <p>Creative</p>
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a href="" class="nav-link">
-                                    <i class="fas fa-calculator nav-icon"></i>
-                                    <p>MCQ</p>
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a href="" class="nav-link">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>মডেল টেষ্ট</p>
-                                 </a>
-                              </li>
-                           </ul>
-                        </li>
-                     </ul>
-                  </li>
-               </ul>
             </li>
-
-            <li class="nav-item menu-open">
-               <a href="#" class="nav-link active">
-                  <i class="nav-icon fas fa-chart-pie"></i>
-                  <p>
-                     Charts
-                     <i class="right fas fa-angle-left"></i>
-                  </p>
-               </a>
-               <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                     <a href="#" class="nav-link ">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>ChartJS</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#" class="nav-link active">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Flot</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Inline</p>
-                     </a>
-                  </li>
-                  <li class="nav-item">
-                     <a href="#" class="nav-link active">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>uPlot</p>
-                     </a>
-                  </li>
-               </ul>
-            </li> --}}
 
          </ul>
       </nav>
