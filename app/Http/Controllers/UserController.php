@@ -19,16 +19,16 @@ class UserController extends Controller{
    // Member registration
    public function new(){
       $data['user_types'] = UserType::where('status', 1)->get();
-      return view('admin.user.add', $data);      
+      return view('admin.user.add', $data);  
    }
 
-   // Add new member
+   // Add new user
    public function addUser(Request $request){
       
       $validator = Validator::make($request->all(),[
          'user_type'=>'required',
          'name'=>'required',
-         'email'=>'required|unique:members',
+         'email'=>'required|unique:users',
          'mobile'=>'required',
          'password'=>'required|min:6',
          'confirm_password' => 'required|same:password|min:6',
@@ -70,10 +70,15 @@ class UserController extends Controller{
       return back()->with('success','New user add successfully');
    }
 
-   // Show all member
+   // Show all/group user
    public function all(){
-      $data['activeUsers'] = AllUser::where('status', 1)->get();
-      $data['inactiveUsers'] = AllUser::where('status', 0)->get();
+      $data['userCategory'] = AllUser::get()->groupBy('user_type');
+
+      $user_type = request('name');
+      $data['users'] = AllUser::when($user_type, function($query) use ($user_type){
+         return $query->where('user_type', $user_type);
+      })->get()->groupBy('user_type');
+
       return view('admin.user.all', $data);
    }
 
@@ -91,7 +96,7 @@ class UserController extends Controller{
       return view('admin.member.category', $data);
    }
 
-   // Add member category
+   // Add user category
    public function addCategory(Request $request){
       $validator = Validator::make($request->all(),[
          'name'=>'required',

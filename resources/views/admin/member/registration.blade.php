@@ -57,14 +57,14 @@
                         <label for="address">Blood Group*</label>
                         <select class="form-control" name="blood">
                           <option value="">Select Group</option>
-                          <option value="O+">O+</option>
-                          <option value="O-">O-</option>
-                          <option value="A+">A+</option>
-                          <option value="A-">A-</option>
-                          <option value="B+">B+</option>
-                          <option value="B-">B-</option>
-                          <option value="AB+">AB+</option>
-                          <option value="AB-">AB-</option>
+                          <option value="O +ve">O +ve</option>
+                          <option value="O -ve">O -ve</option>
+                          <option value="A +ve">A +ve</option>
+                          <option value="A -ve">A -ve</option>
+                          <option value="B +ve">B +ve</option>
+                          <option value="B -ve">B -ve</option>
+                          <option value="AB +ve">AB +ve</option>
+                          <option value="AB -ve">AB -ve</option>
                           <option value="Unknown">Unknown</option>
                         </select>
                      </div>
@@ -82,17 +82,32 @@
 
                   @foreach($customFields as $field)
                      @php $title = $field->name; @endphp
-                     <div class="form-group">
-                        <label class="capitalize" for="{{$title}}">{{$title}}*</label>
-                        <input type="text" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}">
-                     </div>
+                     @if($field->type=='dropdown')
+                        <div class="form-group">
+                           <label class="capitalize" for="{{$title}}">{{$title}}*</label>
+                           @php
+                              $values = App\Models\CustomField::where('name', $title)->where('type', '=', null)->get();
+                           @endphp
+                           <select class="form-control" name="{{$title}}" id="{{$title}}" required>
+                              <option value="">Select dropdown</option>
+                              @foreach($values as $value)
+                                 <option value="{{$value->child}}">{{$value->child}}</option>
+                              @endforeach
+                           </select>
+                        </div>
+                     @else
+                        <div class="form-group">
+                           <label class="capitalize" for="{{$title}}">{{$title}}*</label>
+                           <input type="{{($field->type=='date')? 'date':'text'}}" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}">
+                        </div>
+                     @endif
                   @endforeach
                   <hr>
                   <div class="row">
                      <div class="form-group col">
-                        <label for="address">User Type*</label>
+                        <label for="address">Member Type*</label>
                         <select class="form-control" name="user_type" required>
-                           <option value="">Select user type</option>
+                           <option value="">Select member type</option>
                            @foreach($user_types as $user)
                               <option value="{{$user->name}}">{{$user->name}}</option>
                            @endforeach
@@ -101,10 +116,6 @@
                      <div class="form-group col">
                         <label for="form_no">Form No*</label>
                         <input type="text" class="form-control" name="form_no" placeholder="Form No" />
-                     </div>
-                     <div class="form-group col">
-                        <label for="device_id">Device User ID*</label>
-                        <input type="text" class="form-control" name="device_id" placeholder="" />
                      </div>
                   </div>
 

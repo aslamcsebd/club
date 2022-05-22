@@ -17,7 +17,7 @@
    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}" >
    <link rel="stylesheet" href="{{ asset('css/OverlayScrollbars.min.css') }}">
    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-
+   <link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
 
    <!-- summernote -->
    {{-- <link href="{{ asset('/') }}summernote/summernote.css" rel="stylesheet"> --}}

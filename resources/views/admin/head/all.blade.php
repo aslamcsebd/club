@@ -18,7 +18,6 @@
                      <th>Name</th>
                      <th>Type</th>
                      <th>Is material</th>
-                     <th>Is gift</th>
                      <th>Created By</th>
                      <th>Date</th>
                      <th>Status</th>
@@ -30,8 +29,7 @@
                            <td width="30">{{$loop->iteration}}</td>
                            <td>{!!$headInfo->name!!}</td>
                            <td>{!!$headInfo->head_type!!}</td>                         
-                           <td>{!!$headInfo->material!!}</td>                         
-                           <td>{!!$headInfo->gift!!}</td>                     
+                           <td>{!!$headInfo->material!!}</td>              
                            <td>
                               <span class="bg-primary userType">Root</span>
                            </td>

@@ -44,11 +44,11 @@ Route::middleware(['auth'])->group(function(){
    Route::get('/user/new', 'UserController@new')->name('user.new');
    Route::post('/user/add', 'UserController@addUser')->name('addUser');
    Route::get('/user/all', 'UserController@all')->name('user.all');   
+   Route::get('/user/get/{name}', 'UserController@all')->name('user.get');   
    Route::get('userView/{id}/{model}/{tab}','UserController@userView')->name('userView');
 
    Route::get('userDelete/{id}/{model}/{tab}','UserController@userDelete')->name('userDelete');
    Route::get('editUser/{id}/{model}/{tab}','UserController@editUser')->name('editUser');
-   Route::post('/user/edit', 'UserController@editHeadNow')->name('editHeadNow');   
 
    // Settings
    Route::get('/settings', 'SettingController@settings')->name('settings');
@@ -73,7 +73,15 @@ Route::get('/clear', function() {
    Artisan::call('config:clear');
    Artisan::call('config:cache');
    Artisan::call('view:clear');
-   Artisan::call('route:clear');   
+   Artisan::call('route:clear');
    
    return "Cleared!";
 });
+
+// Order By
+// Route::get('orderBy/{model}/{id}/{targetId}/{tab}','BackendController@orderBy')->name('orderBy');
+
+   // public function orderBy($model, $id, $targetId, $tab){
+   //    DB::table($model)->where('id', $id)->update(['orderBy' => $targetId]);      
+   //    return back()->with('success', $model.' orderBy change')->withInput(['tab' => $tab]);
+   // }

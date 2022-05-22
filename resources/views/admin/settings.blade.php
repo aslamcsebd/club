@@ -52,9 +52,9 @@
                                     <td width="15">
                                        <div class="btn-group">
                                           @if($field->status == 1)
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-outline-success py-1" title="Click for inactive">Active</a>
+                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
                                           @else
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-outline-danger py-1" title="Click for active">Inactive</a>
+                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
                                           @endif
                                           <a href="{{ url('deleteCustomField', [$field->id, 'custom_fields', 'tapName'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
@@ -70,24 +70,99 @@
                         <div class="modal-dialog" role="document">
                            <div class="modal-content">
                               <div class="modal-header">
-                                 <h6 class="modal-title text-center" id="exampleModalLabel">Coustom field</h6>
+                                 <h6 class="modal-title text-center" id="exampleModalLabel">Custom field</h6>
                                  <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                               </div>
-                              <div class="modal-body">
-                                 <form action="{{ route('addCustomField') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
-                                    @csrf
-                                    <div class="form-group">
-                                       <label for="name">Name*</label>
-                                       <input type="text" name="name" class="form-control" id="name" placeholder="Category name" required/>
-                                    </div>                                  
+                              <div class="card-header p-1">
+                                 <ul class="nav nav-pills">
+                                    <li class="nav-item">
+                                       <a class="nav-link active btn-sm py-1 m-1" data-toggle="pill" href="#field">Field</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#date">Date</a>
+                                    </li>
+                                    <li class="nav-item">
+                                       <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#dropdown">Dropdown</a>
+                                    </li>                                 
+                                 </ul>
+                              </div>
 
-                                    <div class="modal-footer">
-                                       <div class="btn-group">
-                                          <button class="btn btn-sm btn-primary">Save</button>
-                                          <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Close</button>
-                                       </div>
+                              <div class="modal-body">
+                                 <div class="tab-content" id="pills-tabContent">
+
+                                    <div class="tab-pane fade active show" id="field">
+                                       <form action="{{ route('addCustomField') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
+                                          @csrf
+                                          <div class="form-group">
+                                             <label for="field">Name*</label>
+                                             <input type="text" name="field" class="form-control" id="field" placeholder="Field name" required/>
+                                          </div>                                  
+
+                                          <div class="modal-footer">
+                                             <div class="btn-group">
+                                                <button class="btn btn-sm btn-primary">Save</button>
+                                                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                             </div>
+                                          </div>
+                                       </form>                                      
                                     </div>
-                                 </form>
+
+                                    <div class="tab-pane fade show" id="date">
+                                       <form action="{{ route('addCustomField') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
+                                          @csrf
+                                          <div class="form-group">
+                                             <label for="date">DateTime name*</label>
+                                             <input type="text" name="date" class="form-control" id="date" placeholder="Field name" required/>
+                                          </div>                                  
+
+                                          <div class="modal-footer">
+                                             <div class="btn-group">
+                                                <button class="btn btn-sm btn-primary">Save</button>
+                                                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                             </div>
+                                          </div>
+                                       </form>                                      
+                                    </div>
+
+                                    <div class="tab-pane fade show" id="dropdown">
+                                       <form action="{{ route('addCustomField') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
+                                          @csrf
+                                          <div class="form-group">
+                                             <label for="dropdown">Title name*</label>
+                                             <input type="text" name="dropdown" class="form-control" id="dropdown" placeholder="Field name" required/>
+                                          </div>
+                                          <fieldset>
+                                             <legend>Value options</legend>
+                                                <div id="extraDropdown">
+                                                   <div class="row justify-content-center">
+                                                      <i class="fa fa-chevron-down pt-3"></i>
+                                                      <div class="col-8 form-group">
+                                                         <input type="text" name="dropdownValue[]" class="form-control" placeholder="Value name" required/>
+                                                      </div>
+                                                      <button type="button" class="btn">
+                                                         <i class="fa fa-trash "></i>
+                                                      </button>
+                                                   </div>                  
+                                                </div>
+                                                <div class="row justify-content-center"> 
+                                                   <div class="col-8">
+                                                      <button type="button" id="addExtraDropdown" class="btn btn-primary">
+                                                         <i class="fa fa-plus">&nbsp; Add dropdown</i>
+                                                      </button>
+                                                   </div>
+                                                </div>
+                                          </fieldset>
+
+                                          <div class="modal-footer">
+                                             <div class="btn-group">
+                                                <button class="btn btn-sm btn-primary">Save</button>
+                                                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                             </div>
+                                          </div>
+                                       </form>
+                                    </div>
+
+                                 </div>
                               </div>
                            </div>
                         </div>
@@ -102,7 +177,7 @@
                            <li class="nav-item">
                               <button class="btn btn-sm btn-success text-light" data-toggle="modal" data-original-title="test" data-target="#addUserType">Add user type</button>
                            </li>
-                        </ul>
+                        </ul>                       
                      </div>
                      <div class="card-body p-1">
                         <table class="table table-bordered">

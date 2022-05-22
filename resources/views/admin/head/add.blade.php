@@ -32,11 +32,6 @@ Add head
                      <label for="material" class="custom-control-label">Is material?</label>
                   </div>
 
-                  <div class="custom-control custom-checkbox form-group">
-                     <input type="checkbox" id="gift" name="gift" value="Yes" class="custom-control-input" disabled="disabled">
-                     <label for="gift" class="custom-control-label">Is gift?</label>
-                  </div>
-
                   <div class="form-group">
                      <label for="address">Head Parent*</label>
                      <select class="form-control" name="parent_head" required>

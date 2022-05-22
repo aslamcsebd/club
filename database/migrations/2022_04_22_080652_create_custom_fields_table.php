@@ -15,7 +15,9 @@ class CreateCustomFieldsTable extends Migration
     {
         Schema::create('custom_fields', function (Blueprint $table) {
             $table->id();
+            $table->string('type')->nullable();
             $table->string('name');
+            $table->string('child')->nullable();
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
             $table->timestamps();
         });

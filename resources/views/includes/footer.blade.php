@@ -80,16 +80,15 @@
           }
       })
 
-      // Head Information
-      $("#material").click(function () {
-         var chkFormationDept = document.getElementById("material").checked;
-         if (chkFormationDept) {
-            $('#gift').removeAttr('disabled');
+      $(document).on('click', '#addExtraDropdown', function (e) {
+         e.preventDefault()
+         var html = '<div class="row justify-content-center dropdownDelete"> <i class="fa fa-chevron-down pt-3"></i> <div class="col-8 form-group"> <input type="text" name="dropdownValue[]" class="form-control" placeholder="Value name" required/> </div><button type="button" class="btn dropdown-btn"> <i class="fa fa-trash"></i> </button> </div>'
 
-         }else{
-            $('#gift').attr('disabled','disabled');
-            // $('#gift').attr('checked', true);            
-         }
-      })                       
+         $('#extraDropdown').append(html)
+      });
+
+      $("body").on("click",".dropdown-btn",function(e){
+          $(this).parents('.dropdownDelete').remove();
+      });   
       
    </script>
