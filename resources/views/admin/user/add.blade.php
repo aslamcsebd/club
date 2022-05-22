@@ -63,19 +63,19 @@
                           <option value="Female">Female</option>
                           <option value="Other">Other</option>
                         </select>
-                     </div>
+                     </div>  
                      <div class="form-group col-6">
                         <label for="address">Blood Group*</label>
                         <select class="form-control" name="blood">
                           <option value="">Select Group</option>
-                          <option value="O+">O+</option>
-                          <option value="O-">O-</option>
-                          <option value="A+">A+</option>
-                          <option value="A-">A-</option>
-                          <option value="B+">B+</option>
-                          <option value="B-">B-</option>
-                          <option value="AB+">AB+</option>
-                          <option value="AB-">AB-</option>
+                          <option value="O +ve">O +ve</option>
+                          <option value="O -ve">O -ve</option>
+                          <option value="A +ve">A +ve</option>
+                          <option value="A -ve">A -ve</option>
+                          <option value="B +ve">B +ve</option>
+                          <option value="B -ve">B -ve</option>
+                          <option value="AB +ve">AB +ve</option>
+                          <option value="AB -ve">AB -ve</option>
                           <option value="Unknown">Unknown</option>
                         </select>
                      </div>

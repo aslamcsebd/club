@@ -17,7 +17,6 @@ class CreateMembersTable extends Migration
             $table->id();
             $table->string('user_type')->nullable();
             $table->string('form_no')->nullable();
-            $table->string('device_id')->nullable();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('password')->nullable();

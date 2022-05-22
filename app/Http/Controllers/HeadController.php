@@ -35,13 +35,11 @@ class HeadController extends Controller{
       }
 
       ($request->filled('material') ? $material=$request->material : $material='No');
-      ($request->filled('gift') ? $gift=$request->gift : $gift='No');
 
       HeadInfo::create([
          'name' => $request->name,
          'head_type' => $request->head_type,
          'material' => $material,
-         'gift' => $gift,
          'parent_head' => $request->parent_head
       ]);
       return back()->with('success','Head notice add successfully');
@@ -74,18 +72,14 @@ class HeadController extends Controller{
       }
 
       ($request->filled('material') ? $material=$request->material : $material='No');
-      ($request->filled('gift') ? $gift=$request->gift : $gift='No');
 
       HeadInfo::where('id', $request->id)->update([
          'name' => $request->name,
          'head_type' => $request->head_type,
          'material' => $material,
-         'gift' => $gift,
          'parent_head' => $request->parent_head
       ]);
       return back()->with('success','Head edit successfully');
    }
-  
+
 }
-
-

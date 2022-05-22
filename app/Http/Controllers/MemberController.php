@@ -20,7 +20,7 @@ class MemberController extends Controller{
 
    // Member registration
    public function new(){
-      $data['customFields'] = CustomField::where('status', 1)->get();
+      $data['customFields'] = CustomField::where('type', '!=', null)->where('status', 1)->get();
       $data['user_types'] = UserType::where('status', 1)->get();
       return view('admin.member.registration', $data);      
    }
@@ -60,7 +60,6 @@ class MemberController extends Controller{
       $insertId = DB::table('members')->insertGetId([
          'user_type' => $request->user_type,
          'form_no' => $request->form_no,
-         'device_id' => $request->device_id,
          'name' => $request->name,
          'email' => $request->email,
          'password' => Hash::make($request->password),
@@ -72,7 +71,7 @@ class MemberController extends Controller{
          'photo' => $photoLink
       ]);
 
-      $customFields = CustomField::where('status', 1)->get();
+      $customFields = CustomField::where('type', '!=', null)->where('status', 1)->get();
 
       foreach ($customFields as $field) {
          $title = $field->name;
