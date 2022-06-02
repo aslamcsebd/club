@@ -42,6 +42,8 @@
                            <thead class="bg-info">
                               <th>Sl</th>
                               <th>Name</th>
+                              <th>Required</th>
+                              <th>Status</th>
                               <th>Action</th>
                            </thead>
                            <tbody>
@@ -49,6 +51,15 @@
                                  <tr>
                                     <td width="30">{{$loop->iteration}}</td>
                                     <td>{!!$field->name!!}</td>
+                                    <td width="10%">
+                                       <div class="btn-group">
+                                          @if($field->required == 1)
+                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'activeMember'])}}" class="btn btn-sm btn-success py-1" title="Click for not mandatory">Mandatory</a>
+                                          @else
+                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'activeMember'])}}" class="btn btn-sm btn-danger py-1" title="Click for mandatory">Not mandatory</a>
+                                          @endif
+                                       </div>
+                                    </td>
                                     <td width="15">
                                        <div class="btn-group">
                                           @if($field->status == 1)
@@ -56,6 +67,10 @@
                                           @else
                                              <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
                                           @endif
+                                       </div>
+                                    </td>
+                                    <td width="15">
+                                       <div class="btn-group">
                                           <a href="{{ url('deleteCustomField', [$field->id, 'custom_fields', 'tapName'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
@@ -184,6 +199,7 @@
                            <thead class="bg-info">
                               <th>Sl</th>
                               <th>Name</th>
+                              <th>Status</th>
                               <th>Action</th>
                            </thead>
                            <tbody>
@@ -198,6 +214,10 @@
                                           @else
                                              <a href="{{ url('itemStatus', [$user->id, 'user_types', 'userType'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
                                           @endif
+                                       </div>
+                                    </td>
+                                    <td width="15">
+                                       <div class="btn-group">
                                           <a href="{{ url('itemDelete', [$user->id, 'user_types', 'userType'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
@@ -251,6 +271,7 @@
                            <thead class="bg-info">
                               <th>Sl</th>
                               <th>Name</th>
+                              <th>Status</th>
                               <th>Action</th>
                            </thead>
                            <tbody>
@@ -265,6 +286,10 @@
                                           @else
                                              <a href="{{ url('itemStatus', [$recipient->id, 'recipient_types', 'recipientType'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
                                           @endif
+                                       </div>
+                                    </td>
+                                    <td width="15">
+                                       <div class="btn-group">
                                           <a href="{{ url('itemDelete', [$recipient->id, 'recipient_types', 'recipientType'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
@@ -318,6 +343,7 @@
                            <thead class="bg-info">
                               <th>Sl</th>
                               <th>Name</th>
+                              <th>Status</th>
                               <th>Action</th>
                            </thead>
                            <tbody>
@@ -325,13 +351,17 @@
                                  <tr>
                                     <td width="30">{{$loop->iteration}}</td>
                                     <td>{!!$headParent->name!!}</td>
-                                    <td width="15">
+                                    <td width="10">
                                        <div class="btn-group">
                                           @if($headParent->status == 1)
                                              <a href="{{ url('itemStatus', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
                                           @else
                                              <a href="{{ url('itemStatus', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
                                           @endif
+                                       </div>
+                                    </td>
+                                    <td width="10">
+                                       <div class="btn-group">
                                           <a href="{{ url('itemDelete', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>

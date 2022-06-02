@@ -97,7 +97,7 @@
                   <li class="nav-item">
                      <a href="{{ route('head.all') }}" class="nav-link {{ (request()->routeIs('head.all*'))  ? 'active' : '' }}">
                         <i class="far fa-address-book nav-icon"></i>
-                        <p>All heads</p>
+                        <p>All head</p>
                      </a>
                   </li>
                </ul>

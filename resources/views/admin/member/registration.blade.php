@@ -30,7 +30,7 @@
                      <div class="form-group col-6">
                         <label for="password">Password*</label>
                         <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required>
-                        <small class="form-text text-muted bg-info"><i>Minimum 6 characters. Leave blank to assign auto-generated password.</i></small>
+                        <small class="form-text text-muted bg-info p-1"><i>Minimum 6 characters. Leave blank to assign auto-generated password.</i></small>
                      </div>
                      <div class="form-group col-6">
                         <label for="confirm_password">Confirm Password*</label>
@@ -78,6 +78,9 @@
                   <div class="form-group">
                      <label for="photo">Photo*</label>
                      <input type="file" class="form-control" name="photo"/>
+                     <small class="form-text text-muted bg-info p-1 col-6">
+                        <i>Image format: jpeg, png, jpg, gif, svg. Maximum size : 2 MB.</i>
+                     </small> 
                   </div>
 
                   @foreach($customFields as $field)
@@ -88,7 +91,7 @@
                            @php
                               $values = App\Models\CustomField::where('name', $title)->where('type', '=', null)->get();
                            @endphp
-                           <select class="form-control" name="{{$title}}" id="{{$title}}" required>
+                           <select class="form-control" name="{{$title}}" id="{{$title}}" {{($field->required==1)? 'required':''}}>
                               <option value="">Select dropdown</option>
                               @foreach($values as $value)
                                  <option value="{{$value->child}}">{{$value->child}}</option>
@@ -98,18 +101,18 @@
                      @else
                         <div class="form-group">
                            <label class="capitalize" for="{{$title}}">{{$title}}*</label>
-                           <input type="{{($field->type=='date')? 'date':'text'}}" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}">
+                           <input type="{{($field->type=='date')? 'date':'text'}}" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}" {{($field->required==1)? 'required':''}}>
                         </div>
                      @endif
                   @endforeach
                   <hr>
                   <div class="row">
                      <div class="form-group col">
-                        <label for="address">Member Type*</label>
-                        <select class="form-control" name="user_type" required>
-                           <option value="">Select member type</option>
-                           @foreach($user_types as $user)
-                              <option value="{{$user->name}}">{{$user->name}}</option>
+                        <label for="address">Member category*</label>
+                        <select class="form-control" name="member_category" required>
+                           <option value="">Select member category</option>
+                           @foreach($memberCategory as $member)
+                              <option value="{{$member->name}}">{{$member->name}}</option>
                            @endforeach
                         </select>
                      </div>

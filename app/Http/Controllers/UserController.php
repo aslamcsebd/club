@@ -34,7 +34,8 @@ class UserController extends Controller{
          'confirm_password' => 'required|same:password|min:6',
          'address'=>'required',
          'gender'=>'required',
-         'dob'=>'required'
+         'dob'=>'required',
+         'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
       ]);
 
       if($validator->fails()){

@@ -41,7 +41,7 @@
                      <div class="form-group col-6">
                         <label for="password">Password*</label>
                         <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required>
-                        <small class="form-text text-muted bg-info"><i>Minimum 6 characters. Leave blank to assign auto-generated password.</i></small>
+                        <small class="form-text text-muted bg-info p-1"><i>Minimum 6 characters. Leave blank to assign auto-generated password.</i></small>
                      </div>
                      <div class="form-group col-6">
                         <label for="confirm_password">Confirm Password*</label>
@@ -88,6 +88,9 @@
                      <div class="form-group col">
                         <label for="photo">Photo*</label>
                         <input type="file" class="form-control" name="photo"/>
+                        <small class="form-text text-muted bg-info p-1">
+                           <i>Image format: jpeg, png, jpg, gif, svg. Maximum size : 2 MB.</i>
+                        </small> 
                      </div>
                   </div>
                </div>

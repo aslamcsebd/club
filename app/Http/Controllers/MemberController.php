@@ -21,7 +21,7 @@ class MemberController extends Controller{
    // Member registration
    public function new(){
       $data['customFields'] = CustomField::where('type', '!=', null)->where('status', 1)->get();
-      $data['user_types'] = UserType::where('status', 1)->get();
+      $data['memberCategory'] = MemberCategory::where('status', 1)->get();
       return view('admin.member.registration', $data);      
    }
 
@@ -36,7 +36,9 @@ class MemberController extends Controller{
          'mobile'=>'required',
          'address'=>'required',
          'gender'=>'required',
-         'dob'=>'required'
+         'dob'=>'required',
+         'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+
       ]);
 
       if($validator->fails()){
@@ -58,7 +60,7 @@ class MemberController extends Controller{
       }
 
       $insertId = DB::table('members')->insertGetId([
-         'user_type' => $request->user_type,
+         'member_category' => $request->member_category,
          'form_no' => $request->form_no,
          'name' => $request->name,
          'email' => $request->email,
@@ -134,6 +136,15 @@ class MemberController extends Controller{
       $itemId = DB::table($model)->find($id);
       ($itemId->status == true) ? $action=$itemId->status = false : $action=$itemId->status = true;     
       DB::table($model)->where('id', $id)->update(['status' => $action]);
+      return back()->with('success', $model.' status change')->withInput(['tab' => $tab]);
+   }
+
+   // Status2 [Required vs not required]
+   public function itemStatus2($model, $field, $id, $tab){
+      //Much code because save() function not working...
+      $itemId = DB::table($model)->find($id);
+      ($itemId->$field == true) ? $action=$itemId->$field = false : $action=$itemId->$field = true;     
+      DB::table($model)->where('id', $id)->update([$field => $action]);
       return back()->with('success', $model.' status change')->withInput(['tab' => $tab]);
    }
 

@@ -17,6 +17,7 @@
                      <th>Sl</th>
                      <th>Name</th>
                      <th>Type</th>
+                     <th>Parent Head</th>
                      <th>Is material</th>
                      <th>Created By</th>
                      <th>Date</th>
@@ -29,6 +30,7 @@
                            <td width="30">{{$loop->iteration}}</td>
                            <td>{!!$headInfo->name!!}</td>
                            <td>{!!$headInfo->head_type!!}</td>                         
+                           <td>{!!$headInfo->parent_head!!}</td>                         
                            <td>{!!$headInfo->material!!}</td>              
                            <td>
                               <span class="bg-primary userType">Root</span>

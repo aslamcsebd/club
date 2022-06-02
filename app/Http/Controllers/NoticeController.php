@@ -9,14 +9,14 @@ use Redirect;
 use DB;
 use Carbon\Carbon;
 
-use App\Models\UserType;
+use App\Models\RecipientType;
 use App\Models\Notice;
 
 class NoticeController extends Controller{
 
    // Notice
    public function new(){
-      $data['user_types'] = UserType::where('status', 1)->get();
+      $data['recipient_Types'] = RecipientType::where('status', 1)->get();
       return view('admin.notice.add', $data);      
    }
 
@@ -25,7 +25,7 @@ class NoticeController extends Controller{
 
       $validator = Validator::make($request->all(),[
          'title'=>'required',
-         'user_type'=>'required',
+         'recipient_type'=>'required',
          'description'=>'required'
       ]);
 
@@ -36,7 +36,7 @@ class NoticeController extends Controller{
 
       Notice::create([
          'title' => $request->title,
-         'user_type' => $request->user_type,
+         'recipient_type' => $request->recipient_type,
          'description' => $request->description
       ]);
       return back()->with('success','New notice add successfully');
@@ -57,7 +57,7 @@ class NoticeController extends Controller{
    // Edit single notice
    public function editNotice($id, $model, $tab){
       $data['single'] =  $itemId = DB::table($model)->find($id);
-      $data['user_types'] = UserType::where('status', 1)->get();        
+      $data['recipient_Types'] = RecipientType::where('status', 1)->get();        
       return view('admin.notice.edit', $data);
    }
 
@@ -65,7 +65,7 @@ class NoticeController extends Controller{
    public function editNoticeNow(Request $request){
       $validator = Validator::make($request->all(),[
          'title'=>'required',
-         'user_type'=>'required',
+         'recipient_type'=>'required',
          'description'=>'required'
       ]);
 
@@ -76,7 +76,7 @@ class NoticeController extends Controller{
       
       Notice::where('id', $request->id)->update([
          'title' => $request->title,
-         'user_type' => $request->user_type,
+         'recipient_type' => $request->recipient_type,
          'description' => $request->description
       ]);
       return back()->with('success','Notice edit successfully');

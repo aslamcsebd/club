@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 22, 2022 at 10:38 AM
+-- Generation Time: Jun 02, 2022 at 12:57 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -49,8 +49,8 @@ CREATE TABLE `all_users` (
 --
 
 INSERT INTO `all_users` (`id`, `user_type`, `name`, `email`, `mobile`, `password`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Student', 'member', 'admin@gmail.com', '3434', '$2y$10$TDjQ2d0FBlr/4OD3eLMMrenO7kFsBpe7lMXnI.wP12hoBZubl0bKi', 'ddff', 'Male', 'A-', '2022-05-10', 'images/default.jpg', 1, '2022-05-16 01:02:17', '2022-05-16 01:02:17'),
-(2, 'Student', 'membereer', 'adeermin@gmail.com', '2323', '$2y$10$0a19mR3AFwC80JnzZ/UXNO9qTeVB.6RQw8rNlmOBandt1b9FeIYXy', 'fgfg', 'Female', 'A -ve', '2022-05-10', 'images/default.jpg', 1, '2022-05-16 01:10:27', '2022-05-16 01:10:27');
+(1, 'Student', 'Arif', 'admin@gmail.com', '3434', '$2y$10$TDjQ2d0FBlr/4OD3eLMMrenO7kFsBpe7lMXnI.wP12hoBZubl0bKi', 'ddff', 'Male', 'A-', '2022-05-10', 'images/default.jpg', 1, '2022-05-16 01:02:17', '2022-05-16 01:02:17'),
+(2, 'Student', 'Rahim', 'adeermin@gmail.com', '2323', '$2y$10$0a19mR3AFwC80JnzZ/UXNO9qTeVB.6RQw8rNlmOBandt1b9FeIYXy', 'fgfg', 'Female', 'A -ve', '2022-05-10', 'images/default.jpg', 1, '2022-05-16 01:10:27', '2022-05-16 01:10:27');
 
 -- --------------------------------------------------------
 
@@ -63,10 +63,19 @@ CREATE TABLE `custom_fields` (
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `child` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `required` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Not mandatory, 1=Mandatory',
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `custom_fields`
+--
+
+INSERT INTO `custom_fields` (`id`, `type`, `name`, `child`, `required`, `status`, `created_at`, `updated_at`) VALUES
+(8, 'field', 'new_field', NULL, 0, 1, NULL, NULL),
+(9, 'date', 'data_field', NULL, 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -123,7 +132,7 @@ CREATE TABLE `head_infos` (
 INSERT INTO `head_infos` (`id`, `name`, `head_type`, `material`, `parent_head`, `status`, `created_at`, `updated_at`) VALUES
 (2, 'Bag', 'Income', 'Yes', 'Discount', 1, '2022-04-25 11:41:20', '2022-04-25 11:41:20'),
 (3, 'Calculator', 'Income', 'Yes', 'Admission Fee', 1, '2022-04-25 11:41:42', '2022-04-25 11:41:42'),
-(4, 'abc', 'Expense', 'Yes', 'Guide Book', 1, '2022-05-16 01:00:09', '2022-05-16 01:00:09');
+(4, 'Pen', 'Expense', 'Yes', 'Guide Book', 1, '2022-05-16 01:00:09', '2022-05-30 23:31:29');
 
 -- --------------------------------------------------------
 
@@ -161,7 +170,7 @@ INSERT INTO `head_parents` (`id`, `name`, `status`, `created_at`, `updated_at`) 
 
 CREATE TABLE `members` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `member_category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `form_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -173,6 +182,8 @@ CREATE TABLE `members` (
   `dob` date DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `data_field` date DEFAULT NULL,
+  `new_field` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -181,10 +192,10 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `user_type`, `form_no`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `created_at`, `updated_at`) VALUES
-(3, 'Teacher', 'ghghg', 'Arif', 'arif@gmail.com', '$2y$10$9hgMOk6p1PX48jPnd3qZKe8MRIcEwOSAZEzRJIGC1zyfKzF5rZmOG', '3434', 'ghgh', 'Male', 'A -ve', '2022-05-09', 'images/default.jpg', 0, NULL, NULL),
-(4, 'Sub-admin', 'sdsd', 'Rahim', 'rahim@gmail.com', '$2y$10$OFmT8VwvLQoCiObFB5sznO8Ud06ysiv/vboMAHkjptYc.dpJ1A5ja', '23232', 'sdsd', 'Female', 'A +ve', '2022-05-03', 'images/default.jpg', 1, NULL, NULL),
-(5, 'Sub-admin', 'fgfg', 'karim', 'karim@gmail.com', '$2y$10$G3M8Rw0OECnbEvrAjf3WNuV4oc6mbyj69K3cXQxUK.vfDL2Jbp/TS', '4334', 'fgfg', 'Female', 'B -ve', '2022-05-10', 'images/default.jpg', 1, NULL, NULL);
+INSERT INTO `members` (`id`, `member_category`, `form_no`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `data_field`, `new_field`, `created_at`, `updated_at`) VALUES
+(6, 'Full time', 'kjn', 'Member', 'aslamhossainctg@gmail.com', '$2y$10$6QWleZv2wE5mUcJPumFT8.vz5hWMKDYG3yNBOd6Xd3pfOy55Y4Uwm', '4544', 'ujhbjb', 'Other', 'A +ve', '2022-05-25', 'images/default.jpg', 1, NULL, NULL, NULL, NULL),
+(7, 'Full time', 'fghgh', 'Member', 'aslamhosscvbainctg@gmail.com', '$2y$10$0Zq2JNzyjr1JB9jy2PCtUOaTA9vyV0la49JL24Sy4LO5hBpt56e3O', '56546', 'fghfg', 'Other', 'A +ve', '2022-05-04', 'images/default.jpg', 1, NULL, NULL, NULL, NULL),
+(8, 'Full time', 'fdgfdg', 'fgdfg', 'aslamfdgfgcsebd@gmail.com', '$2y$10$MrnLDGLLqXA2Lh2E9FhtR.x7Swp3QZQUZl53S8fQwANBmiq9Rb2JC', '3545', 'sdfdf', 'Male', 'A +ve', '2022-06-01', 'images/default.jpg', 1, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -240,7 +251,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (25, '2022_04_26_095956_create_recipient_types_table', 11),
 (26, '2022_04_28_052353_create_all_users_table', 11),
 (27, '2022_04_20_101630_create_members_table', 12),
-(28, '2022_04_22_080652_create_custom_fields_table', 13);
+(28, '2022_04_22_080652_create_custom_fields_table', 13),
+(30, '2022_05_30_063722_member_edit', 14),
+(31, '2022_06_02_072614_notice_table_edit', 15),
+(32, '2022_06_02_091054_custom_field_edit', 16);
 
 -- --------------------------------------------------------
 
@@ -251,21 +265,12 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 CREATE TABLE `notices` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `recipient_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `notices`
---
-
-INSERT INTO `notices` (`id`, `title`, `user_type`, `description`, `status`, `created_at`, `updated_at`) VALUES
-(3, 'Holiday', 'Teacher', '1st may holiday.', 1, '2022-04-24 01:49:05', '2022-04-25 12:32:53'),
-(4, 'Summer vacation', 'All', 'All member\'s holiday', 1, '2022-04-24 01:50:13', '2022-04-24 01:50:13'),
-(5, 'Holiday', 'Teacher', 'Teacher\'s day.', 1, '2022-04-24 01:50:46', '2022-04-24 01:50:46');
 
 -- --------------------------------------------------------
 
@@ -292,6 +297,15 @@ CREATE TABLE `recipient_types` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `recipient_types`
+--
+
+INSERT INTO `recipient_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Staf', 1, NULL, NULL),
+(2, 'Admin', 1, NULL, NULL),
+(3, 'Sub-admin', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -357,8 +371,8 @@ CREATE TABLE `user_types` (
 
 INSERT INTO `user_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Student', 1, NULL, NULL),
-(2, 'Teacher', 1, NULL, NULL),
-(3, 'Sub-admin', 1, NULL, NULL);
+(2, 'Teacher', 0, NULL, NULL),
+(3, 'Sub-admin', 0, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -469,7 +483,7 @@ ALTER TABLE `all_users`
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -481,7 +495,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `head_infos`
@@ -499,7 +513,7 @@ ALTER TABLE `head_parents`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `member_categories`
@@ -511,7 +525,7 @@ ALTER TABLE `member_categories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `notices`
@@ -523,7 +537,7 @@ ALTER TABLE `notices`
 -- AUTO_INCREMENT for table `recipient_types`
 --
 ALTER TABLE `recipient_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `refresh_status`
@@ -541,7 +555,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_types`
 --
 ALTER TABLE `user_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

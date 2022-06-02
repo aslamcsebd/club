@@ -18,12 +18,12 @@
                   </div>
                   <div class="form-group">
                      <label for="address">Recipient Type*</label>
-                     <select class="form-control" name="user_type" required>
+                     <select class="form-control" name="recipient_type" required>
                         <option value="">Select recipient type</option>
-                        @foreach($user_types as $user)
-                           <option value="{{$user->name}}">{{$user->name}}</option>
+                        @foreach($recipient_Types as $recipient)
+                           <option value="{{$recipient->name}}">{{$recipient->name}}</option>
                         @endforeach
-                        <option value="All">All user</option>
+                        <option value="All">All recipient</option>
                      </select>
                   </div>  
                   <div class="form-group">
