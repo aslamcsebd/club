@@ -27,15 +27,7 @@
                      </a>
                   </li>
                </ul>
-            </li>
-
-            {{-- Category --}}
-            <li class="nav-item ">
-               <a href="{{ route('category') }}" class="nav-link {{ (request()->routeIs('category*'))  ? 'active' : '' }}">
-                  <i class="nav-icon fas fa-book-reader"></i>
-                  <p>Member Category</p>
-               </a>
-            </li>
+            </li>            
 
             {{-- Notices --}}
             <li class="nav-item start as-treeview {{ (request()->routeIs('notice*'))  ? 'menu-open' : '' }}">

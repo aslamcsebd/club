@@ -11,14 +11,14 @@
          <div class="card-header p-1">
             <ul class="nav nav-pills" id="tabMenu">
                <li class="nav-item">
-                  <a class="nav-link active btn-sm py-1 m-1" data-toggle="pill" href="#customField">Custom Field {{$customFields->count() ? '['.$customFields->count().']' : ''}}</a>
+                  <a class="nav-link active btn-sm py-1 m-1" data-toggle="pill" href="#memberCategory">Member category {{$categories->count() ? '['.$categories->count().']' : ''}}</a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#customField">Custom Field {{$customFields->count() ? '['.$customFields->count().']' : ''}}</a>
                </li>
                <li class="nav-item">
                   <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#userType">User Type {{$userTypes->count() ? '['.$userTypes->count().']' : ''}}</a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#recipientType">Recipient Type {{$recipientTypes->count() ? '['.$recipientTypes->count().']' : ''}}</a>
-               </li>
+               </li>              
                <li class="nav-item">
                   <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#headParent">Head Parent {{$headParents->count() ? '['.$headParents->count().']' : ''}}</a>
                </li>
@@ -27,8 +27,121 @@
 
          <div class="card-body p-1">            
             <div class="tab-content" id="pills-tabContent">
-               
-               <div class="tab-pane fade show active" id="customField">
+
+               <div class="tab-pane fade show active" id="memberCategory">
+                  <div class="card border border-danger">
+                     <div class="card-header p-1">
+                        <button class="btn btn-sm btn-success text-light" data-toggle="modal" data-original-title="test" data-target="#addCategory">Add category</button>
+                     </div>
+                     <div class="card-body p-1">
+                        <table class="table table-bordered">
+                           <thead class="bg-info">
+                              <th>Sl</th>
+                              <th>Name</th>
+                              <th>PaymentType</th>
+                              <th>Fee</th>
+                              <th>Percentage(%)</th>
+                              <th>Status</th>
+                              <th>Action</th>
+                           </thead>
+                           <tbody>
+                              @foreach($categories as $category)
+                                 <tr>
+                                    <td width="30">{{$loop->iteration}}</td>
+                                    <td>{!!$category->name!!}</td>
+                                    <td>{!!$category->paymentType!!}</td>
+                                    <td>{!!$category->fee!!}</td>
+                                    <td>{!!$category->percentage!!}</td>
+                                    <td width="15">
+                                       <div class="btn-group">                                
+                                          @if($category->status == 1)
+                                             <a href="{{ url('itemStatus', [$category->id, 'member_categories', 'memberCategory'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
+                                          @else
+                                             <a href="{{ url('itemStatus', [$category->id, 'member_categories', 'memberCategory'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
+                                          @endif
+                                       </div>
+                                    </td>
+                                    <td width="15">
+                                       <div class="btn-group">                                         
+                                          <a href="{{ url('itemDelete', [$category->id, 'member_categories', 'memberCategory'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              @endforeach
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+
+                  {{-- Add category --}}
+                  <div class="modal fade" id="addCategory" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h6 class="modal-title text-center" id="exampleModalLabel">Category Information</h6>
+                              <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                           </div>
+                           <div class="modal-body">
+                              <form action="{{ route('addCategory') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
+                                 @csrf
+                                 <div class="form-group">
+                                    <label for="name">Name*</label>
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Category name" required/>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <label for="paymentType">Payment Type*</label>
+                                    <select id="paymentType" name="paymentType" class="form-control" required="required">
+                                       <option value="Monthly">Monthly</option> 
+                                       <option value="One Time">One Time</option>
+                                    </select>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <label for="fee">Registration Fee*</label>
+                                    <input type="number" name="fee" class="form-control" id="fee" placeholder="100" required/>
+                                 </div>
+
+                                 <div class="form-group">
+                                    <div class="form-check form-check-inline">
+                                       <label>Admission fee to be paid in time of application:</label>
+                                    </div> 
+                                    <br>
+                                    <div class="radio-toolbar form-check form-check-inline">
+                                       <div class="radio">
+                                          <input type="radio" id="paidNo" name="paid" value="no" checked>
+                                          <label for="paidNo">No</label>
+                                       </div>
+                                       <div class="radio ml-4">
+                                          <input type="radio" id="paidYes" name="paid" value="yes">
+                                          <label for="paidYes">Yes</label> 
+                                       </div>
+                                    </div> 
+                                 </div>
+
+                                 <div class="hide" id="paidStatus">
+                                    <div class="" data_id="paidAction"> 
+                                       <div class="form-group">
+                                          <label for="fee">Percentage(%) of total admission fee*</label>
+                                          <input type="number" name="percentage" class="form-control" id="fee" placeholder="10, 20, 30..."/>
+                                       </div>
+                                    </div>
+                                 </div>
+
+                                 <div class="modal-footer">
+                                    <div class="btn-group">
+                                       <button class="btn btn-sm btn-primary">Save</button>
+                                       <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Close</button>
+                                    </div>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+
+               <div class="tab-pane fade show" id="customField">
                   <div class="card border border-danger">
                      <div class="card-header p-1">
                         <ul class="nav nav-pills" id="tabMenu">
@@ -51,27 +164,27 @@
                                  <tr>
                                     <td width="30">{{$loop->iteration}}</td>
                                     <td>{!!$field->name!!}</td>
-                                    <td width="10%">
+                                    <td width="20%">
                                        <div class="btn-group">
                                           @if($field->required == 1)
-                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'activeMember'])}}" class="btn btn-sm btn-success py-1" title="Click for not mandatory">Mandatory</a>
+                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'customField'])}}" class="btn btn-sm btn-success py-1" title="Click for not mandatory">Mandatory</a>
                                           @else
-                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'activeMember'])}}" class="btn btn-sm btn-danger py-1" title="Click for mandatory">Not mandatory</a>
+                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'customField'])}}" class="btn btn-sm btn-danger py-1" title="Click for mandatory">Not mandatory</a>
                                           @endif
                                        </div>
                                     </td>
                                     <td width="15">
                                        <div class="btn-group">
                                           @if($field->status == 1)
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
+                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'customField'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
                                           @else
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'activeMember'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
+                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'customField'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
                                           @endif
                                        </div>
                                     </td>
                                     <td width="15">
                                        <div class="btn-group">
-                                          <a href="{{ url('deleteCustomField', [$field->id, 'custom_fields', 'tapName'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                          <a href="{{ url('deleteCustomField', [$field->id, 'custom_fields', 'customField'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>
@@ -91,7 +204,7 @@
                               <div class="card-header p-1">
                                  <ul class="nav nav-pills">
                                     <li class="nav-item">
-                                       <a class="nav-link active btn-sm py-1 m-1" data-toggle="pill" href="#field">Field</a>
+                                       <a class="nav-link active btn-sm py-1 m-1" data-toggle="pill" href="#field">Text</a>
                                     </li>
                                     <li class="nav-item">
                                        <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#date">Date</a>
@@ -110,7 +223,7 @@
                                           @csrf
                                           <div class="form-group">
                                              <label for="field">Name*</label>
-                                             <input type="text" name="field" class="form-control" id="field" placeholder="Field name" required/>
+                                             <input type="text" name="field" class="form-control" id="field" placeholder="Text name" required/>
                                           </div>                                  
 
                                           <div class="modal-footer">
@@ -255,79 +368,7 @@
                         </div>
                      </div>                  
                   </div>
-               </div>
-
-               <div class="tab-pane fade show" id="recipientType">
-                  <div class="card border border-danger">
-                     <div class="card-header p-1">
-                        <ul class="nav nav-pills" id="tabMenu">
-                           <li class="nav-item">
-                              <button class="btn btn-sm btn-success text-light" data-toggle="modal" data-original-title="test" data-target="#addRecipientType">Add recipient type</button>
-                           </li>
-                        </ul>
-                     </div>
-                     <div class="card-body p-1">
-                        <table class="table table-bordered">
-                           <thead class="bg-info">
-                              <th>Sl</th>
-                              <th>Name</th>
-                              <th>Status</th>
-                              <th>Action</th>
-                           </thead>
-                           <tbody>
-                              @foreach($recipientTypes as $recipient)
-                                 <tr>
-                                    <td width="30">{{$loop->iteration}}</td>
-                                    <td>{!!$recipient->name!!}</td>
-                                    <td width="15">
-                                       <div class="btn-group">
-                                          @if($recipient->status == 1)
-                                             <a href="{{ url('itemStatus', [$recipient->id, 'recipient_types', 'recipientType'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                          @else
-                                             <a href="{{ url('itemStatus', [$recipient->id, 'recipient_types', 'recipientType'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                          @endif
-                                       </div>
-                                    </td>
-                                    <td width="15">
-                                       <div class="btn-group">
-                                          <a href="{{ url('itemDelete', [$recipient->id, 'recipient_types', 'recipientType'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
-                                       </div>
-                                    </td>
-                                 </tr>
-                              @endforeach
-                           </tbody>
-                        </table>                    
-                     </div>
-
-                     {{-- Add field --}}
-                     <div class="modal fade" id="addRecipientType" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                           <div class="modal-content">
-                              <div class="modal-header">
-                                 <h6 class="modal-title text-center" id="exampleModalLabel">Add recipient type</h6>
-                                 <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                              </div>
-                              <div class="modal-body">
-                                 <form action="{{ route('addRecipientType') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
-                                    @csrf
-                                    <div class="form-group">
-                                       <label for="name">Name*</label>
-                                       <input type="text" name="name" class="form-control" id="name" placeholder="Student, teacher, sub-admin, staf..." required/>
-                                    </div>                                  
-
-                                    <div class="modal-footer">
-                                       <div class="btn-group">
-                                          <button class="btn btn-sm btn-primary">Save</button>
-                                          <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Close</button>
-                                       </div>
-                                    </div>
-                                 </form>
-                              </div>
-                           </div>
-                        </div>
-                     </div>                  
-                  </div>
-               </div>
+               </div>             
 
                <div class="tab-pane fade show" id="headParent">
                   <div class="card border border-danger">

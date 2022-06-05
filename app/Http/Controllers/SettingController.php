@@ -13,18 +13,39 @@ use Carbon\Carbon;
 use App\Models\MemberCategory;
 use App\Models\CustomField;
 use App\Models\HeadParent;
-use App\Models\RecipientType;
 use App\Models\UserType;
 
 class SettingController extends Controller{
 
    // All settings
    public function settings(){
+      $data['categories'] = MemberCategory::all();
       $data['customFields'] = CustomField::where('type', '!=', null)->get();
       $data['userTypes'] = UserType::all();
-      $data['recipientTypes'] = RecipientType::all();
       $data['headParents'] = HeadParent::all();
       return view('admin.settings', $data);
+   }
+  
+   // Add member category
+   public function addCategory(Request $request){
+      $validator = Validator::make($request->all(),[
+         'name'=>'required',
+         'paymentType'=>'required',
+         'fee'=>'required'
+      ]);
+
+      if($validator->fails()){
+         $messages = $validator->messages();
+         return Redirect::back()->withErrors($validator);
+      }
+
+      MemberCategory::insert([
+         'name' => $request->name,
+         'paymentType' => $request->paymentType,
+         'fee' => $request->fee,
+         'percentage' => $request->percentage
+      ]);
+      return back()->with('success','New category add successfully');
    }
 
    // Add Custom Field 
@@ -54,7 +75,7 @@ class SettingController extends Controller{
    
       $table  = 'members';
       $column = $data[$name];
-      $tab = 'addCustomField';
+      $tab = 'customField';
 
       if($name=='field' || $name=='dropdown'){
          $addColumn = DB::select("ALTER TABLE $table ADD $column VARCHAR(255) after status");

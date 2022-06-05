@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 02, 2022 at 12:57 PM
+-- Generation Time: Jun 05, 2022 at 01:05 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -68,14 +68,6 @@ CREATE TABLE `custom_fields` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `custom_fields`
---
-
-INSERT INTO `custom_fields` (`id`, `type`, `name`, `child`, `required`, `status`, `created_at`, `updated_at`) VALUES
-(8, 'field', 'new_field', NULL, 0, 1, NULL, NULL),
-(9, 'date', 'data_field', NULL, 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -171,7 +163,7 @@ INSERT INTO `head_parents` (`id`, `name`, `status`, `created_at`, `updated_at`) 
 CREATE TABLE `members` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `member_category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `form_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `member_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -182,8 +174,6 @@ CREATE TABLE `members` (
   `dob` date DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
-  `data_field` date DEFAULT NULL,
-  `new_field` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -192,10 +182,11 @@ CREATE TABLE `members` (
 -- Dumping data for table `members`
 --
 
-INSERT INTO `members` (`id`, `member_category`, `form_no`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `data_field`, `new_field`, `created_at`, `updated_at`) VALUES
-(6, 'Full time', 'kjn', 'Member', 'aslamhossainctg@gmail.com', '$2y$10$6QWleZv2wE5mUcJPumFT8.vz5hWMKDYG3yNBOd6Xd3pfOy55Y4Uwm', '4544', 'ujhbjb', 'Other', 'A +ve', '2022-05-25', 'images/default.jpg', 1, NULL, NULL, NULL, NULL),
-(7, 'Full time', 'fghgh', 'Member', 'aslamhosscvbainctg@gmail.com', '$2y$10$0Zq2JNzyjr1JB9jy2PCtUOaTA9vyV0la49JL24Sy4LO5hBpt56e3O', '56546', 'fghfg', 'Other', 'A +ve', '2022-05-04', 'images/default.jpg', 1, NULL, NULL, NULL, NULL),
-(8, 'Full time', 'fdgfdg', 'fgdfg', 'aslamfdgfgcsebd@gmail.com', '$2y$10$MrnLDGLLqXA2Lh2E9FhtR.x7Swp3QZQUZl53S8fQwANBmiq9Rb2JC', '3545', 'sdfdf', 'Male', 'A +ve', '2022-06-01', 'images/default.jpg', 1, NULL, NULL, NULL, NULL);
+INSERT INTO `members` (`id`, `member_category`, `member_no`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `created_at`, `updated_at`) VALUES
+(6, 'Full time', '147852', 'kamal', 'aslamhossainctg@gmail.com', '$2y$10$6QWleZv2wE5mUcJPumFT8.vz5hWMKDYG3yNBOd6Xd3pfOy55Y4Uwm', '4544', 'ujhbjb', 'Other', 'A +ve', '2022-05-25', 'images/default.jpg', 1, NULL, NULL),
+(7, 'Full time', '369852', 'rafiq', 'aslamhosscvbainctg@gmail.com', '$2y$10$0Zq2JNzyjr1JB9jy2PCtUOaTA9vyV0la49JL24Sy4LO5hBpt56e3O', '56546', 'fghfg', 'Other', 'A +ve', '2022-05-04', 'images/default.jpg', 1, NULL, NULL),
+(8, 'Full time', '123654', 'karim', 'aslamfdgfgcsebd@gmail.com', '$2y$10$MrnLDGLLqXA2Lh2E9FhtR.x7Swp3QZQUZl53S8fQwANBmiq9Rb2JC', '3545', 'sdfdf', 'Male', 'A +ve', '2022-06-01', 'images/default.jpg', 1, NULL, NULL),
+(9, 'Full time', '789654', 'rahim', 'trytr@email.com', '$2y$10$cKfnrxcwooNKeGpl549Dy.rrm/S21Uf0Y9Ljp6Q8mrdezQVyIJp4m', '45656', 'fdgfdg', 'Female', 'B -ve', '1999-06-14', 'images/member/1654430552.png', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -254,7 +245,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (28, '2022_04_22_080652_create_custom_fields_table', 13),
 (30, '2022_05_30_063722_member_edit', 14),
 (31, '2022_06_02_072614_notice_table_edit', 15),
-(32, '2022_06_02_091054_custom_field_edit', 16);
+(32, '2022_06_02_091054_custom_field_edit', 16),
+(33, '2022_06_05_114000_recipient_type_edit', 17),
+(34, '2022_06_05_115758_member_edit2', 18);
 
 -- --------------------------------------------------------
 
@@ -283,29 +276,6 @@ CREATE TABLE `password_resets` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `recipient_types`
---
-
-CREATE TABLE `recipient_types` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `recipient_types`
---
-
-INSERT INTO `recipient_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Staf', 1, NULL, NULL),
-(2, 'Admin', 1, NULL, NULL),
-(3, 'Sub-admin', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -371,8 +341,8 @@ CREATE TABLE `user_types` (
 
 INSERT INTO `user_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'Student', 1, NULL, NULL),
-(2, 'Teacher', 0, NULL, NULL),
-(3, 'Sub-admin', 0, NULL, NULL);
+(2, 'Teacher', 1, NULL, NULL),
+(3, 'Sub-admin', 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -445,12 +415,6 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indexes for table `recipient_types`
---
-ALTER TABLE `recipient_types`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `refresh_status`
 --
 ALTER TABLE `refresh_status`
@@ -483,7 +447,7 @@ ALTER TABLE `all_users`
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -513,7 +477,7 @@ ALTER TABLE `head_parents`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `member_categories`
@@ -525,19 +489,13 @@ ALTER TABLE `member_categories`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `recipient_types`
---
-ALTER TABLE `recipient_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `refresh_status`

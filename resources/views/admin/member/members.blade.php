@@ -28,8 +28,9 @@
                      <table class="table table-bordered">
                         <thead class="bg-info">
                            <th>Sl</th>
+                           <th>Member no</th>
                            <th>Name</th>
-                           <th>Email</th>
+                           <th>Member category</th>
                            <th>Mobile</th>
                            <th>DOB</th>
                            <th>Action</th>
@@ -38,8 +39,9 @@
                            @foreach($activeMembers as $member)
                               <tr>
                                  <td width="30">{{$loop->iteration}}</td>
+                                 <td>{!!$member->member_no!!}</td>
                                  <td>{!!$member->name!!}</td>
-                                 <td>{!!$member->email!!}</td>
+                                 <td>{!!$member->member_category!!}</td>
                                  <td>{!!$member->mobile!!}</td>
                                  <td>{!! date('d-M-Y', strtotime($member->dob)) !!} <br>
                                     [{{\Carbon\Carbon::parse($member->dob)->diff(\Carbon\Carbon::now())->format(' %y years ')}}]
@@ -66,7 +68,7 @@
                         <thead class="bg-info">
                            <th>Sl</th>
                            <th>Name</th>
-                           <th>Email</th>
+                           <th>Member category</th>
                            <th>Mobile</th>
                            <th>DOB</th>
                            <th>Action</th>
@@ -76,7 +78,7 @@
                               <tr>
                                  <td width="30">{{$loop->iteration}}</td>
                                  <td>{!!$member->name!!}</td>
-                                 <td>{!!$member->email!!}</td>
+                                 <td>{!!$member->member_category!!}</td>
                                  <td>{!!$member->mobile!!}</td>
                                  <td>{!! date('d-M-Y', strtotime($member->dob)) !!} <br>
                                     [{{\Carbon\Carbon::parse($member->dob)->diff(\Carbon\Carbon::now())->format(' %y years ')}}]

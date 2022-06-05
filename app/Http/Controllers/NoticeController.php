@@ -9,7 +9,6 @@ use Redirect;
 use DB;
 use Carbon\Carbon;
 
-use App\Models\RecipientType;
 use App\Models\Notice;
 
 class NoticeController extends Controller{

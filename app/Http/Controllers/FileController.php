@@ -8,15 +8,16 @@ use Redirect;
 use DB;
 use URL;
 use Carbon\Carbon;
-
-use App\Models\RecipientType;
+use App\Models\UserType;
+use App\Models\MemberCategory;
 use App\Models\File;
 
 class FileController extends Controller{
 
    // File
    public function new(){
-      $data['recipientTypes'] = RecipientType::where('status', 1)->get();
+      $data['userTypes'] = UserType::where('status', 1)->get();
+      $data['memberTypes'] = MemberCategory::where('status', 1)->get();
       return view('admin.file.add', $data);      
    }
 

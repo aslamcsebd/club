@@ -38,7 +38,7 @@ class MemberController extends Controller{
          'gender'=>'required',
          'dob'=>'required',
          'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
+         'member_no'=>'required|unique:members'
       ]);
 
       if($validator->fails()){
@@ -61,7 +61,7 @@ class MemberController extends Controller{
 
       $insertId = DB::table('members')->insertGetId([
          'member_category' => $request->member_category,
-         'form_no' => $request->form_no,
+         'member_no' => $request->member_no,
          'name' => $request->name,
          'email' => $request->email,
          'password' => Hash::make($request->password),
@@ -86,8 +86,8 @@ class MemberController extends Controller{
 
    // Show all member
    public function all(){
-      $data['activeMembers'] = DB::table('members')->where('status', 1)->get();
-      $data['inactiveMembers'] = DB::table('members')->where('status', 0)->get();
+      $data['activeMembers'] = DB::table('members')->where('status', 1)->orderBy('id', 'DESC')->get();
+      $data['inactiveMembers'] = DB::table('members')->where('status', 0)->orderBy('id', 'DESC')->get();
       return view('admin.member.members', $data);
    }
 
@@ -102,34 +102,6 @@ class MemberController extends Controller{
       return view('admin.user.view', $data);
    }
 
-   // Member category
-   public function category(){
-      $data['categories'] = MemberCategory::all();
-      return view('admin.member.category', $data);
-   }
-
-   // Add member category
-   public function addCategory(Request $request){
-      $validator = Validator::make($request->all(),[
-         'name'=>'required',
-         'paymentType'=>'required',
-         'fee'=>'required'
-      ]);
-
-      if($validator->fails()){
-         $messages = $validator->messages();
-         return Redirect::back()->withErrors($validator);
-      }
-
-      MemberCategory::insert([
-         'name' => $request->name,
-         'paymentType' => $request->paymentType,
-         'fee' => $request->fee,
-         'percentage' => $request->percentage
-      ]);
-      return back()->with('success','New category add successfully');
-   }
-   
    // Status [Active vs Inactive]
    public function itemStatus($id, $model, $tab){
       //Much code because save() function not working...

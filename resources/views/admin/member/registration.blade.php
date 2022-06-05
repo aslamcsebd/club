@@ -117,8 +117,8 @@
                         </select>
                      </div>
                      <div class="form-group col">
-                        <label for="form_no">Form No*</label>
-                        <input type="text" class="form-control" name="form_no" placeholder="Form No" />
+                        <label for="form_no">Member Number*</label>
+                        <input type="text" class="form-control" name="member_no" placeholder="Member no" />
                      </div>
                   </div>
 

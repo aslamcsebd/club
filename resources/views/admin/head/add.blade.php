@@ -24,6 +24,7 @@ Add head
                         <option value="">Select head type</option>
                         <option value="Expense">Expense</option>
                         <option value="Income">Income</option>
+                        <option value="Expense & income">Expense & income</option>
                      </select>
                   </div>
 
