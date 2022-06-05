@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 05, 2022 at 01:05 PM
+-- Generation Time: Jun 05, 2022 at 05:58 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -60,6 +60,7 @@ INSERT INTO `all_users` (`id`, `user_type`, `name`, `email`, `mobile`, `password
 
 CREATE TABLE `custom_fields` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `child` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -134,6 +135,7 @@ INSERT INTO `head_infos` (`id`, `name`, `head_type`, `material`, `parent_head`, 
 
 CREATE TABLE `head_parents` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -144,15 +146,15 @@ CREATE TABLE `head_parents` (
 -- Dumping data for table `head_parents`
 --
 
-INSERT INTO `head_parents` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Office Rent', 1, '2022-04-25 04:20:20', '2022-04-25 04:20:20'),
-(2, 'Guide Book', 1, '2022-04-25 04:20:31', '2022-04-25 04:20:31'),
-(3, 'Bag', 1, '2022-04-25 04:20:39', '2022-04-25 04:20:39'),
-(4, 'Admission Fee', 1, '2022-04-25 04:20:48', '2022-04-25 04:20:48'),
-(5, 'Monthly Fee', 1, '2022-04-25 04:20:58', '2022-04-25 04:20:58'),
-(6, 'Teacher Fee', 1, '2022-04-25 04:21:07', '2022-04-25 04:21:07'),
-(7, 'Staff Fee', 1, '2022-04-25 04:21:17', '2022-04-25 04:21:17'),
-(8, 'Discount', 1, '2022-04-25 04:21:25', '2022-04-25 04:21:25');
+INSERT INTO `head_parents` (`id`, `created_by`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Aslam', 'Office Rent', 1, '2022-04-25 04:20:20', '2022-04-25 04:20:20'),
+(2, 'Aslam', 'Guide Book', 1, '2022-04-25 04:20:31', '2022-04-25 04:20:31'),
+(3, 'Aslam', 'Bag', 1, '2022-04-25 04:20:39', '2022-04-25 04:20:39'),
+(4, 'Aslam', 'Admission Fee', 1, '2022-04-25 04:20:48', '2022-04-25 04:20:48'),
+(5, 'Aslam', 'Monthly Fee', 1, '2022-04-25 04:20:58', '2022-04-25 04:20:58'),
+(6, 'Aslam', 'Teacher Fee', 1, '2022-04-25 04:21:07', '2022-04-25 04:21:07'),
+(7, 'Aslam', 'Staff Fee', 1, '2022-04-25 04:21:17', '2022-04-25 04:21:17'),
+(8, 'Aslam', 'Discount', 1, '2022-04-25 04:21:25', '2022-04-25 04:21:25');
 
 -- --------------------------------------------------------
 
@@ -196,6 +198,7 @@ INSERT INTO `members` (`id`, `member_category`, `member_no`, `name`, `email`, `p
 
 CREATE TABLE `member_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `paymentType` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `fee` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -209,9 +212,10 @@ CREATE TABLE `member_categories` (
 -- Dumping data for table `member_categories`
 --
 
-INSERT INTO `member_categories` (`id`, `name`, `paymentType`, `fee`, `percentage`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Full time', 'Monthly', '100', NULL, 1, NULL, NULL),
-(2, 'Fifetime', 'One Time', '200', '10', 1, NULL, NULL);
+INSERT INTO `member_categories` (`id`, `created_by`, `name`, `paymentType`, `fee`, `percentage`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Aslam', 'Full time', 'Monthly', '100', NULL, 1, NULL, NULL),
+(2, 'Aslam', 'Fifetime', 'One Time', '200', '10', 1, NULL, NULL),
+(3, 'Aslam', 'tryty', 'One Time', '454', NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -247,7 +251,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (31, '2022_06_02_072614_notice_table_edit', 15),
 (32, '2022_06_02_091054_custom_field_edit', 16),
 (33, '2022_06_05_114000_recipient_type_edit', 17),
-(34, '2022_06_05_115758_member_edit2', 18);
+(34, '2022_06_05_115758_member_edit2', 18),
+(35, '2022_06_05_163931_setting_edit', 19);
 
 -- --------------------------------------------------------
 
@@ -329,6 +334,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 
 CREATE TABLE `user_types` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -339,10 +345,10 @@ CREATE TABLE `user_types` (
 -- Dumping data for table `user_types`
 --
 
-INSERT INTO `user_types` (`id`, `name`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'Student', 1, NULL, NULL),
-(2, 'Teacher', 1, NULL, NULL),
-(3, 'Sub-admin', 1, NULL, NULL);
+INSERT INTO `user_types` (`id`, `created_by`, `name`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Aslam', 'Student', 1, NULL, NULL),
+(2, 'Aslam', 'Teacher', 1, NULL, NULL),
+(3, 'Aslam', 'Sub-admin', 1, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -447,7 +453,7 @@ ALTER TABLE `all_users`
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -471,7 +477,7 @@ ALTER TABLE `head_infos`
 -- AUTO_INCREMENT for table `head_parents`
 --
 ALTER TABLE `head_parents`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `members`
@@ -483,13 +489,13 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `member_categories`
 --
 ALTER TABLE `member_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `notices`
@@ -513,7 +519,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_types`
 --
 ALTER TABLE `user_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

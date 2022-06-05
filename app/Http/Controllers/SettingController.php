@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Validator;
 use Redirect;
 use DB;
+use Auth;
 use Carbon\Carbon;
 
 use App\Models\MemberCategory;
@@ -39,7 +40,8 @@ class SettingController extends Controller{
          return Redirect::back()->withErrors($validator);
       }
 
-      MemberCategory::insert([
+      MemberCategory::insert([         
+         'created_by' => Auth::user()->name,
          'name' => $request->name,
          'paymentType' => $request->paymentType,
          'fee' => $request->fee,
@@ -51,8 +53,8 @@ class SettingController extends Controller{
    // Add Custom Field 
    public function addCustomField(Request $request){
       
-      if($request->has('field')){
-         $name = 'field';
+      if($request->has('text')){
+         $name = 'text';
       }
       if($request->has('date')){
          $name = 'date';
@@ -86,18 +88,21 @@ class SettingController extends Controller{
       if($addColumn > 0){
          if ($name=='dropdown'){
             CustomField::insert([
+               'created_by' => Auth::user()->name,
                'type' => $name,
                'name' => $column
             ]);
             $dropdownValue = $request->input('dropdownValue');
             foreach ($dropdownValue as $value){
                CustomField::insert([
+                  'created_by' => Auth::user()->name,
                   'name' => $column,
                   'child' => $value          
                ]);
             }
          }else{
             CustomField::insert([
+               'created_by' => Auth::user()->name,
                'type' => $name,
                'name' => $column
             ]);
@@ -139,25 +144,11 @@ class SettingController extends Controller{
       }
 
       $tab = 'userType';
-      UserType::insert(['name' => $request->name]);
-      return back()->with('success', 'User type add successfully')->withInput(['tab' => $tab]);      
-   }
-
-   // Add recipient type 
-   public function addRecipientType(Request $request){
-      
-      $validator = Validator::make($request->all(), [
-         'name'=>'required|unique:recipient_types'
+      UserType::insert([
+         'created_by' => Auth::user()->name,
+         'name' => $request->name
       ]);
-
-      if($validator->fails()){
-         $messages = $validator->messages();
-         return Redirect::back()->withErrors($validator);
-      }
-
-      $tab = 'recipientType';
-      RecipientType::insert(['name' => $request->name]);
-      return back()->with('success', 'Recipient type add successfully')->withInput(['tab' => $tab]);      
+      return back()->with('success', 'User type add successfully')->withInput(['tab' => $tab]);      
    }
 
    // Add head parents 
@@ -173,7 +164,10 @@ class SettingController extends Controller{
       }
 
       $tab = 'headParent';
-      HeadParent::create(['name' => $request->name]);
+      HeadParent::create([
+         'created_by' => Auth::user()->name,
+         'name' => $request->name
+      ]);
       return back()->with('success', 'Head parent add successfully')->withInput(['tab' => $tab]);      
    }
    

@@ -41,6 +41,7 @@
                               <th>PaymentType</th>
                               <th>Fee</th>
                               <th>Percentage(%)</th>
+                              <th>Created by</th>
                               <th>Status</th>
                               <th>Action</th>
                            </thead>
@@ -52,6 +53,9 @@
                                     <td>{!!$category->paymentType!!}</td>
                                     <td>{!!$category->fee!!}</td>
                                     <td>{!!$category->percentage!!}</td>
+                                    <td>
+                                       <span class="bg-primary userType">{!!$category->created_by!!}</span>
+                                    </td>
                                     <td width="15">
                                        <div class="btn-group">                                
                                           @if($category->status == 1)
@@ -156,6 +160,7 @@
                               <th>Sl</th>
                               <th>Name</th>
                               <th>Required</th>
+                              <th>Created by</th>
                               <th>Status</th>
                               <th>Action</th>
                            </thead>
@@ -172,6 +177,9 @@
                                              <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'customField'])}}" class="btn btn-sm btn-danger py-1" title="Click for mandatory">Not mandatory</a>
                                           @endif
                                        </div>
+                                    </td>
+                                    <td>
+                                       <span class="bg-primary userType">{!!$field->created_by!!}</span>
                                     </td>
                                     <td width="15">
                                        <div class="btn-group">
@@ -223,7 +231,7 @@
                                           @csrf
                                           <div class="form-group">
                                              <label for="field">Name*</label>
-                                             <input type="text" name="field" class="form-control" id="field" placeholder="Text name" required/>
+                                             <input type="text" name="text" class="form-control" id="text" placeholder="Text name" required/>
                                           </div>                                  
 
                                           <div class="modal-footer">
@@ -312,6 +320,7 @@
                            <thead class="bg-info">
                               <th>Sl</th>
                               <th>Name</th>
+                              <th>Created by</th>
                               <th>Status</th>
                               <th>Action</th>
                            </thead>
@@ -320,6 +329,9 @@
                                  <tr>
                                     <td width="30">{{$loop->iteration}}</td>
                                     <td>{!!$user->name!!}</td>
+                                    <td>
+                                       <span class="bg-primary userType">{!!$user->created_by!!}</span>
+                                    </td>
                                     <td width="15">
                                        <div class="btn-group">
                                           @if($user->status == 1)
@@ -384,6 +396,7 @@
                            <thead class="bg-info">
                               <th>Sl</th>
                               <th>Name</th>
+                              <th>Created by</th>
                               <th>Status</th>
                               <th>Action</th>
                            </thead>
@@ -392,6 +405,9 @@
                                  <tr>
                                     <td width="30">{{$loop->iteration}}</td>
                                     <td>{!!$headParent->name!!}</td>
+                                    <td>
+                                       <span class="bg-primary userType">{!!$headParent->created_by!!}</span>
+                                    </td>
                                     <td width="10">
                                        <div class="btn-group">
                                           @if($headParent->status == 1)
