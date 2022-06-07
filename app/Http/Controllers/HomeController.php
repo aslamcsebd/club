@@ -24,20 +24,4 @@ class HomeController extends Controller{
       $data['headInfos'] = HeadInfo::all();      
       return view('home', $data);
    }
-
-   public function refreshStatus($value){
-      $dbInfo = DB::table('refresh_status')->first();
-      if ($value=='status'){
-         $refreshStatus = $dbInfo->status;
-         ($refreshStatus==1) ? $changeValue=false : $changeValue=true;         
-         $field = 'status';
-
-      }elseif($value=='decrease' || $value=='increase'){
-         $time = $dbInfo->time;         
-         ($value=='decrease') ? $changeValue=$time-1 : $changeValue=$time+1;        
-         $field = 'time';
-      }      
-      DB::table('refresh_status')->update([$field => $changeValue]);
-      return back();
-   }
 }

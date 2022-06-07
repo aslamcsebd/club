@@ -16,15 +16,7 @@
                         <label>Title</label>
                      </td>
                      <td>{{$single->title}}</td>
-                  </tr>
-                  <tr>
-                     <td width="20%">
-                        <label>To</label>
-                     </td>
-                     <td>
-                        <span class="bg-primary userType">{{$single->user_type}}</span>
-                     </td>
-                  </tr>
+                  </tr>                 
                   <tr>
                      <td width="20%">
                         <label>Description</label>
@@ -33,7 +25,7 @@
                   </tr>
                   <tr>
                      <td width="20%">
-                        <label>Address</label>
+                        <label>Created at</label>
                      </td>
                      <td>{{date('d-M-Y', strtotime($single->created_at))}}</td>
                   </tr>
@@ -41,8 +33,26 @@
                      <td width="20%">
                         <label>Created By</label>
                      </td>
-                     <td>Root</td>
+                     <td>
+                        <span class="bg-primary userType">{{$single->created_by}}</span>
+                     </td>
                   </tr>                  
+                  <tr>
+                     <td width="20%">
+                        <label>To[User]</label>
+                     </td>
+                     <td>
+                        <span class="bg-primary userType">{{$single->user_type}}</span>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="20%">
+                        <label>To[Member]</label>
+                     </td>
+                     <td>
+                        <span class="bg-primary userType">{{$single->member_type}}</span>
+                     </td>
+                  </tr>
                </table>             
             </div>
 

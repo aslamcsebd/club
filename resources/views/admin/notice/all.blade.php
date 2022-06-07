@@ -16,9 +16,10 @@
                   <thead class="bg-info">
                      <th>Sl</th>
                      <th>Title</th>
-                     <th>To</th>
-                     <th>Created By</th>
-                     <th>Date</th>
+                     <th>To[User]</th>
+                     <th>To[Member]</th>
+                     <th>Create by</th>
+                     <th>Created at</th>
                      <th>Action</th>
                   </thead>
                   <tbody>                   
@@ -29,7 +30,12 @@
                            <td>
                               <span class="bg-primary userType">{!!$notice->user_type!!}</span>
                            </td>
-                           <td>Root</td>
+                           <td>
+                              <span class="bg-primary userType">{!!$notice->member_type!!}</span>
+                           </td>
+                           <td>
+                              <span class="bg-primary userType">{!!$notice->created_by!!}</span>
+                           </td>
                            <td>{{date('d-M-Y', strtotime($notice->created_at))}}</td>
                            <td width="15">
                               <div class="btn-group">

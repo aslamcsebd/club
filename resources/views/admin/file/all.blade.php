@@ -16,8 +16,10 @@
                   <thead class="bg-info">
                      <th>Sl</th>
                      <th>Title</th>
-                     <th>To</th>
-                     <th>Created By</th>
+                     <th>To[User]</th>
+                     <th>To[Member]</th>
+                     <th>Create by</th>
+                     <th>Created at</th>
                      <th>Action</th>
                   </thead>
                   <tbody>                   
@@ -26,7 +28,13 @@
                            <td width="30">{{$loop->iteration}}</td>
                            <td>{!!$file->name!!}</td>
                            <td>
-                              <span class="bg-primary userType">{!!$file->recipient_type!!}</span>
+                              <span class="bg-primary userType">{!!$file->user_type!!}</span>
+                           </td>
+                           <td>
+                              <span class="bg-primary userType">{!!$file->member_type!!}</span>
+                           </td>
+                           <td>
+                              <span class="bg-primary userType">{!!$file->created_by!!}</span>
                            </td>
                            <td>{{date('d-M-Y', strtotime($file->created_at))}}</td>
                            <td width="15">

@@ -14,7 +14,10 @@ class MemberEdit extends Migration
     public function up()
     {
       Schema::table('members', function (Blueprint $table) {
-          $table->renameColumn('user_type', 'member_category');
+         $table->renameColumn('user_type', 'member_category');
+         $table->renameColumn('form_no', 'member_no');
+
+         $table->string('member_add_from')->after('photo')->comment('By_admin, Online');
       });
     }
 

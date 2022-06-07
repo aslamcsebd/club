@@ -17,7 +17,7 @@
                      <label for="title">Title*</label>
                      <input type="text" class="form-control" name="title" id="title"  value="{{$single->title}}" placeholder="e.g. Summer Vacation" required>
                   </div>
-                  <div class="form-group">
+                  {{-- <div class="form-group">
                      <label for="address">Recipient Type*</label>
                      <select class="form-control" name="recipient_type" required>
                         <option value="">Select recipient type</option>
@@ -26,7 +26,29 @@
                         @endforeach
                         <option value="All" {{ $single->recipient_type ==  'All'? 'selected' : '' }}>All recipient</option>
                      </select>
-                  </div>  
+                  </div> --}}
+
+                  <div class="form-group">
+                     <label for="address">Recipient Type[User]*</label>
+                     <select class="form-control" name="user_type" required>
+                        <option value="">Select user type</option>
+                        @foreach($userTypes as $user)
+                           <option value="{{$user->name}}" {{ $single->user_type == $user->name ? 'selected' : '' }}>{{$user->name}}</option>
+                        @endforeach
+                        <option value="All" {{ $single->user_type ==  'All'? 'selected' : '' }}>All user</option>
+                     </select>
+                  </div>                  
+                  <div class="form-group">
+                     <label for="address">Recipient Type[Member]*</label>
+                     <select class="form-control" name="member_type" required>
+                        <option value="">Select member type</option>
+                        @foreach($memberTypes as $member)
+                           <option value="{{$member->name}}" {{ $single->member_type == $member->name ? 'selected' : '' }}>{{$member->name}}</option>
+                        @endforeach
+                        <option value="All" {{ $single->member_type ==  'All'? 'selected' : '' }}>All member</option>
+                     </select>
+                  </div>
+
                   <div class="form-group">
                      <label for="address">Description*</label>
                      <textarea type="description" class="form-control" name="description" rows="8" id="description" placeholder="Enter description" required>{{$single->description}}</textarea>

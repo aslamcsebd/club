@@ -2,17 +2,15 @@
 
 use Illuminate\Support\Facades\Route;
 
-// Page refresh status
-   Route::get('/refreshStatus/{value}', 'HomeController@refreshStatus')->name('refreshStatus');
-
 Auth::routes();
 Route::middleware(['auth'])->group(function(){
-   Route::get('/', 'HomeController@index');
+   Route::get('/', 'HomeController@index')->name('home');
 
    // Registration member
       Route::get('/registation/new', 'MemberController@new')->name('member.new');
       Route::post('/add-new-member', 'MemberController@addMember')->name('addMember');
       Route::get('/member/all', 'MemberController@all')->name('member.all');  
+      Route::get('/member/online', 'MemberController@online')->name('member.online');  
 
    // Notice
       Route::get('/notice/new', 'NoticeController@new')->name('notice.new');
@@ -62,9 +60,12 @@ Route::middleware(['auth'])->group(function(){
       Route::get('itemStatus/{id}/{model}/{tab}','MemberController@itemStatus')->name('itemStatus');
       Route::get('itemStatus2/{model}/{field}/{id}/{tab}','MemberController@itemStatus2')->name('itemStatus2');
       Route::get('view/{id}/{model}/{tab}','MemberController@view')->name('view');
-      Route::get('itemDelete/{id}/{model}/{tab}','MemberController@itemDelete')->name('itemDelete');
-  
+      Route::get('itemDelete/{id}/{model}/{tab}','MemberController@itemDelete')->name('itemDelete');  
 });
+
+// Registration Applications
+Route::get('/member-register', 'MemberController@member_form')->name('member_form');
+Route::post('/add-new-member', 'MemberController@addMember')->name('addMember');
 
 Route::get('/clear', function() {
    Artisan::call('cache:clear');

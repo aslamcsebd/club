@@ -25,9 +25,15 @@ class MemberController extends Controller{
       return view('admin.member.registration', $data);      
    }
 
+   // Registration Applications from online
+   public function member_form(Request $request){
+      $data['customFields'] = CustomField::where('type', '!=', null)->where('status', 1)->get();
+      $data['memberCategory'] = MemberCategory::where('status', 1)->get();
+      return view('admin.member.online-registration', $data);  
+   }
+
    // Add new member
    public function addMember(Request $request){
-
       $validator = Validator::make($request->all(),[
          'name'=>'required',
          'email'=>'required|unique:members',
@@ -59,6 +65,12 @@ class MemberController extends Controller{
          $photoLink = imagePath($default);
       }
 
+      if($request->has('member_add_from')){
+         $member_add_from = $request->member_add_from;   //Online
+      }else{         
+         $member_add_from = 'By_admin';
+      }
+
       $insertId = DB::table('members')->insertGetId([
          'member_category' => $request->member_category,
          'member_no' => $request->member_no,
@@ -70,7 +82,8 @@ class MemberController extends Controller{
          'gender' => $request->gender,
          'blood' => $request->blood,
          'dob' => date('Y-m-d', strtotime($request->dob)),
-         'photo' => $photoLink
+         'photo' => $photoLink,
+         'member_add_from' => $member_add_from
       ]);
 
       $customFields = CustomField::where('type', '!=', null)->where('status', 1)->get();
@@ -85,9 +98,16 @@ class MemberController extends Controller{
    }
 
    // Show all member
+   public function online(){
+      $data['activeMembers'] = DB::table('members')->where('status', 1)->where('member_add_from', 'Online')->orderBy('id', 'DESC')->get();
+      $data['inactiveMembers'] = DB::table('members')->where('status', 0)->where('member_add_from', 'Online')->orderBy('id', 'DESC')->get();
+      return view('admin.member.members', $data);
+   }
+   
+   // Show all member
    public function all(){
-      $data['activeMembers'] = DB::table('members')->where('status', 1)->orderBy('id', 'DESC')->get();
-      $data['inactiveMembers'] = DB::table('members')->where('status', 0)->orderBy('id', 'DESC')->get();
+      $data['activeMembers'] = DB::table('members')->where('status', 1)->where('member_add_from', 'By_admin')->orderBy('id', 'DESC')->get();
+      $data['inactiveMembers'] = DB::table('members')->where('status', 0)->where('member_add_from', 'By_admin')->orderBy('id', 'DESC')->get();
       return view('admin.member.members', $data);
    }
 

@@ -15,39 +15,8 @@
          </a>
       </ul>
       {{-- @auth --}}
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto">       
         
-        {{--  <li class="nav-item">
-            <a class="nav-link btn btn-sm btn-secondary text-light" data-toggle="modal" data-original-title="test" data-target="#smallModal">Small Modal</a>
-         </li>
-         <li class="nav-item">
-            <a class="nav-link btn btn-sm btn-secondary text-light" data-toggle="modal" data-original-title="test" data-target="#largeModal">Large Modal</a>
-         </li>
-         <li class="nav-item">
-            <a class="nav-link btn btn-sm btn-secondary text-light" data-toggle="modal" data-original-title="test" data-target="#fixedModal">Fixed Modal</a>
-         </li>  --}}
-
-         <li class="nav-item pl-2" style="margin-top: -6.5px;">
-         
-            <small class="title">Refresh Status</small>         
-            @php 
-               $status = DB::table('refresh_status')->first();
-            @endphp
-            
-            <!-- 1st style -->
-            <a style="line-height: 18px; display: block;" href="{{ url('refreshStatus', 'status') }}"
-               class="btn btn-sm py-0 {{($status->status==true) ? 'btn-success':'btn-danger'}}" title="Click for {{($status->status==true) ? 'Off':'On'}}">{{($status->status==true) ? 'On':'Off'}}
-            </a> 
-
-            <!-- 2nd style -->
-           {{--  <div style="display: flex;" class="btn-group">
-               <a class="p-0 btn btn-sm btn-danger" href="{{ url('refreshStatus', 'decrease') }}" title="Click for {{($status->status==true) ? 'decrease[-]':''}}" {{($status->status==true) ? '':'hidden'}} {{($status->time==0) ? 'hidden':''}} {{$status->time}}>−</a>
-               <a class="p-0 btn btn-sm {{($status->status==true) ? 'btn-secondary':'btn-danger'}}" href="{{ url('refreshStatus', 'status') }}" title="Click for {{($status->status==true) ? 'Off':'On'}}" style="line-height: {{($status->status==true) ? 'normal':'18px'}};">{{($status->status==true) ? 'On ['.$status->time.'”]':'Off'}}</a>
-               <a class="p-0 btn btn-sm btn-success" href="{{ url('refreshStatus', 'increase') }}" title="Click for {{($status->status==true) ? 'increase[+]':''}}" {{($status->status==true) ? '':'hidden'}}>+</a>
-            </div> --}}
-         </li>
-
-
       </ul>
       {{-- @endauth --}}
       <ul class="navbar-nav ml-auto">

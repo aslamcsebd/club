@@ -3,11 +3,7 @@
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="csrf-token" content="{{ csrf_token() }}">
    {{-- <meta http-equiv="refresh" content="2" /> --}}
-   @php 
-      $time = DB::table('refresh_status')->where('status', true)->first();
-   @endphp               
-   <meta http-equiv="refresh" content="{{ ($time==true)? $time->time:''}}">
-
+   
    <title>@yield('title')</title>
    <meta name="viewport" content="width=device-width, initial-scale=1">
    {{--  AdminLTE v3.1.0

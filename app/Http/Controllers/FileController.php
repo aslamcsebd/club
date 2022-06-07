@@ -7,6 +7,7 @@ use Validator;
 use Redirect;
 use DB;
 use URL;
+use Auth;
 use Carbon\Carbon;
 use App\Models\UserType;
 use App\Models\MemberCategory;
@@ -26,7 +27,8 @@ class FileController extends Controller{
 
       $validator = Validator::make($request->all(),[
          'name'=>'required',
-         'recipient_type'=>'required',
+         'user_type'=>'required',
+         'member_type'=>'required',
          'file' => 'required|max:10240|mimes:pdf,doc,docx,txt,odt,xls,xlsx,jpeg,jpg,pngdoc,docx'
       ]);
       //Maximum file size: 10 MB.
@@ -49,9 +51,11 @@ class FileController extends Controller{
       }
 
       File::create([
+         'created_by' => Auth::user()->name,
          'name' => $request->name,
-         'recipient_type' => $request->recipient_type,
-         'file' => $fileLink
+         'file' => $fileLink,
+         'user_type' => $request->user_type,
+         'member_type' => $request->member_type,
       ]);
       return back()->with('success','New file upload successfully');
    }

@@ -1,0 +1,9 @@
+University question & blood bank
+
+University VC
+Department chairman
+Departman manager
+   Create semester
+      Section
+      Create CR
+

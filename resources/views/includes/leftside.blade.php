@@ -26,6 +26,12 @@
                         <p>All member</p>
                      </a>
                   </li>
+                  <li class="nav-item">
+                     <a href="{{ route('member.online') }}" class="nav-link {{ (request()->routeIs('member.online*'))  ? 'active' : '' }}">
+                        {{-- <i class="far fa-address-book nav-icon"></i> --}}
+                        <p>Registration Applications</p>
+                     </a>
+                  </li>
                </ul>
             </li>            
 

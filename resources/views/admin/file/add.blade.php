@@ -19,7 +19,7 @@
 
                   <div class="form-group">
                      <label for="address">Recipient Type[User]*</label>
-                     <select class="form-control" name="recipient_type" required>
+                     <select class="form-control" name="user_type" required>
                         <option value="">Select user type</option>
                         @foreach($userTypes as $user)
                            <option value="{{$user->name}}">{{$user->name}}</option>
@@ -29,7 +29,7 @@
                   </div>                  
                   <div class="form-group">
                      <label for="address">Recipient Type[Member]*</label>
-                     <select class="form-control" name="recipient_type" required>
+                     <select class="form-control" name="member_type" required>
                         <option value="">Select member type</option>
                         @foreach($memberTypes as $member)
                            <option value="{{$member->name}}">{{$member->name}}</option>

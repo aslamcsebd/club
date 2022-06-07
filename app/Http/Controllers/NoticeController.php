@@ -7,15 +7,19 @@ use Illuminate\Http\Request;
 use Validator;
 use Redirect;
 use DB;
+use Auth;
 use Carbon\Carbon;
 
+use App\Models\UserType;
+use App\Models\MemberCategory;
 use App\Models\Notice;
 
 class NoticeController extends Controller{
 
    // Notice
    public function new(){
-      $data['recipient_Types'] = RecipientType::where('status', 1)->get();
+      $data['userTypes'] = UserType::where('status', 1)->get();
+      $data['memberTypes'] = MemberCategory::where('status', 1)->get();
       return view('admin.notice.add', $data);      
    }
 
@@ -24,7 +28,8 @@ class NoticeController extends Controller{
 
       $validator = Validator::make($request->all(),[
          'title'=>'required',
-         'recipient_type'=>'required',
+         'user_type'=>'required',
+         'member_type'=>'required',
          'description'=>'required'
       ]);
 
@@ -34,9 +39,11 @@ class NoticeController extends Controller{
       }
 
       Notice::create([
+         'created_by' => Auth::user()->name,
          'title' => $request->title,
-         'recipient_type' => $request->recipient_type,
-         'description' => $request->description
+         'description' => $request->description,
+         'user_type' => $request->user_type,
+         'member_type' => $request->member_type,
       ]);
       return back()->with('success','New notice add successfully');
    }
@@ -55,8 +62,9 @@ class NoticeController extends Controller{
 
    // Edit single notice
    public function editNotice($id, $model, $tab){
-      $data['single'] =  $itemId = DB::table($model)->find($id);
-      $data['recipient_Types'] = RecipientType::where('status', 1)->get();        
+      $data['single'] =  $itemId = DB::table($model)->find($id); 
+      $data['userTypes'] = UserType::where('status', 1)->get();
+      $data['memberTypes'] = MemberCategory::where('status', 1)->get();   
       return view('admin.notice.edit', $data);
    }
 
@@ -64,7 +72,8 @@ class NoticeController extends Controller{
    public function editNoticeNow(Request $request){
       $validator = Validator::make($request->all(),[
          'title'=>'required',
-         'recipient_type'=>'required',
+         'user_type'=>'required',
+         'member_type'=>'required',
          'description'=>'required'
       ]);
 
@@ -75,11 +84,11 @@ class NoticeController extends Controller{
       
       Notice::where('id', $request->id)->update([
          'title' => $request->title,
-         'recipient_type' => $request->recipient_type,
+         'user_type' => $request->user_type,
+         'member_type' => $request->member_type,
          'description' => $request->description
       ]);
       return back()->with('success','Notice edit successfully');
    }
   
 }
-
