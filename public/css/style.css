@@ -144,8 +144,12 @@ table.dataTable tbody tr { background-color: whitesmoke; }
 .form-group { margin-bottom: 0.5rem; }
 .hide{ display: none; }
 
-.dropdown-menu{ min-width: 4rem; background-color: thistle; }    
+.dropdown-menu{ /*min-width: 4rem;*/ background-color: thistle; }    
 
+.multiselect-container>li>a {
+    padding: 0;
+    margin-left: -20px;
+}
 .card img {
     width: 100px;
     height: 100px;

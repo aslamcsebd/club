@@ -42,7 +42,7 @@
                         <label>To[User]</label>
                      </td>
                      <td>
-                        <span class="bg-primary userType">{{$single->user_type}}</span>
+                        <span class="bg-primary {{ ($single->user_type) ? 'userType' : '' }}">{{$single->user_type}}</span>
                      </td>
                   </tr>
                   <tr>
@@ -50,7 +50,7 @@
                         <label>To[Member]</label>
                      </td>
                      <td>
-                        <span class="bg-primary userType">{{$single->member_type}}</span>
+                        <span class="bg-primary {{ ($single->member_type) ? 'userType' : '' }}">{{$single->member_type}}</span>
                      </td>
                   </tr>
                </table>             

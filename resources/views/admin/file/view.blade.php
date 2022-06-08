@@ -19,30 +19,32 @@
                   </tr>
                   <tr>
                      <td width="20%">
-                        <label>To</label>
-                     </td>
-                     <td>
-                        <span class="bg-primary userType">{{$single->user_type}}</span>
-                     </td>
-                  </tr>
-                  <tr>
-                     <td width="20%">
                         <label>Description</label>
                      </td>
                      <td>{{$single->description}}</td>
                   </tr>
                   <tr>
                      <td width="20%">
-                        <label>Address</label>
+                        <label>Created at</label>
                      </td>
                      <td>{{date('d-M-Y', strtotime($single->created_at))}}</td>
                   </tr>
                   <tr>
                      <td width="20%">
-                        <label>Created By</label>
+                        <label>To[User]</label>
                      </td>
-                     <td>Root</td>
-                  </tr>                  
+                     <td>
+                        <span class="bg-primary {{ ($single->user_type) ? 'userType' : '' }}">{{$single->user_type}}</span>
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="20%">
+                        <label>To[Member]</label>
+                     </td>
+                     <td>
+                        <span class="bg-primary {{ ($single->member_type) ? 'userType' : '' }}">{{$single->member_type}}</span>
+                     </td>
+                  </tr>               
                </table>             
             </div>
 

@@ -28,8 +28,6 @@ class NoticeController extends Controller{
 
       $validator = Validator::make($request->all(),[
          'title'=>'required',
-         'user_type'=>'required',
-         'member_type'=>'required',
          'description'=>'required'
       ]);
 
@@ -38,12 +36,38 @@ class NoticeController extends Controller{
          return Redirect::back()->withErrors($validator);
       }
 
+      $user_type = $request->input('user_type');
+      if ($user_type){
+         $array = [];
+         $serial = 0;
+         foreach ($user_type as $field) {
+            $array[$serial] = $field;
+            $serial = $serial + 1;
+         }      
+         $user_type = implode(', ', $array);         
+      }else{
+         $user_type = '';
+      }
+
+      $member_type = $request->input('member_type');
+      if ($member_type){
+         $array = [];
+         $serial = 0;
+         foreach ($member_type as $field) {
+            $array[$serial] = $field;
+            $serial = $serial + 1;
+         }      
+         $member_type = implode(', ', $array);         
+      }else{
+         $member_type = '';
+      }
+
       Notice::create([
          'created_by' => Auth::user()->name,
          'title' => $request->title,
          'description' => $request->description,
-         'user_type' => $request->user_type,
-         'member_type' => $request->member_type,
+         'user_type' => $user_type,
+         'member_type' => $member_type,
       ]);
       return back()->with('success','New notice add successfully');
    }

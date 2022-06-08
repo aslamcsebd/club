@@ -16,26 +16,25 @@
                      <label for="title">Title*</label>
                      <input type="text" class="form-control" name="title" id="title"  value="{{ old('title') }}" placeholder="e.g. Summer Vacation" required>
                   </div>
+
                   <div class="form-group">
-                     <label for="address">Recipient Type[User]*</label>
-                     <select class="form-control" name="user_type" required>
-                        <option value="">Select user type</option>
+                     <label for="address">Recipient Type[User]*</label> &nbsp;
+                     <select class="multiple-checkboxes" multiple="multiple" name="user_type[]">
                         @foreach($userTypes as $user)
                            <option value="{{$user->name}}">{{$user->name}}</option>
                         @endforeach
-                        <option value="All">All user</option>
                      </select>
-                  </div>                  
+                  </div>
+
                   <div class="form-group">
-                     <label for="address">Recipient Type[Member]*</label>
-                     <select class="form-control" name="member_type" required>
-                        <option value="">Select member type</option>
+                     <label for="address">Recipient Type[Member]*</label> &nbsp;
+                     <select class="multiple-checkboxes" multiple="multiple" name="member_type[]">
                         @foreach($memberTypes as $member)
                            <option value="{{$member->name}}">{{$member->name}}</option>
                         @endforeach
-                        <option value="All">All member</option>
                      </select>
                   </div>
+
                   <div class="form-group">
                      <label for="address">Description*</label>
                      <textarea type="description" class="form-control" name="description" rows="8" id="description" placeholder="Enter description" required></textarea>

@@ -28,10 +28,10 @@
                            <td width="30">{{$loop->iteration}}</td>
                            <td>{!!$file->name!!}</td>
                            <td>
-                              <span class="bg-primary userType">{!!$file->user_type!!}</span>
+                              <span class="bg-primary {{ ($file->user_type) ? 'userType' : '' }}">{!!$file->user_type!!}</span>
                            </td>
                            <td>
-                              <span class="bg-primary userType">{!!$file->member_type!!}</span>
+                              <span class="bg-primary {{ ($file->member_type) ? 'userType' : '' }}">{!!$file->member_type!!}</span>
                            </td>
                            <td>
                               <span class="bg-primary userType">{!!$file->created_by!!}</span>
@@ -39,7 +39,7 @@
                            <td>{{date('d-M-Y', strtotime($file->created_at))}}</td>
                            <td width="15">
                               <div class="btn-group">
-                                 <a href="{{asset('')}}/{{$file->file}}" class="btn btn-sm btn-outline-info py-1">
+                                 <a href="{{asset('')}}/{{$file->file}}" class="btn btn-sm btn-outline-info py-1" download>
                                     <i class="fas fa-cloud-download-alt"></i>
                                  </a>
                                  <a href="{{ url('fileDelete', [$file->id, 'files', 'tapName'])}}" class="btn btn-sm btn-outline-danger py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>

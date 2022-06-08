@@ -27,8 +27,6 @@ class FileController extends Controller{
 
       $validator = Validator::make($request->all(),[
          'name'=>'required',
-         'user_type'=>'required',
-         'member_type'=>'required',
          'file' => 'required|max:10240|mimes:pdf,doc,docx,txt,odt,xls,xlsx,jpeg,jpg,pngdoc,docx'
       ]);
       //Maximum file size: 10 MB.
@@ -50,12 +48,38 @@ class FileController extends Controller{
          $fileLink = '';
       }
 
+      $user_type = $request->input('user_type');
+      if ($user_type){
+         $array = [];
+         $serial = 0;
+         foreach ($user_type as $field) {
+            $array[$serial] = $field;
+            $serial = $serial + 1;
+         }      
+         $user_type = implode(', ', $array);         
+      }else{
+         $user_type = '';
+      }
+
+      $member_type = $request->input('member_type');
+      if ($member_type){
+         $array = [];
+         $serial = 0;
+         foreach ($member_type as $field) {
+            $array[$serial] = $field;
+            $serial = $serial + 1;
+         }      
+         $member_type = implode(', ', $array);         
+      }else{
+         $member_type = '';
+      }
+
       File::create([
          'created_by' => Auth::user()->name,
          'name' => $request->name,
          'file' => $fileLink,
-         'user_type' => $request->user_type,
-         'member_type' => $request->member_type,
+         'user_type' => $user_type,
+         'member_type' => $member_type,
       ]);
       return back()->with('success','New file upload successfully');
    }

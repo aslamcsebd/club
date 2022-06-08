@@ -89,6 +89,14 @@
 
       $("body").on("click",".dropdown-btn",function(e){
           $(this).parents('.dropdownDelete').remove();
-      });   
+      });
       
    </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+   <script type="text/javascript">
+   $(document).ready(function() {
+      $('.multiple-checkboxes').multiselect({
+         includeSelectAllOption: true,
+      });
+   });
+</script>

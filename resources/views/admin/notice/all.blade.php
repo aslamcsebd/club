@@ -28,10 +28,10 @@
                            <td width="30">{{$loop->iteration}}</td>
                            <td>{!!$notice->title!!}</td>
                            <td>
-                              <span class="bg-primary userType">{!!$notice->user_type!!}</span>
+                              <span class="bg-primary {{ ($notice->user_type) ? 'userType' : '' }}">{!!$notice->user_type!!}</span>
                            </td>
                            <td>
-                              <span class="bg-primary userType">{!!$notice->member_type!!}</span>
+                              <span class="bg-primary {{ ($notice->member_type) ? 'userType' : '' }}">{!!$notice->member_type!!}</span>
                            </td>
                            <td>
                               <span class="bg-primary userType">{!!$notice->created_by!!}</span>
@@ -40,7 +40,7 @@
                            <td width="15">
                               <div class="btn-group">
                                  <a href="{{ url('viewSingleNotice', [$notice->id, 'notices', 'tapName'])}}" class="btn btn-sm btn-outline-info py-1">View</a>
-                                 <a href="{{ url('editNotice', [$notice->id, 'notices', 'tapName'])}}" class="btn btn-sm btn-outline-primary py-1">Edit</a>
+                                 {{-- <a href="{{ url('editNotice', [$notice->id, 'notices', 'tapName'])}}" class="btn btn-sm btn-outline-primary py-1">Edit</a> --}}
                                  <a href="{{ url('itemDelete', [$notice->id, 'notices', 'tapName'])}}" class="btn btn-sm btn-outline-danger py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                               </div>
                            </td>

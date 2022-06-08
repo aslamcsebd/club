@@ -15,6 +15,7 @@
    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
    <link rel="stylesheet" href="{{ asset('css/fontawesome.css') }}">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/css/bootstrap-multiselect.css">
    <!-- summernote -->
    {{-- <link href="{{ asset('/') }}summernote/summernote.css" rel="stylesheet"> --}}
    
@@ -25,3 +26,7 @@
    <link rel="stylesheet" href="{{ asset('css/dataTables.min.css') }}">
 
    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
+
+
+  {{-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/1.1.1/js/bootstrap-multiselect.min.js"> --}}
