@@ -19,7 +19,7 @@
                      <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#inactiveMember">Inactive Member {{$inactiveMembers->count() ? '['.$inactiveMembers->count().']': ''}}</a>
                   </li>
                   <li class="nav-item">
-                     <a class="nav-link btn-sm py-1 m-1" href="{{ (request()->routeIs('member.online')) ? url('/member-register') : '#' }}" target="_blank"> 
+                     <a class="nav-link btn-sm py-1 m-1" href="{{ (request()->routeIs('member.online')) ? url('/member-register') : '' }}" target="_blank"> 
                         {{ (request()->routeIs('member.online')) ? 'Registration link: '.url('/member-register') : '' }}
                      </a>
                   </li>
