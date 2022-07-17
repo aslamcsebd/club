@@ -89,14 +89,48 @@
 
       $("body").on("click",".dropdown-btn",function(e){
           $(this).parents('.dropdownDelete').remove();
-      });
-      
+      });      
    </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
    <script type="text/javascript">
-   $(document).ready(function() {
-      $('.multiple-checkboxes').multiselect({
-         includeSelectAllOption: true,
+      $(document).ready(function() {
+         $('.multiple-checkboxes').multiselect({
+            includeSelectAllOption: true,
+         });
       });
-   });
-</script>
+   </script>
+
+   <script>
+      let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+
+      elems.forEach(function(html) {
+          let switchery = new Switchery(html,  { size: 'small' });
+      });
+
+      $(document).ready(function(){
+         $('.js-switch').change(function () {
+            let status = $(this).prop('checked') === true ? 1 : 0;
+            let model = $(this).data('model');
+            let id = $(this).data('id');
+            let tab = $(this).data('tab');
+
+            $.ajax({
+               type: "GET",
+               dataType: "json",
+               url: '{{ route('status') }}',
+               data: {'status': status, 'model': model, 'id': id, 'tab': tab},
+               success: function (data) {
+                  toastr.options.closeButton = true;
+                  toastr.options.closeMethod = 'fadeOut';
+                  toastr.options.closeDuration = 100;
+                  toastr.success(data.message);
+               }
+            });
+         });
+      });
+   </script>

@@ -78,7 +78,11 @@
                               <button class="btn btn-lg bg-purple">😃 Yes, I do</button> 
                               <a href="{{url('/member-register')}}" class="btn btn-lg btn-default ml-2">☹️ Nope, I don't</a>
                            </div>
-                        </div> 
+                        </div>
+                        <div class="text-muted p-4">
+                           Please login before you continue. This will save you from typing your existing information again. You will
+                            find the option to apply on sidebar.
+                        </div>
                         <div class="modal-footer">
                            <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
                         </div>

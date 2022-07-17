@@ -123,12 +123,33 @@ class MemberController extends Controller{
    }
 
    // Status [Active vs Inactive]
-   public function itemStatus($id, $model, $tab){
-      //Much code because save() function not working...
+   // public function itemStatus($id, $model, $tab){
+   //    //Much code because save() function not working...
+   //    $itemId = DB::table($model)->find($id);
+   //    ($itemId->status == true) ? $action=$itemId->status = false : $action=$itemId->status = true;     
+   //    DB::table($model)->where('id', $id)->update(['status' => $action]);
+   //    return back()->with('success', $model.' status change')->withInput(['tab' => $tab]);
+   // }
+
+   public function changeStatus(Request $request){
+
+      $model = $request->model;
+      $id = $request->id;
+      $tab = $request->tab;
+
       $itemId = DB::table($model)->find($id);
       ($itemId->status == true) ? $action=$itemId->status = false : $action=$itemId->status = true;     
       DB::table($model)->where('id', $id)->update(['status' => $action]);
-      return back()->with('success', $model.' status change')->withInput(['tab' => $tab]);
+      
+      return response()->json(['message' => 'Status updated successfully.']);
+
+
+
+      // $itemId = DB::table($model)->find($id);
+      // ($itemId->status == true) ? $action=$itemId->status = false : $action=$itemId->status = true;     
+      // DB::table($model)->where('id', $id)->update(['status' => $action]);
+      // return back()->with('success', $model.' status change')->withInput(['tab' => $tab]);
+
    }
 
    // Status2 [Required vs not required]
@@ -148,5 +169,5 @@ class MemberController extends Controller{
       }
       DB::table($model)->where('id', $id)->delete();
       return back()->with('success', $model.' delete successfully')->withInput(['tab' => $tab]);
-   }    
+   } 
 }

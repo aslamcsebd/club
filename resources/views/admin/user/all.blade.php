@@ -35,7 +35,7 @@
                      <th>Email</th>
                      <th>Mobile</th>
                      <th>DOB</th>
-                     <th>Action</th>
+                     <th>Status</th>
                   </thead>
                   <tbody>
                      @php $si=1;@endphp
@@ -50,16 +50,14 @@
                               <td>{!! date('d-M-Y', strtotime($user->dob)) !!} <br>
                                  [{{\Carbon\Carbon::parse($user->dob)->diff(\Carbon\Carbon::now())->format(' %y years ')}}]
                               </td>
-                              <td width="15">
-                                 <div class="btn-group">
-                                    <a href="{{ url('userView', [$user->id, 'all_users', 'activeUsers'])}}" class="btn btn-sm btn-outline-info py-1">View</a>
-
-                                    @if($user->status == 1)
-                                       <a href="{{ url('itemStatus', [$user->id, 'all_users', 'activeUsers'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                    @else
-                                       <a href="{{ url('itemStatus', [$user->id, 'all_users', 'activeUsers'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                    @endif
-                                 </div>
+                              <td>
+                                 <input type="checkbox" 
+                                    data-model="all_users" 
+                                    data-id="{{ $user->id }}" 
+                                    data-tab="activeUsers" 
+                                    name="status"
+                                    class="js-switch" 
+                                    {{ $user->status == 1 ? 'checked' : '' }}>
                               </td>
                            </tr>
                         @endforeach
