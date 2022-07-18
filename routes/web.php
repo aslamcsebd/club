@@ -56,6 +56,8 @@ Route::middleware(['auth'])->group(function(){
 
       Route::post('/add-head-parent', 'SettingController@addHeadParent')->name('addHeadParent');
 
+      Route::post('/add-general', 'SettingController@addGeneral')->name('addGeneral');
+
    // All status change   
       // Route::get('itemStatus/{id}/{model}/{tab}','MemberController@itemStatus')->name('itemStatus');
       Route::get('/status/update', 'MemberController@changeStatus')->name('status');

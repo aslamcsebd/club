@@ -57,7 +57,8 @@
                                     data-tab="activeUsers" 
                                     name="status"
                                     class="js-switch" 
-                                    {{ $user->status == 1 ? 'checked' : '' }}>
+                                    {{ $user->status == 1 ? 'checked' : '' }}
+                                 />
                               </td>
                            </tr>
                         @endforeach

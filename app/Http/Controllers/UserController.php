@@ -136,5 +136,5 @@ class UserController extends Controller{
       }
       DB::table($model)->where('id', $id)->delete();
       return back()->with('success', $model.' delete successfully')->withInput(['tab' => $tab]);
-   }    
+   }
 }

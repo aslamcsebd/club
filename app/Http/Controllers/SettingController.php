@@ -15,6 +15,7 @@ use App\Models\MemberCategory;
 use App\Models\CustomField;
 use App\Models\HeadParent;
 use App\Models\UserType;
+use App\Models\General;
 
 class SettingController extends Controller{
 
@@ -24,6 +25,8 @@ class SettingController extends Controller{
       $data['customFields'] = CustomField::where('type', '!=', null)->get();
       $data['userTypes'] = UserType::all();
       $data['headParents'] = HeadParent::all();
+      $data['general'] = General::first();
+
       return view('admin.settings', $data);
    }
   
@@ -169,6 +172,41 @@ class SettingController extends Controller{
          'name' => $request->name
       ]);
       return back()->with('success', 'Head parent add successfully')->withInput(['tab' => $tab]);      
+   }
+
+   // Add general 
+   public function addGeneral(Request $request){
+      $tab = 'general';
+      $validator = Validator::make($request->all(),[
+         'company_name'=>'required',
+         'company_address'=>'required',
+         // 'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+      ]);
+
+      if($validator->fails()){
+         $messages = $validator->messages();
+         return Redirect::back()->withErrors($validator);
+      }
+
+      $path="images/general/";
+      $default="default.jpg";
+      if ($request->hasFile('photo')){
+         if($files=$request->file('photo')){
+            $photo = $request->photo;
+            $fullName=time().".".$photo->getClientOriginalExtension();
+            $files->move(public_path($path), $fullName);
+            $photoLink = $path . $fullName;
+         }
+      }else{
+         $photoLink = $path . $default;
+      }
+
+      General::create([
+         'company_name' => $request->company_name,
+         'company_address' => $request->company_address,
+         'company_logo' => $photoLink
+      ]);
+      return back()->with('success','General info save successfully')->withInput(['tab' => $tab]);
    }
    
 }

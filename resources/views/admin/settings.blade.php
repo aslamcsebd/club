@@ -22,6 +22,9 @@
                <li class="nav-item">
                   <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#headParent">Head Parent {{$headParents->count() ? '['.$headParents->count().']' : ''}}</a>
                </li>
+               <li class="nav-item">
+                  <a class="nav-link btn-sm py-1 m-1" data-toggle="pill" href="#general">General</a>
+               </li>
             </ul>
          </div>
 
@@ -455,6 +458,36 @@
                            </div>
                         </div>
                      </div>                  
+                  </div>
+               </div>
+
+               <div class="tab-pane fade show" id="general">
+                  <div class="card border border-danger">
+                     <div class="card-body p-4">
+                        <form action="{{ route('addGeneral') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
+                           @csrf
+                           <div class="form-group">
+                              <label for="company_name" class="control-label">Institution Name:</label>
+                              <input type="text" id="company_name" name="company_name" value="{{ $general->company_name ?? 'Add name' }}" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="form-group">
+                              <label for="company_address" class="control-label">Institution Address:</label>
+                              <input type="text" id="company_address" name="company_address" value="{{ $general->company_address ?? 'Add address' }}" autocomplete="off" class="form-control">
+                           </div>
+                           <div class="form-group">
+                              <img id="preview" src="{{ ($general->company_logo) ?? asset('images/general/default.jpg') }}" alt="Company Logo" class="avatar">
+                              
+                           </div>
+                           <div class="form-group">
+                              <div class="custom-file">
+                                 <input type="file" id="company_logo" name="photo" class="custom-file-input">
+                                 <label for="company_logo" class="custom-file-label">Choose file</label>
+                              </div>
+                           </div>
+                           <hr>
+                           <button type="submit" class="btn btn-primary px-5">Save</button>
+                        </form>
+                     </div>
                   </div>
                </div>
               

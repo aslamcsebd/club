@@ -63,28 +63,29 @@
                </div>
             </form>
             <div class="mt-3 text-center">
-               <button type="button" data-toggle="modal" data-target="#existingOrNewStudentModal" class="btn btn-apply btn-block btn-lg elevation-3 py-3 text-uppercase text-sm font-weight-bold text-white bg-primary">Apply for Admission</button>
+               <button type="button" data-toggle="modal" data-target="#existingOrNewStudentModal" class="btn btn-apply btn-block elevation-3 py-2 text-uppercase text-sm font-weight-bold text-white bg-primary">Apply for Admission</button>
                <div id="existingOrNewStudentModal" data-backdrop="static" tabindex="-1" role="dialog" aria-hidden="true" class="modal fade">
                   <div role="document" class="modal-dialog modal-dialog-centered">
                      <div class="modal-content">
                         <div class="modal-header">
                            <h5 class="modal-title">Do you have an account here?</h5>
-                           <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                           <button type="button" data-dismiss="modal" aria-label="Close" class="close" onclick="yesIDo2()">
                               <span aria-hidden="true">×</span>
                            </button>
                         </div> 
                         <div class="modal-body">
-                           <div class="text-center">
-                              <button class="btn btn-lg bg-purple">😃 Yes, I do</button> 
-                              <a href="{{url('/member-register')}}" class="btn btn-lg btn-default ml-2">☹️ Nope, I don't</a>
+                           <div class="text-center pb-1" id="parentDiv">
+                              <button class="btn bg-purple" onclick="yesIDo()">😃 Yes, I do</button> 
+                              <a href="{{url('/member-register')}}" class="btn btn-default ml-2">☹️ Nope, I don't</a>
                            </div>
                         </div>
-                        <div class="text-muted p-4">
-                           Please login before you continue. This will save you from typing your existing information again. You will
-                            find the option to apply on sidebar.
-                        </div>
-                        <div class="modal-footer">
-                           <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+
+                        <span class="text-muted p-2 hide" id="loginInfo">
+                           Please login before you continue. This will save you from typing your existing information again. You will find the option to apply on sidebar.
+                        </span>
+
+                        <div class="modal-footer" style="border-top:1px solid cyan;">
+                           <button type="button" data-dismiss="modal" class="btn btn-default" onclick="yesIDo3()">Close</button>
                         </div>
                      </div>
                   </div>

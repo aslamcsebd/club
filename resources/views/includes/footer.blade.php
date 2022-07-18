@@ -134,3 +134,18 @@
          });
       });
    </script>
+
+   <script>
+      function yesIDo() {
+         $("#parentDiv").css("display", "none");        
+         $("#loginInfo").css({"display":"block", "text-align":"justify"});        
+      }
+      function yesIDo2() {
+         $("#parentDiv").css("display", "block");
+         $("#loginInfo").css("display", "none");
+      }
+      function yesIDo3() {
+         $("#parentDiv").css("display", "block");
+         $("#loginInfo").css("display", "none");
+      }
+   </script>
