@@ -4,15 +4,16 @@
    <div class="row justify-content-center">
       <div class="col-md-6">
          <div class="card mt-5">
-            <div class="text-center">
-               @if(true==true)
-                  <img src="{{asset('images/default.jpg')}}" class="img-thumbnail" alt="No Image found" width="100">
+            <div class="text-center pt-2">
+               @php 
+                  $general = App\Models\General::first();
+               @endphp               
+               <img src="{{ ($general->company_logo) ?? asset('images/general/default.jpg') }}" class="img-thumbnail" alt="No Image found" width="100">
                <br>
-               <h2 class="singerName">CoachSys Demo</h2>
+               <h4>{{ $general->company_name ?? 'Add institution name' }}</h4>
                <p>Sign in to your account</p>
-            @endif 
-            <hr>
-         </div>        
+               <hr>
+            </div>        
          {{-- <div class="card-header text-center bg-info">{{ __('Admin login') }}</div> --}}
          <div class="card-body">
             <form method="POST" action="{{ route('login') }}">
@@ -91,7 +92,7 @@
                   </div>
                </div>
             </div>
-            <p class="text-center small text-muted mt-3 mb-2">
+            <p class="text-center small text-muted mt-3 mb-1">
                © <?=date('Y');?> <a href="#" target="_blank" class="font-weight-bold">Club</a>
                {{-- Version: 6.0.0. --}}
            </p>

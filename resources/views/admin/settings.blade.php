@@ -476,7 +476,6 @@
                            </div>
                            <div class="form-group">
                               <img id="preview" src="{{ ($general->company_logo) ?? asset('images/general/default.jpg') }}" alt="Company Logo" class="avatar">
-                              
                            </div>
                            <div class="form-group">
                               <div class="custom-file">
