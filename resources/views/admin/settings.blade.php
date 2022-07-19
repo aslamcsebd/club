@@ -466,19 +466,21 @@
                      <div class="card-body p-4">
                         <form action="{{ route('addGeneral') }}" method="post" enctype="multipart/form-data" class="needs-validation" >
                            @csrf
+                           <input type="hidden" name="id" value="{{ $general->id ?? '' }}">
                            <div class="form-group">
                               <label for="company_name" class="control-label">Institution Name:</label>
-                              <input type="text" id="company_name" name="company_name" value="{{ $general->company_name ?? 'Add name' }}" autocomplete="off" class="form-control">
+                              <input type="text" id="company_name" name="company_name" value="{{ $general->company_name ?? 'Add company name' }}" autocomplete="off" class="form-control">
                            </div>
                            <div class="form-group">
                               <label for="company_address" class="control-label">Institution Address:</label>
-                              <input type="text" id="company_address" name="company_address" value="{{ $general->company_address ?? 'Add address' }}" autocomplete="off" class="form-control">
+                              <input type="text" id="company_address" name="company_address" value="{{ $general->company_address ?? 'Add company address' }}" autocomplete="off" class="form-control">
                            </div>
                            <div class="form-group">
-                              <img id="preview" src="{{ ($general->company_logo) ?? asset('images/general/default.jpg') }}" alt="Company Logo" class="avatar">
+                              <img id="preview" src="{{ $general->company_logo ?? asset('images/general/default.jpg') }}" alt="Company Logo" class="avatar">
                            </div>
                            <div class="form-group">
                               <div class="custom-file">
+                                 <input type="hidden" name="photoName" value="{{ $general->company_logo ?? '' }}">
                                  <input type="file" id="company_logo" name="photo" class="custom-file-input">
                                  <label for="company_logo" class="custom-file-label">Choose file</label>
                               </div>
