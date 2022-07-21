@@ -32,10 +32,11 @@ class SettingController extends Controller{
   
    // Add member category
    public function addCategory(Request $request){
+
       $validator = Validator::make($request->all(),[
          'name'=>'required',
          'paymentType'=>'required',
-         'fee'=>'required'
+         'reg_fee'=>'required'
       ]);
 
       if($validator->fails()){
@@ -43,15 +44,26 @@ class SettingController extends Controller{
          return Redirect::back()->withErrors($validator);
       }
 
-      MemberCategory::insert([         
+      $request->monthly!=null ? '' : '';
+      ($request->monthly!=null) ? $monthly=$request->monthly : $monthly='';
+
+      MemberCategory::insert([
          'created_by' => Auth::user()->name,
          'name' => $request->name,
          'paymentType' => $request->paymentType,
-         'fee' => $request->fee,
-         'percentage' => $request->percentage
+         'reg_fee' => $request->reg_fee,
+         'percentage' => $request->percentage,
+         'monthly' => $monthly
       ]);
       return back()->with('success','New category add successfully');
    }
+
+   // Edit Category
+   public function editCategory(){     
+      $data['memberCategory'] = MemberCategory::find($_REQUEST['id']);
+      return view('admin.modal-view', $data);
+   }
+   
 
    // Add Custom Field 
    public function addCustomField(Request $request){

@@ -51,13 +51,14 @@
                                  [{{\Carbon\Carbon::parse($user->dob)->diff(\Carbon\Carbon::now())->format(' %y years ')}}]
                               </td>
                               <td>
-                                 <input type="checkbox" 
+                                 <input type="checkbox" class="js-switch status"
+                                 
                                     data-model="all_users" 
+                                    data-field="status"
                                     data-id="{{ $user->id }}" 
-                                    data-tab="activeUsers" 
-                                    name="status"
-                                    class="js-switch" 
+                                    data-tab="activeUsers"
                                     {{ $user->status == 1 ? 'checked' : '' }}
+
                                  />
                               </td>
                            </tr>

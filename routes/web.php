@@ -48,6 +48,8 @@ Route::middleware(['auth'])->group(function(){
       Route::get('/settings', 'SettingController@settings')->name('settings');
 
       Route::post('/add-category', 'SettingController@addCategory')->name('addCategory');
+      Route::get('/edit-category', 'SettingController@editCategory')->name('editCategory');
+
       Route::get('deleteCustomField/{id}/{model}/{tab}','SettingController@deleteCustomField')->name('deleteCustomField');
 
       Route::post('/add-custom-field', 'SettingController@addCustomField')->name('addCustomField');
@@ -60,11 +62,11 @@ Route::middleware(['auth'])->group(function(){
 
    // All status change   
       // Route::get('itemStatus/{id}/{model}/{tab}','MemberController@itemStatus')->name('itemStatus');
-      Route::get('/status/update', 'MemberController@changeStatus')->name('status');
+      Route::get('/status/update', 'HomeController@changeStatus')->name('status');
+      Route::get('itemDelete/{id}/{model}/{tab}','HomeController@itemDelete')->name('itemDelete');  
       
       Route::get('itemStatus2/{model}/{field}/{id}/{tab}','MemberController@itemStatus2')->name('itemStatus2');
       Route::get('view/{id}/{model}/{tab}','MemberController@view')->name('view');
-      Route::get('itemDelete/{id}/{model}/{tab}','MemberController@itemDelete')->name('itemDelete');  
 
 });
 

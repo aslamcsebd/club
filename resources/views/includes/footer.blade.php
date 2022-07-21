@@ -25,7 +25,7 @@
    
    <script type="text/javascript">
       // if ($(window).width() > 992) {
-        $(window).scroll(function(){
+         $(window).scroll(function(){
            if ($(this).scrollTop() > 0) { //default: 40
               $('#navbar_top').addClass("fixed-top");
               // add padding top to show content behind navbar
@@ -35,7 +35,7 @@
                // remove padding top from body
               $('body').css('padding-top', '0');
             }   
-        });
+         });
       // } // end
 
       window.setTimeout(function(){
@@ -64,7 +64,21 @@
       $(document).ready(function(){
          $('#tabMenu a[href="#{{ old('tab') }}"]').tab('show')
       });
+      
+      // Member payment type
+      $("#paymentType").prop("selectedIndex", -1);
+      $("#paymentType").click(function () {
+         var e = document.getElementById("paymentType");
+         var value = e.selectedIndex;
+         // var chkFormationDept = e.value;
 
+         if (value==0) {
+            $('#monthly [data_id="monthlyFee"]').parent().removeClass('active').css('display', 'block');
+         }
+         if (value==1) {
+            $('#monthly [data_id="monthlyFee"]').parent().removeClass('active').css('display', 'none');
+         }
+      })
 
       // Member paid (%)
       $("#paidNo").click(function () {
@@ -89,7 +103,26 @@
 
       $("body").on("click",".dropdown-btn",function(e){
           $(this).parents('.dropdownDelete').remove();
-      });      
+      });
+
+      // member Category Edit
+      $(document).ready(function() {
+         $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+         $(".editCategory").click(function(){
+            var id = $(this).data('id');
+            $.ajax({
+               method: "GET",
+               url: "{{ Route('editCategory') }}",
+               data: {id: id},
+
+               success:function(response){   
+                  $('.modal-body').html(response);
+                  $('#editCategory').modal('show');
+               }
+            });
+         });
+      }); 
+
    </script>
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
@@ -112,10 +145,12 @@
           let switchery = new Switchery(html,  { size: 'small' });
       });
 
+      // Status change
       $(document).ready(function(){
-         $('.js-switch').change(function () {
-            let status = $(this).prop('checked') === true ? 1 : 0;
+         $('.status').change(function () {
+
             let model = $(this).data('model');
+            let field = $(this).data('field');
             let id = $(this).data('id');
             let tab = $(this).data('tab');
 
@@ -123,7 +158,7 @@
                type: "GET",
                dataType: "json",
                url: '{{ route('status') }}',
-               data: {'status': status, 'model': model, 'id': id, 'tab': tab},
+               data: {'model': model, 'field': field, 'id': id, 'tab': tab},
                success: function (data) {
                   toastr.options.closeButton = true;
                   toastr.options.closeMethod = 'fadeOut';
@@ -135,6 +170,7 @@
       });
    </script>
 
+   <!-- Login page -->
    <script>
       function yesIDo() {
          $("#parentDiv").css("display", "none");        

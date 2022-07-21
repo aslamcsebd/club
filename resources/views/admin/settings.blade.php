@@ -7,7 +7,7 @@
 
 <div class="content-wrapper p-3">
    <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col-md-12">
          <div class="card-header p-1">
             <ul class="nav nav-pills" id="tabMenu">
                <li class="nav-item">
@@ -44,7 +44,8 @@
                               <th>PaymentType</th>
                               <th>Fee</th>
                               <th>Percentage(%)</th>
-                              <th>Created by</th>
+                              <th>Monthly fee</th>
+                              <th>Created_by</th>
                               <th>Status</th>
                               <th>Action</th>
                            </thead>
@@ -54,23 +55,27 @@
                                     <td width="30">{{$loop->iteration}}</td>
                                     <td>{!!$category->name!!}</td>
                                     <td>{!!$category->paymentType!!}</td>
-                                    <td>{!!$category->fee!!}</td>
+                                    <td>{!!$category->reg_fee!!}</td>
                                     <td>{!!$category->percentage!!}</td>
+                                    <td>{!!$category->monthly!!}</td>
                                     <td>
                                        <span class="bg-primary userType">{!!$category->created_by!!}</span>
                                     </td>
                                     <td width="15">
-                                       <div class="btn-group">                                
-                                          @if($category->status == 1)
-                                             <a href="{{ url('itemStatus', [$category->id, 'member_categories', 'memberCategory'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                          @else
-                                             <a href="{{ url('itemStatus', [$category->id, 'member_categories', 'memberCategory'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                          @endif
-                                       </div>
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="member_categories" 
+                                          data-field="status"
+                                          data-id="{{ $category->id }}" 
+                                          data-tab="memberCategory"
+
+                                          {{ $category->status == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td width="15">
-                                       <div class="btn-group">                                         
-                                          <a href="{{ url('itemDelete', [$category->id, 'member_categories', 'memberCategory'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                       <div class="btn-group">                                     
+                                          <a  class="btn btn-info btn-xs editCategory" data-toggle="modal" data-target="#editCategory" data-id="{{$category->id}}">Edit</a>
+
+                                          <a href="{{ url('itemDelete', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-danger btn-xs btn-info" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>
@@ -105,8 +110,8 @@
                                  </div>
 
                                  <div class="form-group">
-                                    <label for="fee">Registration Fee*</label>
-                                    <input type="number" name="fee" class="form-control" id="fee" placeholder="100" required/>
+                                    <label for="reg_fee">Registration Fee*</label>
+                                    <input type="number" name="reg_fee" class="form-control" id="reg_fee" placeholder="1000" required/>
                                  </div>
 
                                  <div class="form-group">
@@ -135,6 +140,13 @@
                                     </div>
                                  </div>
 
+                                 <div id="monthly" class="hide">
+                                    <div class="form-group" data_id="monthlyFee">
+                                       <label for="monthly">Monthly Fee*</label>
+                                       <input type="number" name="monthly" class="form-control" id="monthlyFee" placeholder="500"/>
+                                    </div>
+                                 </div>
+
                                  <div class="modal-footer">
                                     <div class="btn-group">
                                        <button class="btn btn-sm btn-primary">Save</button>
@@ -146,6 +158,22 @@
                         </div>
                      </div>
                   </div>
+
+                  <div class="modal fade" id="editCategory" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h6 class="modal-title text-center" id="exampleModalLabel">Edit category</h6>
+                              <button onclick='window.location.reload();' class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                           </div>
+                           <div class="modal-body">
+                              
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+
+
                </div>
 
                <div class="tab-pane fade show" id="customField">

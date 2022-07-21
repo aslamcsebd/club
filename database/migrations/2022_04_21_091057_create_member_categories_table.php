@@ -15,10 +15,12 @@ class CreateMemberCategoriesTable extends Migration
     {
         Schema::create('member_categories', function (Blueprint $table) {
             $table->id();
+            $table->string('created_by')->nullable();
             $table->string('name');
             $table->string('paymentType');
-            $table->string('fee');
+            $table->string('reg_fee');
             $table->string('percentage')->nullable();
+            $table->string('monthly')->nullable();            
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
             $table->timestamps();
         });

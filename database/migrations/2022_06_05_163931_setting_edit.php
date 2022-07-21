@@ -13,11 +13,7 @@ class SettingEdit extends Migration
      */
     public function up()
     {
-        Schema::table('member_categories', function (Blueprint $table) {
-         $table->string('created_by')->nullable()->after('id');
-        });
-
-        Schema::table('custom_fields', function (Blueprint $table) {
+         Schema::table('custom_fields', function (Blueprint $table) {
          $table->string('created_by')->nullable()->after('id');
         });
 
