@@ -48,7 +48,8 @@ Route::middleware(['auth'])->group(function(){
       Route::get('/settings', 'SettingController@settings')->name('settings');
 
       Route::post('/add-category', 'SettingController@addCategory')->name('addCategory');
-      Route::get('/edit-category', 'SettingController@editCategory')->name('editCategory');
+      Route::get('editCategory/{model}/{id}/{tab}','SettingController@editCategory')->name('editCategory');
+      Route::post('/update-category', 'SettingController@editCategory2')->name('editCategory2');
 
       Route::get('deleteCustomField/{id}/{model}/{tab}','SettingController@deleteCustomField')->name('deleteCustomField');
 
@@ -83,3 +84,4 @@ Route::get('/clear', function() {
    
    return "Cleared!";
 });
+

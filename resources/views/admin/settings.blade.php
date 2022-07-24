@@ -39,7 +39,7 @@
                      <div class="card-body p-1">
                         <table class="table table-bordered">
                            <thead class="bg-info">
-                              <th>Sl</th>
+                              {{-- <th>Sl</th> --}}
                               <th>Name</th>
                               <th>PaymentType</th>
                               <th>Fee</th>
@@ -52,7 +52,7 @@
                            <tbody>
                               @foreach($categories as $category)
                                  <tr>
-                                    <td width="30">{{$loop->iteration}}</td>
+                                    {{-- <td width="30">{{$loop->iteration}}</td> --}}
                                     <td>{!!$category->name!!}</td>
                                     <td>{!!$category->paymentType!!}</td>
                                     <td>{!!$category->reg_fee!!}</td>
@@ -72,10 +72,10 @@
                                        />
                                     </td>
                                     <td width="15">
-                                       <div class="btn-group">                                     
-                                          <a  class="btn btn-info btn-xs editCategory" data-toggle="modal" data-target="#editCategory" data-id="{{$category->id}}">Edit</a>
+                                       <div class="btn-group">
+                                          <a href="{{ url('editCategory', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-sm btn-outline-info">Edit</a>                                         
 
-                                          <a href="{{ url('itemDelete', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-danger btn-xs btn-info" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                          <a href="{{ url('itemDelete', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-danger btn-sm btn-info" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>
@@ -157,23 +157,7 @@
                            </div>
                         </div>
                      </div>
-                  </div>
-
-                  <div class="modal fade" id="editCategory" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <h6 class="modal-title text-center" id="exampleModalLabel">Edit category</h6>
-                              <button onclick='window.location.reload();' class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                           </div>
-                           <div class="modal-body">
-                              
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-
+                  </div>                 
                </div>
 
                <div class="tab-pane fade show" id="customField">

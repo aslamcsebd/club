@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 08, 2022 at 08:36 AM
+-- Generation Time: Jul 24, 2022 at 11:31 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -98,6 +98,21 @@ CREATE TABLE `files` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `generals`
+--
+
+CREATE TABLE `generals` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `company_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `company_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `company_logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `head_infos`
 --
 
@@ -152,6 +167,13 @@ CREATE TABLE `members` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `members`
+--
+
+INSERT INTO `members` (`id`, `member_category`, `member_no`, `name`, `email`, `password`, `mobile`, `address`, `gender`, `blood`, `dob`, `photo`, `member_add_from`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'aslam', '1020', 'bnnb', 'admin@gmail.com', '$2y$10$sC1VuP0gyoGoDTQNsWxO9OtkvO48nLxJAuj/20pntpmD1jkmCR6UK', '7657567', 'vnhvbn', 'Female', 'A +ve', '2022-07-19', 'images/member/1658660718.jpg', 'By_admin', 1, NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -163,21 +185,13 @@ CREATE TABLE `member_categories` (
   `created_by` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `paymentType` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fee` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `reg_fee` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `percentage` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `monthly` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `member_categories`
---
-
-INSERT INTO `member_categories` (`id`, `created_by`, `name`, `paymentType`, `fee`, `percentage`, `status`, `created_at`, `updated_at`) VALUES
-(4, 'Aslam', 'student', 'One Time', '4545', NULL, 1, NULL, NULL),
-(5, 'Aslam', 'student2', 'One Time', '3434', NULL, 1, NULL, NULL),
-(6, 'Aslam', 'student3', 'One Time', '354', NULL, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -209,11 +223,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (11, '2022_04_25_085926_create_head_infos_table', 1),
 (12, '2022_04_26_095956_create_recipient_types_table', 1),
 (13, '2022_04_28_052353_create_all_users_table', 1),
-(14, '2022_05_30_063722_member_edit', 1),
-(15, '2022_06_02_091054_custom_field_edit', 1),
-(16, '2022_06_05_114000_recipient_type_edit', 1),
-(17, '2022_06_05_163931_setting_edit', 1),
-(20, '2022_06_07_090919_file_and_notice_edit', 2);
+(14, '2022_07_18_061134_create_generals_table', 1);
 
 -- --------------------------------------------------------
 
@@ -243,6 +253,20 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recipient_types`
+--
+
+CREATE TABLE `recipient_types` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '0=Inactive, 1=Active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -314,6 +338,12 @@ ALTER TABLE `files`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `generals`
+--
+ALTER TABLE `generals`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `head_infos`
 --
 ALTER TABLE `head_infos`
@@ -356,6 +386,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `recipient_types`
+--
+ALTER TABLE `recipient_types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -394,7 +430,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `generals`
+--
+ALTER TABLE `generals`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `head_infos`
@@ -412,25 +454,31 @@ ALTER TABLE `head_parents`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `member_categories`
 --
 ALTER TABLE `member_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `recipient_types`
+--
+ALTER TABLE `recipient_types`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -442,7 +490,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_types`
 --
 ALTER TABLE `user_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

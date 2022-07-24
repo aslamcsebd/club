@@ -22,6 +22,11 @@
 
    <!-- Datepicker -->
    <script src="{{ asset('/') }}js/datepicker.min.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
    
    <script type="text/javascript">
       // if ($(window).width() > 992) {
@@ -67,6 +72,8 @@
       
       // Member payment type
       $("#paymentType").prop("selectedIndex", -1);
+
+      // Category add
       $("#paymentType").click(function () {
          var e = document.getElementById("paymentType");
          var value = e.selectedIndex;
@@ -86,12 +93,53 @@
          if (chkFormationDept) {
             $('#paidStatus [data_id="paidAction"]').parent().removeClass('active').css('display', 'none');
          }
-      })                       
+      })
+
       $("#paidYes").click(function () {
           var chkFormationDept = document.getElementById("paidYes").checked;
           if (chkFormationDept) {
               $('#paidStatus [data_id="paidAction"]').parent().removeClass('active').css('display', 'block');
           }
+      })
+
+      // Category edit
+      $(document).ready(function(){
+
+         var e = document.getElementById("paymentType2");
+         var value = e.selectedIndex;
+         // var chkFormationDept = e.value;
+
+         if (value==0){
+            $('#monthly2 [data_id="monthlyFee2"]').parent().removeClass('active').css('display', 'block');
+         }
+         if (value==1){
+            $('#monthly2 [data_id="monthlyFee2"]').parent().removeClass('active').css('display', 'none');
+         }
+      })
+
+      $("#paymentType2").click(function () {
+         var e = document.getElementById("paymentType2");
+         var value = e.selectedIndex;
+         // var chkFormationDept = e.value;
+
+         if (value==0){
+            $('#monthly2 [data_id="monthlyFee2"]').parent().removeClass('active').css('display', 'block');
+         }
+         if (value==1){
+            $('#monthly2 [data_id="monthlyFee2"]').parent().removeClass('active').css('display', 'none');
+         }
+      })
+
+      // Member paid (%)
+      $(document).ready(function(){
+         var value = document.querySelector('#paidMatter input[name="paid"]:checked').value;
+
+         if (value == 'yes') {
+              $('#paidStatus [data_id="paidAction"]').parent().removeClass('active').css('display', 'block');
+         }else{
+            $('#paidStatus [data_id="paidAction"]').parent().removeClass('active').css('display', 'none');
+         }
+
       })
 
       $(document).on('click', '#addExtraDropdown', function (e) {
@@ -105,42 +153,15 @@
           $(this).parents('.dropdownDelete').remove();
       });
 
-      // member Category Edit
-      $(document).ready(function() {
-         $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-         $(".editCategory").click(function(){
-            var id = $(this).data('id');
-            $.ajax({
-               method: "GET",
-               url: "{{ Route('editCategory') }}",
-               data: {id: id},
-
-               success:function(response){   
-                  $('.modal-body').html(response);
-                  $('#editCategory').modal('show');
-               }
-            });
-         });
-      }); 
-
-   </script>
-
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
-
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/switchery/0.8.2/switchery.min.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-
-   <script type="text/javascript">
+      
       $(document).ready(function() {
          $('.multiple-checkboxes').multiselect({
             includeSelectAllOption: true,
          });
       });
-   </script>
 
-   <script>
+
       let elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
       elems.forEach(function(html) {
           let switchery = new Switchery(html,  { size: 'small' });
       });
@@ -168,18 +189,19 @@
             });
          });
       });
-   </script>
 
-   <!-- Login page -->
-   <script>
+      // Login page
+
       function yesIDo() {
          $("#parentDiv").css("display", "none");        
          $("#loginInfo").css({"display":"block", "text-align":"justify"});        
       }
+
       function yesIDo2() {
          $("#parentDiv").css("display", "block");
          $("#loginInfo").css("display", "none");
       }
+
       function yesIDo3() {
          $("#parentDiv").css("display", "block");
          $("#loginInfo").css("display", "none");
