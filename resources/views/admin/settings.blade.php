@@ -174,7 +174,7 @@
                            <thead class="bg-info">
                               <th>Sl</th>
                               <th>Name</th>
-                              <th>Required</th>
+                              <th>Required[Mandatory]</th>
                               <th>Created by</th>
                               <th>Status</th>
                               <th>Action</th>
@@ -184,26 +184,28 @@
                                  <tr>
                                     <td width="30">{{$loop->iteration}}</td>
                                     <td>{!!$field->name!!}</td>
-                                    <td width="20%">
-                                       <div class="btn-group">
-                                          @if($field->required == 1)
-                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'customField'])}}" class="btn btn-sm btn-success py-1" title="Click for not mandatory">Mandatory</a>
-                                          @else
-                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'customField'])}}" class="btn btn-sm btn-danger py-1" title="Click for mandatory">Not mandatory</a>
-                                          @endif
-                                       </div>
+                                    <td width="20%">     
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="custom_fields" 
+                                          data-field="required"
+                                          data-id="{{ $field->id }}" 
+                                          data-tab="customField"
+
+                                          {{ $field->required == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td>
                                        <span class="bg-primary userType">{!!$field->created_by!!}</span>
                                     </td>
                                     <td width="15">
-                                       <div class="btn-group">
-                                          @if($field->status == 1)
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'customField'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                          @else
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'customField'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                          @endif
-                                       </div>
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="custom_fields" 
+                                          data-field="status"
+                                          data-id="{{ $field->id }}" 
+                                          data-tab="customField"
+
+                                          {{ $field->status == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td width="15">
                                        <div class="btn-group">
@@ -348,17 +350,18 @@
                                        <span class="bg-primary userType">{!!$user->created_by!!}</span>
                                     </td>
                                     <td width="15">
-                                       <div class="btn-group">
-                                          @if($user->status == 1)
-                                             <a href="{{ url('itemStatus', [$user->id, 'user_types', 'userType'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                          @else
-                                             <a href="{{ url('itemStatus', [$user->id, 'user_types', 'userType'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                          @endif
-                                       </div>
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="user_types" 
+                                          data-field="status"
+                                          data-id="{{ $user->id }}" 
+                                          data-tab="userType"
+
+                                          {{ $user->status == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td width="15">
                                        <div class="btn-group">
-                                          <a href="{{ url('itemDelete', [$user->id, 'user_types', 'userType'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                          <a href="{{ url('itemDelete', ['user_types', $user->id, 'userType'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>
@@ -423,18 +426,19 @@
                                     <td>
                                        <span class="bg-primary userType">{!!$headParent->created_by!!}</span>
                                     </td>
-                                    <td width="10">
-                                       <div class="btn-group">
-                                          @if($headParent->status == 1)
-                                             <a href="{{ url('itemStatus', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                          @else
-                                             <a href="{{ url('itemStatus', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                          @endif
-                                       </div>
+                                    <td width="10">                                       
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="head_parents" 
+                                          data-field="status"
+                                          data-id="{{ $headParent->id }}" 
+                                          data-tab="headParent"
+
+                                          {{ $headParent->status == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td width="10">
                                        <div class="btn-group">
-                                          <a href="{{ url('itemDelete', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                          <a href="{{ url('itemDelete', ['head_parents', $headParent->id, 'headParent'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>

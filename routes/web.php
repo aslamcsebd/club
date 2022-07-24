@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function(){
    // All status change   
       // Route::get('itemStatus/{id}/{model}/{tab}','MemberController@itemStatus')->name('itemStatus');
       Route::get('/status/update', 'HomeController@changeStatus')->name('status');
-      Route::get('itemDelete/{id}/{model}/{tab}','HomeController@itemDelete')->name('itemDelete');  
+      Route::get('itemDelete/{model}/{id}/{tab}','HomeController@itemDelete')->name('itemDelete');  
       
       Route::get('itemStatus2/{model}/{field}/{id}/{tab}','MemberController@itemStatus2')->name('itemStatus2');
       Route::get('view/{id}/{model}/{tab}','MemberController@view')->name('view');

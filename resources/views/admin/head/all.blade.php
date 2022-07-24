@@ -14,7 +14,7 @@
             <div class="card-body p-1">
                <table class="table table-bordered">
                   <thead class="bg-info">
-                     <th>Sl</th>
+                     {{-- <th>Sl</th> --}}
                      <th>Name</th>
                      <th>Type</th>
                      <th>Parent Head</th>
@@ -27,7 +27,7 @@
                   <tbody>                   
                      @foreach($headInfos as $headInfo)
                         <tr>
-                           <td width="30">{{$loop->iteration}}</td>
+                           {{-- <td width="30">{{$loop->iteration}}</td> --}}
                            <td>{!!$headInfo->name!!}</td>
                            <td>{!!$headInfo->head_type!!}</td>                         
                            <td>{!!$headInfo->parent_head!!}</td>                         
@@ -36,14 +36,15 @@
                               <span class="bg-primary userType">Root</span>
                            </td>
                            <td>{{date('d-M-Y', strtotime($headInfo->created_at))}}</td>
-                           <td width="15">
-                              <div class="btn-group">
-                                 @if($headInfo->status == 1)
-                                    <a href="{{ url('itemStatus', [$headInfo->id, 'head_infos', 'tabName'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                 @else
-                                    <a href="{{ url('itemStatus', [$headInfo->id, 'head_infos', 'tabName'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                 @endif 
-                              </div>
+                           <td width="15">  
+                              <input type="checkbox" class="js-switch status"
+                                 data-model="head_infos" 
+                                 data-field="status"
+                                 data-id="{{ $headInfo->id }}" 
+                                 data-tab="tabName"
+
+                                 {{ $headInfo->status == 1 ? 'checked' : '' }}
+                              />
                            </td>
                            <td width="15">
                               <div class="btn-group">

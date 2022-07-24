@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jul 24, 2022 at 11:31 AM
+-- Generation Time: Jul 24, 2022 at 12:32 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -43,6 +43,13 @@ CREATE TABLE `all_users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `all_users`
+--
+
+INSERT INTO `all_users` (`id`, `user_type`, `name`, `email`, `mobile`, `password`, `address`, `gender`, `blood`, `dob`, `photo`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'User2', 'hjhj', 'admi6767n@gmail.com', '676767', '$2y$10$gDl7OxPVjQvFzDac1xCMxeYPEN1y42lgd3N0gTa63ffgYK3LKmd5y', 'yuyu', 'Male', 'B +ve', '2022-07-05', 'images/user/1658662881.jpg', 1, '2022-07-24 05:41:21', '2022-07-24 05:41:21');
 
 -- --------------------------------------------------------
 
@@ -126,6 +133,13 @@ CREATE TABLE `head_infos` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `head_infos`
+--
+
+INSERT INTO `head_infos` (`id`, `name`, `head_type`, `material`, `parent_head`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'pen', 'Expense', 'Yes', 'Head2', 1, '2022-07-24 05:37:52', '2022-07-24 05:37:52');
 
 -- --------------------------------------------------------
 
@@ -242,6 +256,13 @@ CREATE TABLE `notices` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notices`
+--
+
+INSERT INTO `notices` (`id`, `created_by`, `title`, `description`, `user_type`, `member_type`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Aslam', 'Notice2', 'description', 'User2', 'Student', 1, '2022-07-24 05:36:42', '2022-07-24 05:36:42');
 
 -- --------------------------------------------------------
 
@@ -412,13 +433,13 @@ ALTER TABLE `user_types`
 -- AUTO_INCREMENT for table `all_users`
 --
 ALTER TABLE `all_users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `custom_fields`
 --
 ALTER TABLE `custom_fields`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -442,13 +463,13 @@ ALTER TABLE `generals`
 -- AUTO_INCREMENT for table `head_infos`
 --
 ALTER TABLE `head_infos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `head_parents`
 --
 ALTER TABLE `head_parents`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `members`
@@ -460,7 +481,7 @@ ALTER TABLE `members`
 -- AUTO_INCREMENT for table `member_categories`
 --
 ALTER TABLE `member_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -472,7 +493,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `notices`
 --
 ALTER TABLE `notices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `recipient_types`
@@ -490,7 +511,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `user_types`
 --
 ALTER TABLE `user_types`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
