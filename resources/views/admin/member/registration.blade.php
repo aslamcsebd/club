@@ -4,6 +4,7 @@
    @endsection
 @section('content')
 @include('includes.alertMessage')
+
 <div class="content-wrapper p-3">
    <div class="row justify-content-center">
       <div class="col-md-10">
@@ -12,18 +13,20 @@
             <form action="{{ Route('addMember') }}" method="post" enctype="multipart/form-data">
                @csrf
                <div class="card-body">
-                  <div class="form-group">
-                     <label for="name">Full Name*</label>
-                     <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Enter name" required>
-                  </div>
                   <div class="row">
-                     <div class="form-group col-6">
-                        <label for="email">Email*</label>
-                        <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" required>
-                     </div>
                      <div class="form-group col-6">
                         <label for="mobile">Mobile number*</label>
                         <input type="number" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile" required>
+                     </div>
+                     <div class="form-group col-6">
+                        <label for="name">Full Name*</label>
+                        <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Enter name" required>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div class="form-group col-12">
+                        <label for="email">Email*</label>
+                        <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" required>
                      </div>
                   </div>
                   <div class="row">
@@ -134,4 +137,5 @@
 </div>
 @endsection
 @section('js')
+ 
 @endsection

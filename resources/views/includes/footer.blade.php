@@ -50,11 +50,9 @@
          // minViewMode: "months"
       });
 
-
       $(document).ready(function(){
          $('.table').DataTable();
       });
-
     
       $(document).ready(function(){
         $('.summernote').summernote();
@@ -86,7 +84,8 @@
          if (chkFormationDept) {
             $('#paidStatus [data_id="paidAction"]').parent().removeClass('active').css('display', 'none');
          }
-      })                       
+      })   
+
       $("#paidYes").click(function () {
           var chkFormationDept = document.getElementById("paidYes").checked;
           if (chkFormationDept) {
@@ -121,8 +120,7 @@
                }
             });
          });
-      }); 
-
+      });
    </script>
 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
@@ -184,4 +182,32 @@
          $("#parentDiv").css("display", "block");
          $("#loginInfo").css("display", "none");
       }
+   </script>
+
+   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+   <script>
+      $(function(){
+         $('#mobile2').autocomplete({
+            source:function(request, response) {
+               $.getJSON('{{url('member-list')}}', function(data){
+                  var array = $.map(data, function(row) {
+                     return {
+                        value:row.id,
+                        label:row.name,
+
+                        name:row.name
+                     }
+                  })
+                  response($.ui.autocomplete.filter(array, request.term));
+               })
+            },
+            minLength:1,
+            delay:500,
+            select:function(event, ui){
+               console.log(ui.item);
+            }
+         })
+      })
    </script>

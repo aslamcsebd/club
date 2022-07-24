@@ -25,6 +25,11 @@ class MemberController extends Controller{
       return view('admin.member.registration', $data);      
    }
 
+   //Auto complete respons
+   public function memberList(){
+      return Member::all();
+   }
+   
    // Registration Applications from online
    public function member_form(Request $request){
       $data['customFields'] = CustomField::where('type', '!=', null)->where('status', 1)->get();
