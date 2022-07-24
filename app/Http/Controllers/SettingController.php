@@ -44,26 +44,59 @@ class SettingController extends Controller{
          return Redirect::back()->withErrors($validator);
       }
 
-      $request->monthly!=null ? '' : '';
-      ($request->monthly!=null) ? $monthly=$request->monthly : $monthly='';
+      ($request->paid =='yes') ? $percentage=$request->percentage : $percentage='';
+      ($request->paymentType =='Monthly') ? $monthly=$request->monthly : $monthly='';
 
       MemberCategory::insert([
          'created_by' => Auth::user()->name,
          'name' => $request->name,
          'paymentType' => $request->paymentType,
          'reg_fee' => $request->reg_fee,
-         'percentage' => $request->percentage,
+         'percentage' => $percentage,
          'monthly' => $monthly
       ]);
       return back()->with('success','New category add successfully');
    }
 
    // Edit Category
-   public function editCategory(){     
-      $data['memberCategory'] = MemberCategory::find($_REQUEST['id']);
-      return view('admin.modal-view', $data);
+   public function editCategory($model, $id, $tab){
+      $data['edit'] = DB::table($model)->find($id);  
+      return view('admin.setting-edit', $data);
    }
-   
+
+   public function editCategory2(Request $request){
+      $validator = Validator::make($request->all(),[
+         'name'=>'required',
+         'paymentType'=>'required',
+         'reg_fee'=>'required'
+      ]);
+
+      if($validator->fails()){
+         $messages = $validator->messages();
+         return Redirect::back()->withErrors($validator);
+      }
+
+      ($request->paid =='yes') ? $percentage=$request->percentage : $percentage='';
+      ($request->paymentType =='Monthly') ? $monthly=$request->monthly : $monthly='';
+
+      MemberCategory::where('id', $request->id)->update([
+         'created_by' => Auth::user()->name,
+         'name' => $request->name,
+         'paymentType' => $request->paymentType,
+         'reg_fee' => $request->reg_fee,
+         'percentage' => $percentage,
+         'monthly' => $monthly
+      ]);
+
+      // $data['categories'] = MemberCategory::all();
+      // $data['customFields'] = CustomField::where('type', '!=', null)->get();
+      // $data['userTypes'] = UserType::all();
+      // $data['headParents'] = HeadParent::all();
+      // $data['general'] = General::first();
+
+      // return view('admin.settings', $data);
+      return Redirect::to('settings');
+   }
 
    // Add Custom Field 
    public function addCustomField(Request $request){

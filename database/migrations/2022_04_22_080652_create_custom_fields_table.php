@@ -15,9 +15,11 @@ class CreateCustomFieldsTable extends Migration
     {
         Schema::create('custom_fields', function (Blueprint $table) {
             $table->id();
+            $table->string('created_by')->nullable();
             $table->string('type')->nullable();
             $table->string('name');
             $table->string('child')->nullable();
+            $table->tinyInteger('required')->default('1')->comment('0=Not mandatory, 1=Mandatory');
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
             $table->timestamps();
         });

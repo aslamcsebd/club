@@ -39,7 +39,7 @@
                      <div class="card-body p-1">
                         <table class="table table-bordered">
                            <thead class="bg-info">
-                              <th>Sl</th>
+                              {{-- <th>Sl</th> --}}
                               <th>Name</th>
                               <th>PaymentType</th>
                               <th>Fee</th>
@@ -52,7 +52,7 @@
                            <tbody>
                               @foreach($categories as $category)
                                  <tr>
-                                    <td width="30">{{$loop->iteration}}</td>
+                                    {{-- <td width="30">{{$loop->iteration}}</td> --}}
                                     <td>{!!$category->name!!}</td>
                                     <td>{!!$category->paymentType!!}</td>
                                     <td>{!!$category->reg_fee!!}</td>
@@ -72,10 +72,10 @@
                                        />
                                     </td>
                                     <td width="15">
-                                       <div class="btn-group">                                     
-                                          <a  class="btn btn-info btn-xs editCategory" data-toggle="modal" data-target="#editCategory" data-id="{{$category->id}}">Edit</a>
+                                       <div class="btn-group">
+                                          <a href="{{ url('editCategory', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-sm btn-outline-info">Edit</a>                                         
 
-                                          <a href="{{ url('itemDelete', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-danger btn-xs btn-info" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                          <a href="{{ url('itemDelete', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-danger btn-sm btn-info" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>
@@ -157,23 +157,7 @@
                            </div>
                         </div>
                      </div>
-                  </div>
-
-                  <div class="modal fade" id="editCategory" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                     <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <h6 class="modal-title text-center" id="exampleModalLabel">Edit category</h6>
-                              <button onclick='window.location.reload();' class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                           </div>
-                           <div class="modal-body">
-                              
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-
-
+                  </div>                 
                </div>
 
                <div class="tab-pane fade show" id="customField">
@@ -190,7 +174,7 @@
                            <thead class="bg-info">
                               <th>Sl</th>
                               <th>Name</th>
-                              <th>Required</th>
+                              <th>Required[Mandatory]</th>
                               <th>Created by</th>
                               <th>Status</th>
                               <th>Action</th>
@@ -200,26 +184,28 @@
                                  <tr>
                                     <td width="30">{{$loop->iteration}}</td>
                                     <td>{!!$field->name!!}</td>
-                                    <td width="20%">
-                                       <div class="btn-group">
-                                          @if($field->required == 1)
-                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'customField'])}}" class="btn btn-sm btn-success py-1" title="Click for not mandatory">Mandatory</a>
-                                          @else
-                                             <a href="{{ url('itemStatus2', ['custom_fields', 'required', $field->id, 'customField'])}}" class="btn btn-sm btn-danger py-1" title="Click for mandatory">Not mandatory</a>
-                                          @endif
-                                       </div>
+                                    <td width="20%">     
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="custom_fields" 
+                                          data-field="required"
+                                          data-id="{{ $field->id }}" 
+                                          data-tab="customField"
+
+                                          {{ $field->required == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td>
                                        <span class="bg-primary userType">{!!$field->created_by!!}</span>
                                     </td>
                                     <td width="15">
-                                       <div class="btn-group">
-                                          @if($field->status == 1)
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'customField'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                          @else
-                                             <a href="{{ url('itemStatus', [$field->id, 'custom_fields', 'customField'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                          @endif
-                                       </div>
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="custom_fields" 
+                                          data-field="status"
+                                          data-id="{{ $field->id }}" 
+                                          data-tab="customField"
+
+                                          {{ $field->status == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td width="15">
                                        <div class="btn-group">
@@ -364,17 +350,18 @@
                                        <span class="bg-primary userType">{!!$user->created_by!!}</span>
                                     </td>
                                     <td width="15">
-                                       <div class="btn-group">
-                                          @if($user->status == 1)
-                                             <a href="{{ url('itemStatus', [$user->id, 'user_types', 'userType'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                          @else
-                                             <a href="{{ url('itemStatus', [$user->id, 'user_types', 'userType'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                          @endif
-                                       </div>
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="user_types" 
+                                          data-field="status"
+                                          data-id="{{ $user->id }}" 
+                                          data-tab="userType"
+
+                                          {{ $user->status == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td width="15">
                                        <div class="btn-group">
-                                          <a href="{{ url('itemDelete', [$user->id, 'user_types', 'userType'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                          <a href="{{ url('itemDelete', ['user_types', $user->id, 'userType'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>
@@ -439,18 +426,19 @@
                                     <td>
                                        <span class="bg-primary userType">{!!$headParent->created_by!!}</span>
                                     </td>
-                                    <td width="10">
-                                       <div class="btn-group">
-                                          @if($headParent->status == 1)
-                                             <a href="{{ url('itemStatus', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-success py-1" title="Click for inactive">Active</a>
-                                          @else
-                                             <a href="{{ url('itemStatus', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-danger py-1" title="Click for active">Inactive</a>
-                                          @endif
-                                       </div>
+                                    <td width="10">                                       
+                                       <input type="checkbox" class="js-switch status"
+                                          data-model="head_parents" 
+                                          data-field="status"
+                                          data-id="{{ $headParent->id }}" 
+                                          data-tab="headParent"
+
+                                          {{ $headParent->status == 1 ? 'checked' : '' }}
+                                       />
                                     </td>
                                     <td width="10">
                                        <div class="btn-group">
-                                          <a href="{{ url('itemDelete', [$headParent->id, 'head_parents', 'headParent'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                          <a href="{{ url('itemDelete', ['head_parents', $headParent->id, 'headParent'])}}" class="btn btn-sm btn-info py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
                                        </div>
                                     </td>
                                  </tr>

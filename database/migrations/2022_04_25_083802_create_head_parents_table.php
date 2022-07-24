@@ -15,6 +15,7 @@ class CreateHeadParentsTable extends Migration
     {
         Schema::create('head_parents', function (Blueprint $table) {
             $table->id();
+            $table->string('created_by')->nullable();
             $table->string('name');
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
             $table->timestamps();

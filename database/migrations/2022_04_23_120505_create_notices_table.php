@@ -15,9 +15,11 @@ class CreateNoticesTable extends Migration
     {
         Schema::create('notices', function (Blueprint $table) {
             $table->id();
+            $table->string('created_by')->nullable();
             $table->string('title');
-            $table->string('user_type');
-            $table->text('description');
+            $table->text('description'); 
+            $table->string('user_type')->nullable();
+            $table->string('member_type')->nullable();
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
             $table->timestamps();
         });
