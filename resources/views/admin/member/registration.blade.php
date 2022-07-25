@@ -16,23 +16,23 @@
                   <div class="row">
                      <div class="form-group col-6">
                         <label for="mobile">Mobile number*</label>
-                        <input type="number" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile" required>
+                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile" required>
                      </div>
-                     <div class="form-group col-6">
+                     <div class="form-group col-6 hide">
                         <label for="name">Full Name*</label>
                         <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Enter name" required>
                      </div>
                   </div>
                   <div class="row">
-                     <div class="form-group col-12">
+                     <div class="form-group col-12 hide">
                         <label for="email">Email*</label>
-                        <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" required>
+                        <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" autocomplete="name" required>
                      </div>
                   </div>
-                  <div class="row">
+                  <div class="row hide">
                      <div class="form-group col-6">
                         <label for="password">Password*</label>
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required>
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Enter password"  autocomplete="new-password" required>
                         <small class="form-text text-muted bg-info p-1"><i>Minimum 6 characters. Leave blank to assign auto-generated password.</i></small>
                      </div>
                      <div class="form-group col-6">
@@ -41,15 +41,15 @@
                      </div>
                   </div>                 
 
-                  <div class="form-group">
+                  <div class="form-group hide">
                      <label for="address">Address*</label>
                      <textarea type="address" class="form-control" name="address" id="address" placeholder="Enter address" required></textarea>
                   </div>
 
-                  <div class="row">
+                  <div class="row hide">
                      <div class="form-group col-6">
                         <label for="address">Gender*</label>
-                        <select class="form-control" name="gender" required>
+                        <select class="form-control" name="gender" id="gender" required>
                           <option value="">Select Gender</option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
@@ -58,7 +58,7 @@
                      </div>
                      <div class="form-group col-6">
                         <label for="address">Blood Group*</label>
-                        <select class="form-control" name="blood">
+                        <select class="form-control" name="blood" id="blood">
                           <option value="">Select Group</option>
                           <option value="O +ve">O +ve</option>
                           <option value="O -ve">O -ve</option>
@@ -73,17 +73,17 @@
                      </div>
                   </div>
 
-                  <div class="form-group">
+                  <div class="form-group hide">
                      <label for="dob">Date of Birth*</label>
-                     <input type="text" class="form-control datepicker" name="dob" placeholder="Day-Month-Year" required/>
+                     <input type="text" class="form-control datepicker" name="dob" id="dob" placeholder="Day-Month-Year" required/>
                   </div>  
 
-                  <div class="form-group">
+                  <div class="form-group hide">
                      <label for="photo">Photo*</label>
                      <input type="file" class="form-control" name="photo"/>
                      <small class="form-text text-muted bg-info p-1 col-6">
                         <i>Image format: jpeg, png, jpg, gif, svg. Maximum size : 2 MB.</i>
-                     </small> 
+                     </small>
                   </div>
 
                   @foreach($customFields as $field)
@@ -112,19 +112,19 @@
                   <div class="row">
                      <div class="form-group col">
                         <label for="address">Member category*</label>
-                        <select class="form-control" name="member_category" required>
+                        <select class="form-control" name="member_category" id="member_category" required>
                            <option value="">Select member category</option>
                            @foreach($memberCategory as $member)
                               <option value="{{$member->name}}">{{$member->name}}</option>
                            @endforeach
                         </select>
+                     <input id="oldMember" style="border: unset; display: none;">
                      </div>
                      <div class="form-group col">
                         <label for="form_no">Member Number*</label>
-                        <input type="text" class="form-control" name="member_no" placeholder="Member no" />
+                        <input type="text" class="form-control" name="member_no" id="member_no" placeholder="Member no" />
                      </div>
                   </div>
-
                </div>
 
                <div class="card-footer">
@@ -137,5 +137,59 @@
 </div>
 @endsection
 @section('js')
- 
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+   <script>
+      $(function(){
+         $('#mobile').autocomplete({
+            source:function(request, response) {
+
+               // All request send server slow
+               // $.getJSON('{{url('member-list')}}', function(data){
+               
+               //Specified Data server will filter & fast
+               $.getJSON('{{url('member-list')}}?term='+request.term, function(data){
+
+                  var array = $.map(data, function(row) {
+                     return {                        
+                        value:row.mobile, //After search input this
+                        label:row.mobile, //Search column 
+
+                        name:row.name,
+                        email:row.email,
+                        password:row.password,
+                        confirm_password:row.confirm_password,
+                        address:row.address,
+                        gender:row.gender,
+                        blood:row.blood,
+                        dob:row.dob,
+                        member_category:row.member_category,                        
+                        member_no:row.member_no,                        
+                     }
+                  })
+                  response($.ui.autocomplete.filter(array, request.term));
+               })
+            },
+            minLength:1,
+            delay:500,
+            select:function(event, ui){
+               console.log(ui.item);
+               $('#mobile').val(ui.item.mobile);
+               $('#name').val(ui.item.name);
+               $('#email').val(ui.item.email);
+               $('#password').prop('disabled', true);
+               $('#confirm_password').prop('disabled', true);
+               $('#address').val(ui.item.address);
+               $('#gender').val(ui.item.gender);
+               $('#blood').val(ui.item.blood);
+               $('#dob').val(ui.item.dob);
+
+               $('#member_category').val(ui.item.member_category).removeClass('active').css('display', 'none');
+               $('#oldMember').val(ui.item.member_category).removeClass('active').css('display', 'block');
+               $('#member_no').val(ui.item.member_no);
+            }
+         })
+      })
+   </script>
 @endsection

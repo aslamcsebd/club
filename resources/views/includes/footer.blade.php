@@ -29,6 +29,7 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
    
    <script type="text/javascript">
+
       // if ($(window).width() > 992) {
          $(window).scroll(function(){
            if ($(this).scrollTop() > 0) { //default: 40
@@ -203,31 +204,4 @@
          $("#loginInfo").css("display", "none");
       }
    </script>
-
    
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-   <script>
-      $(function(){
-         $('#mobile2').autocomplete({
-            source:function(request, response) {
-               $.getJSON('{{url('member-list')}}', function(data){
-                  var array = $.map(data, function(row) {
-                     return {
-                        value:row.id,
-                        label:row.name,
-
-                        name:row.name
-                     }
-                  })
-                  response($.ui.autocomplete.filter(array, request.term));
-               })
-            },
-            minLength:1,
-            delay:500,
-            select:function(event, ui){
-               console.log(ui.item);
-            }
-         })
-      })
-   </script>

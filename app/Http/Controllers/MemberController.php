@@ -26,8 +26,14 @@ class MemberController extends Controller{
    }
 
    //Auto complete respons
-   public function memberList(){
-      return Member::all();
+   public function memberList(Request $request){
+      // this is smart code because upper & lowew case working fine
+      // strtolower('value');
+      // strtoupper('value');
+      if($request->has('term')){
+         return Member::where('mobile', 'like', '%'.$request->input('term').'%')->get();
+      }
+      // return Member::all();
    }
    
    // Registration Applications from online
