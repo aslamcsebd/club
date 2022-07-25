@@ -13,23 +13,25 @@
             <form action="{{ Route('addMember') }}" method="post" enctype="multipart/form-data">
                @csrf
                <div class="card-body">
+                  <input type="hidden" name="id" id="id">
+
                   <div class="row">
                      <div class="form-group col-6">
                         <label for="mobile">Mobile number*</label>
                         <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile" required>
                      </div>
-                     <div class="form-group col-6 hide">
+                     <div class="form-group col-6 ">
                         <label for="name">Full Name*</label>
                         <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Enter name" required>
                      </div>
                   </div>
                   <div class="row">
-                     <div class="form-group col-12 hide">
+                     <div class="form-group col-12 ">
                         <label for="email">Email*</label>
                         <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" autocomplete="name" required>
                      </div>
                   </div>
-                  <div class="row hide">
+                  <div class="row ">
                      <div class="form-group col-6">
                         <label for="password">Password*</label>
                         <input type="password" class="form-control" name="password" id="password" placeholder="Enter password"  autocomplete="new-password" required>
@@ -41,12 +43,12 @@
                      </div>
                   </div>                 
 
-                  <div class="form-group hide">
+                  <div class="form-group ">
                      <label for="address">Address*</label>
                      <textarea type="address" class="form-control" name="address" id="address" placeholder="Enter address" required></textarea>
                   </div>
 
-                  <div class="row hide">
+                  <div class="row ">
                      <div class="form-group col-6">
                         <label for="address">Gender*</label>
                         <select class="form-control" name="gender" id="gender" required>
@@ -73,12 +75,12 @@
                      </div>
                   </div>
 
-                  <div class="form-group hide">
+                  <div class="form-group ">
                      <label for="dob">Date of Birth*</label>
                      <input type="text" class="form-control datepicker" name="dob" id="dob" placeholder="Day-Month-Year" required/>
                   </div>  
 
-                  <div class="form-group hide">
+                  <div class="form-group ">
                      <label for="photo">Photo*</label>
                      <input type="file" class="form-control" name="photo"/>
                      <small class="form-text text-muted bg-info p-1 col-6">
@@ -115,10 +117,12 @@
                         <select class="form-control" name="member_category" id="member_category" required>
                            <option value="">Select member category</option>
                            @foreach($memberCategory as $member)
-                              <option value="{{$member->name}}">{{$member->name}}</option>
+                              <option value="{{$member->name}}" id="{{$member->name}}">{{$member->name}}</option>
                            @endforeach
                         </select>
-                     <input id="oldMember" style="border: unset; display: none;">
+                        <div id="previousCategory" class="hide">
+                           <b>Previous category : <input id="oldMember" style="border: unset;"/></b>
+                        </div>                  
                      </div>
                      <div class="form-group col">
                         <label for="form_no">Member Number*</label>
@@ -142,6 +146,7 @@
 
    <script>
       $(function(){
+
          $('#mobile').autocomplete({
             source:function(request, response) {
 
@@ -156,6 +161,7 @@
                         value:row.mobile, //After search input this
                         label:row.mobile, //Search column 
 
+                        id:row.id,
                         name:row.name,
                         email:row.email,
                         password:row.password,
@@ -175,6 +181,7 @@
             delay:500,
             select:function(event, ui){
                console.log(ui.item);
+               $('#id').val(ui.item.id);
                $('#mobile').val(ui.item.mobile);
                $('#name').val(ui.item.name);
                $('#email').val(ui.item.email);
@@ -185,7 +192,13 @@
                $('#blood').val(ui.item.blood);
                $('#dob').val(ui.item.dob);
 
-               $('#member_category').val(ui.item.member_category).removeClass('active').css('display', 'none');
+               // It is special because we select child from parent
+               var x = document.getElementById("member_category").options.namedItem(ui.item.member_category).text;
+               $('#'+x).val(x).removeClass('active').css('display', 'none');
+               // Or direct
+               // $('#'+ui.item.member_category).val(ui.item.member_category).removeClass('active').css('display', 'none');
+
+               $('#previousCategory').removeClass('active').css('display', 'block');
                $('#oldMember').val(ui.item.member_category).removeClass('active').css('display', 'block');
                $('#member_no').val(ui.item.member_no);
             }
