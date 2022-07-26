@@ -194,7 +194,7 @@
 
                // It is special because we select child from parent
                var x = document.getElementById("member_category").options.namedItem(ui.item.member_category).text;
-               $('#'+x).val(x).removeClass('active').css('display', 'none');
+               $('#'+x).val(x).removeClass('active').attr({'background-color': 'green', 'disabled': 'disabled'});
                // Or direct
                // $('#'+ui.item.member_category).val(ui.item.member_category).removeClass('active').css('display', 'none');
 

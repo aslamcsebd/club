@@ -110,15 +110,13 @@ class MemberController extends Controller{
 
    // Show all member
    public function online(){
-      $data['activeMembers'] = DB::table('members')->where('status', 1)->where('member_add_from', 'Online')->orderBy('id', 'DESC')->get();
-      $data['inactiveMembers'] = DB::table('members')->where('status', 0)->where('member_add_from', 'Online')->orderBy('id', 'DESC')->get();
+      $data['members'] = DB::table('members')->where('member_add_from', 'Online')->orderBy('id', 'DESC')->get();
       return view('admin.member.members', $data);
    }
    
    // Show all member
    public function all(){
-      $data['activeMembers'] = DB::table('members')->where('status', 1)->where('member_add_from', 'By_admin')->orderBy('id', 'DESC')->get();
-      $data['inactiveMembers'] = DB::table('members')->where('status', 0)->where('member_add_from', 'By_admin')->orderBy('id', 'DESC')->get();
+      $data['members'] = DB::table('members')->orderBy('id', 'DESC')->get();
       return view('admin.member.members', $data);
    }
 
