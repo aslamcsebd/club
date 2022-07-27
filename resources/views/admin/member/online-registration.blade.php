@@ -115,10 +115,10 @@
                         <div class="row">
                            <div class="form-group col">
                               <label for="address">Member category*</label>
-                              <select class="form-control" name="member_category" id="member_category" required>
+                              <select class="form-control" name="category_id" id="category_id" required>
                                  <option value="">Select member category</option>
                                  @foreach($memberCategory as $member)
-                                    <option value="{{$member->name}}" id="{{$member->name}}">{{$member->name}}</option>
+                                    <option value="{{$member->id}}" id="{{$member->id}}">{{$member->name}}</option>
                                  @endforeach
                               </select>
                               <div id="previousCategory" class="hide">
@@ -169,7 +169,7 @@
                         gender:row.gender,
                         blood:row.blood,
                         dob:row.dob,
-                        member_category:row.member_category,                        
+                        category_id:row.category_id,                        
                         member_no:row.member_no,                        
                      }
                   })
@@ -192,13 +192,13 @@
                $('#dob').val(ui.item.dob);
 
                // It is special because we select child from parent
-               var x = document.getElementById("member_category").options.namedItem(ui.item.member_category).text;
+               var x = document.getElementById("category_id").options.namedItem(ui.item.category_id).text;
                $('#'+x).val(x).removeClass('active').attr({'background-color': 'green', 'disabled': 'disabled'});
                // Or direct
-               // $('#'+ui.item.member_category).val(ui.item.member_category).removeClass('active').css('display', 'none');
+               // $('#'+ui.item.category_id).val(ui.item.category_id).removeClass('active').css('display', 'none');
 
                $('#previousCategory').removeClass('active').css('display', 'block');
-               $('#oldMember').val(ui.item.member_category).removeClass('active').css('display', 'block');
+               $('#oldMember').val(ui.item.category_id).removeClass('active').css('display', 'block');
                $('#member_no').val(ui.item.member_no);
             }
          })

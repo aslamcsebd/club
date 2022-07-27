@@ -13,6 +13,7 @@ use Carbon\Carbon;
 
 use App\Models\Member;
 use App\Models\MemberCategory;
+use App\Models\MemberCategoryList;
 use App\Models\CustomField;
 use App\Models\UserType;
 
@@ -83,7 +84,6 @@ class MemberController extends Controller{
       }
 
       $insertId = DB::table('members')->insertGetId([
-         'member_category' => $request->member_category,
          'member_no' => $request->member_no,
          'name' => $request->name,
          'email' => $request->email,
@@ -96,6 +96,13 @@ class MemberController extends Controller{
          'photo' => $photoLink,
          'member_add_from' => $member_add_from
       ]);
+
+
+      $insertId = MemberCategoryList::insert([
+         'member_id' => $insertId,
+         'category_id' => $request->category_id
+      ]);
+      
 
       $customFields = CustomField::where('type', '!=', null)->where('status', 1)->get();
 
@@ -110,13 +117,13 @@ class MemberController extends Controller{
 
    // Show all member
    public function online(){
-      $data['members'] = DB::table('members')->where('member_add_from', 'Online')->orderBy('id', 'DESC')->get();
+      $data['members'] = Member::where('member_add_from', 'Online')->orderBy('id', 'DESC')->get();
       return view('admin.member.members', $data);
    }
    
    // Show all member
    public function all(){
-      $data['members'] = DB::table('members')->orderBy('id', 'DESC')->get();
+      $data['members'] = Member::orderBy('id', 'DESC')->get();
       return view('admin.member.members', $data);
    }
 

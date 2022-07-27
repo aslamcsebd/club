@@ -8,9 +8,11 @@
 <div class="content-wrapper p-3">
    <div class="row justify-content-center">
       <div class="col-md-12">
-         <a class="nav-link btn-sm py-1 m-1" href="{{ (request()->routeIs('member.online')) ? url('/member-register') : '' }}" target="_blank"> 
-            {{ (request()->routeIs('member.online')) ? 'Registration link: '.url('/member-register') : '' }}
-         </a>            
+         @if(request()->routeIs('member.online'))
+            <a class="nav-link btn-sm py-1 my-1 pl-1" href="{{ (request()->routeIs('member.online')) ? url('/member-register') : '' }}" target="_blank"> 
+               {{ (request()->routeIs('member.online')) ? 'Registration link: '.url('/member-register') : '' }}
+            </a>
+         @endif
          <div class="card">
             <div class="card-body p-1">
                <table class="table table-bordered">
@@ -30,7 +32,13 @@
                            <td width="30">{{$loop->iteration}}</td>
                            <td>{!!$member->member_no!!}</td>
                            <td>{!!$member->name!!}</td>
-                           <td>{!!$member->member_category!!}</td>
+                           <td>
+                              @foreach($member->memberCategoryList as $category)
+                                 <span class="bg-primary userType">{{$category->memberCategory->name}}</span>
+                              @endforeach
+                           </td>
+                              {{-- {{$member->memberCategory->name}} --}}
+                           </td>
                            <td>{!!$member->mobile!!}</td>
                            <td>{!! date('d-M-Y', strtotime($member->dob)) !!} <br>
                               [{{\Carbon\Carbon::parse($member->dob)->diff(\Carbon\Carbon::now())->format(' %y years ')}}]

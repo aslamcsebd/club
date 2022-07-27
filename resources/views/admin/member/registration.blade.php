@@ -7,7 +7,7 @@
 
 <div class="content-wrapper p-3">
    <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col-md-12">
          <div class="card">
             <h6 class="card-header bg-success text-center py-2">Register new member</h6>
             <form action="{{ Route('addMember') }}" method="post" enctype="multipart/form-data">
@@ -20,18 +20,18 @@
                         <label for="mobile">Mobile number*</label>
                         <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile" required>
                      </div>
-                     <div class="form-group col-6 ">
+                     <div class="form-group col-6 hide">
                         <label for="name">Full Name*</label>
                         <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Enter name" required>
                      </div>
                   </div>
                   <div class="row">
-                     <div class="form-group col-12 ">
+                     <div class="form-group col-12 hide">
                         <label for="email">Email*</label>
                         <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" autocomplete="name" required>
                      </div>
                   </div>
-                  <div class="row ">
+                  <div class="row hide">
                      <div class="form-group col-6">
                         <label for="password">Password*</label>
                         <input type="password" class="form-control" name="password" id="password" placeholder="Enter password"  autocomplete="new-password" required>
@@ -43,12 +43,12 @@
                      </div>
                   </div>                 
 
-                  <div class="form-group ">
+                  <div class="form-group hide">
                      <label for="address">Address*</label>
                      <textarea type="address" class="form-control" name="address" id="address" placeholder="Enter address" required></textarea>
                   </div>
 
-                  <div class="row ">
+                  <div class="row hide">
                      <div class="form-group col-6">
                         <label for="address">Gender*</label>
                         <select class="form-control" name="gender" id="gender" required>
@@ -75,12 +75,12 @@
                      </div>
                   </div>
 
-                  <div class="form-group ">
+                  <div class="form-group hide">
                      <label for="dob">Date of Birth*</label>
                      <input type="text" class="form-control datepicker" name="dob" id="dob" placeholder="Day-Month-Year" required/>
                   </div>  
 
-                  <div class="form-group ">
+                  <div class="form-group hide">
                      <label for="photo">Photo*</label>
                      <input type="file" class="form-control" name="photo"/>
                      <small class="form-text text-muted bg-info p-1 col-6">
@@ -114,17 +114,17 @@
                   <div class="row">
                      <div class="form-group col">
                         <label for="address">Member category*</label>
-                        <select class="form-control" name="member_category" id="member_category" required>
+                        <select class="form-control" name="category_id" id="category_id" required>
                            <option value="">Select member category</option>
                            @foreach($memberCategory as $member)
-                              <option value="{{$member->name}}" id="{{$member->name}}">{{$member->name}}</option>
+                              <option value="{{$member->id}}" id="{{$member->id}}">{{$member->name}}</option>
                            @endforeach
                         </select>
                         <div id="previousCategory" class="hide">
                            <b>Previous category : <input id="oldMember" style="border: unset;"/></b>
                         </div>                  
                      </div>
-                     <div class="form-group col">
+                     <div class="form-group col hide">
                         <label for="form_no">Member Number*</label>
                         <input type="text" class="form-control" name="member_no" id="member_no" placeholder="Member no" />
                      </div>
@@ -144,16 +144,13 @@
    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
+
    <script>
       $(function(){
 
          $('#mobile').autocomplete({
             source:function(request, response) {
 
-               // All request send server slow
-               // $.getJSON('{{url('member-list')}}', function(data){
-               
-               //Specified Data server will filter & fast
                $.getJSON('{{url('member-list')}}?term='+request.term, function(data){
 
                   var array = $.map(data, function(row) {
@@ -170,7 +167,6 @@
                         gender:row.gender,
                         blood:row.blood,
                         dob:row.dob,
-                        member_category:row.member_category,                        
                         member_no:row.member_no,                        
                      }
                   })
@@ -180,6 +176,9 @@
             minLength:1,
             delay:500,
             select:function(event, ui){
+
+               // var id = ui.item.email;
+               
                console.log(ui.item);
                $('#id').val(ui.item.id);
                $('#mobile').val(ui.item.mobile);
@@ -192,17 +191,22 @@
                $('#blood').val(ui.item.blood);
                $('#dob').val(ui.item.dob);
 
-               // It is special because we select child from parent
-               var x = document.getElementById("member_category").options.namedItem(ui.item.member_category).text;
+               var x = document.getElementById("category_id").options.namedItem(2).id;
                $('#'+x).val(x).removeClass('active').attr({'background-color': 'green', 'disabled': 'disabled'});
+               
                // Or direct
-               // $('#'+ui.item.member_category).val(ui.item.member_category).removeClass('active').css('display', 'none');
+               // $('#'+ui.item.category_id).val(ui.item.category_id).removeClass('active').css('display', 'none');
 
                $('#previousCategory').removeClass('active').css('display', 'block');
-               $('#oldMember').val(ui.item.member_category).removeClass('active').css('display', 'block');
+               $('#oldMember').val(ui.item.category_id).removeClass('active').css('display', 'block');
+
+
+
+
                $('#member_no').val(ui.item.member_no);
             }
          })
       })
    </script>
+
 @endsection

@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model{
+class Member extends Model {
    protected $guarded = [];
+
+   public function memberCategoryList(){
+      return $this->hasMany(MemberCategoryList::class, 'member_id', 'id');
+   }
 }
