@@ -249,8 +249,12 @@
                                           <div class="form-group">
                                              <label for="field">Name*</label>
                                              <input type="text" name="text" class="form-control" id="text" placeholder="Text name" required/>
-                                          </div>                                  
-
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="field">Mandatory*</label>
+                                             <br>
+                                             <input type="checkbox" name="required" class="js-switch" checked/>
+                                          </div>
                                           <div class="modal-footer">
                                              <div class="btn-group">
                                                 <button class="btn btn-sm btn-primary">Save</button>
@@ -266,8 +270,12 @@
                                           <div class="form-group">
                                              <label for="date">DateTime name*</label>
                                              <input type="text" name="date" class="form-control" id="date" placeholder="Field name" required/>
-                                          </div>                                  
-
+                                          </div>
+                                          <div class="form-group">
+                                             <label for="field">Mandatory*</label>
+                                             <br>
+                                             <input type="checkbox" name="required" class="js-switch" checked/>
+                                          </div>  
                                           <div class="modal-footer">
                                              <div class="btn-group">
                                                 <button class="btn btn-sm btn-primary">Save</button>
@@ -305,6 +313,11 @@
                                                    </div>
                                                 </div>
                                           </fieldset>
+                                          <div class="form-group">
+                                             <label for="field">Mandatory*</label>
+                                             <br>
+                                             <input type="checkbox" name="required" class="js-switch" checked/>
+                                          </div>
 
                                           <div class="modal-footer">
                                              <div class="btn-group">

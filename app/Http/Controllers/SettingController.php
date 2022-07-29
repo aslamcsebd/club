@@ -101,6 +101,7 @@ class SettingController extends Controller{
    // Add Custom Field 
    public function addCustomField(Request $request){
       
+      // Field type
       if($request->has('text')){
          $name = 'text';
       }
@@ -110,6 +111,8 @@ class SettingController extends Controller{
       if($request->has('dropdown')){
          $name = 'dropdown';
       }
+      
+      ($request->required == 'on') ? $required = '1' : $required = '0';
       
       $data = $request->all();
       $data[$name] = preg_replace("/\s+/", "_", request($name));
@@ -138,7 +141,8 @@ class SettingController extends Controller{
             CustomField::insert([
                'created_by' => Auth::user()->name,
                'type' => $name,
-               'name' => $column
+               'name' => $column,
+               'required' => $required
             ]);
             $dropdownValue = $request->input('dropdownValue');
             foreach ($dropdownValue as $value){
@@ -152,7 +156,8 @@ class SettingController extends Controller{
             CustomField::insert([
                'created_by' => Auth::user()->name,
                'type' => $name,
-               'name' => $column
+               'name' => $column,
+               'required' => $required
             ]);
          }
       }else{
