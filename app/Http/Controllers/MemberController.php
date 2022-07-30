@@ -28,15 +28,19 @@ class MemberController extends Controller{
 
    //Auto complete respons
    public function memberList(Request $request){
-      // this is smart code because upper & lowew case working fine
-      // strtolower('value');
-      // strtoupper('value');
       if($request->has('term')){
          return Member::where('mobile', 'like', '%'.$request->input('term').'%')->get();
       }
-      // return Member::all();
    }
-   
+
+   // Status change
+   public function disable(Request $request){
+      $id = $request->id;
+      $obj = Member::with('memberCategory.memberCategory')->find($id);
+      
+      return response()->json(['message' =>  $obj]);
+   }
+
    // Registration Applications from online
    public function member_form(Request $request){
       $data['customFields'] = CustomField::where('type', '!=', null)->where('status', 1)->get();
@@ -46,72 +50,82 @@ class MemberController extends Controller{
 
    // Add new member
    public function addMember(Request $request){
-      $validator = Validator::make($request->all(),[
-         'name'=>'required',
-         'email'=>'required|unique:members',
-         'password'=>'required|min:6',
-         'confirm_password' => 'required|same:password|min:6',
-         'mobile'=>'required',
-         'address'=>'required',
-         'gender'=>'required',
-         'dob'=>'required',
-         'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-         'member_no'=>'required|unique:members'
-      ]);
-
-      if($validator->fails()){
-         $messages = $validator->messages();
-         return Redirect::back()->withErrors($validator);
-      }
-
-      $path="member/";
-      $default="default.jpg";
-      if ($request->hasFile('photo')){
-         if($files=$request->file('photo')){
-            $photo = $request->photo;
-            $fullName=time().".".$photo->getClientOriginalExtension();
-            $files->move(imagePath($path), $fullName);
-            $photoLink = imagePath($path). $fullName;
-         }
-      }else{
-         $photoLink = imagePath($default);
-      }
-
-      if($request->has('member_add_from')){
-         $member_add_from = $request->member_add_from;   //Online
-      }else{         
-         $member_add_from = 'By_admin';
-      }
-
-      $insertId = DB::table('members')->insertGetId([
-         'member_no' => $request->member_no,
-         'name' => $request->name,
-         'email' => $request->email,
-         'password' => Hash::make($request->password),
-         'mobile' => $request->mobile,
-         'address' => $request->address,
-         'gender' => $request->gender,
-         'blood' => $request->blood,
-         'dob' => date('Y-m-d', strtotime($request->dob)),
-         'photo' => $photoLink,
-         'member_add_from' => $member_add_from
-      ]);
-
-
-      $insertId = MemberCategoryList::insert([
-         'member_id' => $insertId,
-         'category_id' => $request->category_id
-      ]);
       
+      if(request('id')==null){
+         // dd('new member');
+         
+         $validator = Validator::make($request->all(),[
+            'name'=>'required',
+            'email'=>'required|unique:members',
+            'password'=>'required|min:6',
+            'confirm_password' => 'required|same:password|min:6',
+            'mobile'=>'required',
+            'address'=>'required',
+            'gender'=>'required',
+            'dob'=>'required',
+            'photo'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'member_no'=>'required|unique:members'
+         ]);
+   
+         if($validator->fails()){
+            $messages = $validator->messages();
+            return Redirect::back()->withErrors($validator);
+         }
+   
+         $path="member/";
+         $default="default.jpg";
+         if ($request->hasFile('photo')){
+            if($files=$request->file('photo')){
+               $photo = $request->photo;
+               $fullName=time().".".$photo->getClientOriginalExtension();
+               $files->move(imagePath($path), $fullName);
+               $photoLink = imagePath($path). $fullName;
+            }
+         }else{
+            $photoLink = imagePath($default);
+         }
+   
+         if($request->has('member_add_from')){
+            $member_add_from = $request->member_add_from;   //Online
+         }else{         
+            $member_add_from = 'By_admin';
+         }
+   
+         $insertId = DB::table('members')->insertGetId([
+            'member_no' => $request->member_no,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'mobile' => $request->mobile,
+            'address' => $request->address,
+            'gender' => $request->gender,
+            'blood' => $request->blood,
+            'dob' => date('Y-m-d', strtotime($request->dob)),
+            'photo' => $photoLink,
+            'member_add_from' => $member_add_from
+         ]);
+   
+         $insertId = MemberCategoryList::insert([
+            'member_id' => $insertId,
+            'category_id' => $request->category_id
+         ]);
+         
+         $customFields = CustomField::where('type', '!=', null)->where('status', 1)->get();
+         foreach ($customFields as $field) {
+            $title = $field->name;
+            DB::table('members')->where('id', $insertId)->update([
+               $title => $request->$title
+            ]);
+         }
 
-      $customFields = CustomField::where('type', '!=', null)->where('status', 1)->get();
-
-      foreach ($customFields as $field) {
-         $title = $field->name;
-         DB::table('members')->where('id', $insertId)->update([
-            $title => $request->$title
+      }else{
+         // dd('old member');
+         MemberCategoryList::insert([
+            'member_id' => $request->id,
+            'category_id' => $request->category_id
          ]);
       }
+
       return back()->with('success','New member add successfully');
    }
 

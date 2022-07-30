@@ -122,8 +122,8 @@
                                  @endforeach
                               </select>
                               <div id="previousCategory" class="hide">
-                                 <b>Previous category : <input id="oldMember" style="border: unset;"/></b>
-                              </div>                  
+                                 <b>Previous category</b> <br>
+                              </div>                   
                            </div>
                            <div class="form-group col">
                               <label for="form_no">Member Number*</label>
@@ -140,69 +140,6 @@
             </div>
          </div>
       @include('includes.footer')
-   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-   <script>
-      $(function(){
-
-         $('#mobile').autocomplete({
-            source:function(request, response) {
-
-               // All request send server slow
-               // $.getJSON('{{url('member-list')}}', function(data){
-               
-               //Specified Data server will filter & fast
-               $.getJSON('{{url('member-list')}}?term='+request.term, function(data){
-
-                  var array = $.map(data, function(row) {
-                     return {                        
-                        value:row.mobile, //After search input this
-                        label:row.mobile, //Search column 
-
-                        id:row.id,
-                        name:row.name,
-                        email:row.email,
-                        password:row.password,
-                        confirm_password:row.confirm_password,
-                        address:row.address,
-                        gender:row.gender,
-                        blood:row.blood,
-                        dob:row.dob,
-                        category_id:row.category_id,                        
-                        member_no:row.member_no,                        
-                     }
-                  })
-                  response($.ui.autocomplete.filter(array, request.term));
-               })
-            },
-            minLength:1,
-            delay:500,
-            select:function(event, ui){
-               console.log(ui.item);
-               $('#id').val(ui.item.id);
-               $('#mobile').val(ui.item.mobile);
-               $('#name').val(ui.item.name);
-               $('#email').val(ui.item.email);
-               $('#password').prop('disabled', true);
-               $('#confirm_password').prop('disabled', true);
-               $('#address').val(ui.item.address);
-               $('#gender').val(ui.item.gender);
-               $('#blood').val(ui.item.blood);
-               $('#dob').val(ui.item.dob);
-
-               // It is special because we select child from parent
-               var x = document.getElementById("category_id").options.namedItem(ui.item.category_id).text;
-               $('#'+x).val(x).removeClass('active').attr({'background-color': 'green', 'disabled': 'disabled'});
-               // Or direct
-               // $('#'+ui.item.category_id).val(ui.item.category_id).removeClass('active').css('display', 'none');
-
-               $('#previousCategory').removeClass('active').css('display', 'block');
-               $('#oldMember').val(ui.item.category_id).removeClass('active').css('display', 'block');
-               $('#member_no').val(ui.item.member_no);
-            }
-         })
-      })
-   </script>
+      @include('admin.member.autoComplete')
    </body>
 </html>

@@ -37,7 +37,7 @@
                                  <span class="bg-primary userType">{{$category->memberCategory->name}}</span>
                               @endforeach
                            </td>
-                              {{-- {{$member->memberCategory->name}} --}}
+                             
                            </td>
                            <td>{!!$member->mobile!!}</td>
                            <td>{!! date('d-M-Y', strtotime($member->dob)) !!} <br>

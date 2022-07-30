@@ -8,6 +8,6 @@ class MemberCategory extends Model{
    protected $guarded = [];
 
    public function member(){
-      return $this->hasOne(MemberCategory::class, 'category_id', 'id');
+      return $this->hasMany(MemberCategoryList::class, 'category_id', 'id');
    }
 }

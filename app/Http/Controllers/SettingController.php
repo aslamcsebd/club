@@ -87,14 +87,6 @@ class SettingController extends Controller{
          'percentage' => $percentage,
          'monthly' => $monthly
       ]);
-
-      // $data['categories'] = MemberCategory::all();
-      // $data['customFields'] = CustomField::where('type', '!=', null)->get();
-      // $data['userTypes'] = UserType::all();
-      // $data['headParents'] = HeadParent::all();
-      // $data['general'] = General::first();
-
-      // return view('admin.settings', $data);
       return Redirect::to('settings');
    }
 
@@ -130,7 +122,7 @@ class SettingController extends Controller{
       $column = $data[$name];
       $tab = 'customField';
 
-      if($name=='field' || $name=='dropdown'){
+      if($name=='text' || $name=='dropdown'){
          $addColumn = DB::select("ALTER TABLE $table ADD $column VARCHAR(255) after status");
       }else{
          $addColumn = DB::select("ALTER TABLE $table ADD $column date DEFAULT NULL after status");
@@ -295,6 +287,5 @@ class SettingController extends Controller{
          return back()->with('success','General info update successfully')->withInput(['tab' => $tab]);
       }
 
-   }
-   
+   }   
 }

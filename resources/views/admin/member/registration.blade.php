@@ -19,20 +19,20 @@
                   <div class="row">
                      <div class="form-group col-6">
                         <label for="mobile">Mobile number*</label>
-                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile" required>
+                        <input type="number" class="form-control" name="mobile" id="mobile" placeholder="Enter mobile" required>
                      </div>
-                     <div class="form-group col-6 hide">
+                     <div class="form-group col-6">
                         <label for="name">Full Name*</label>
                         <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Enter name" required>
                      </div>
                   </div>
                   <div class="row">
-                     <div class="form-group col-12 hide">
+                     <div class="form-group col-12">
                         <label for="email">Email*</label>
                         <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" autocomplete="name" required>
                      </div>
                   </div>
-                  <div class="row hide">
+                  <div class="row">
                      <div class="form-group col-6">
                         <label for="password">Password*</label>
                         <input type="password" class="form-control" name="password" id="password" placeholder="Enter password"  autocomplete="new-password" required>
@@ -44,12 +44,12 @@
                      </div>
                   </div>                 
 
-                  <div class="form-group hide">
+                  <div class="form-group">
                      <label for="address">Address*</label>
                      <textarea type="address" class="form-control" name="address" id="address" placeholder="Enter address" required></textarea>
                   </div>
 
-                  <div class="row hide">
+                  <div class="row">
                      <div class="form-group col-6">
                         <label for="address">Gender*</label>
                         <select class="form-control" name="gender" id="gender" required>
@@ -76,12 +76,12 @@
                      </div>
                   </div>
 
-                  <div class="form-group hide">
+                  <div class="form-group">
                      <label for="dob">Date of Birth*</label>
                      <input type="text" class="form-control datepicker" name="dob" id="dob" placeholder="Day-Month-Year" required/>
                   </div>  
 
-                  <div class="form-group hide">
+                  <div class="form-group">
                      <label for="photo">Photo*</label>
                      <input type="file" class="form-control" name="photo"/>
                      <small class="form-text text-muted bg-info p-1 col-6">
@@ -121,11 +121,11 @@
                               <option value="{{$member->id}}" id="{{$member->id}}">{{$member->name}}</option>
                            @endforeach
                         </select>
-                        <div id="previousCategory" class="hide">
-                           <b>Previous category : <input id="oldMember" style="border: unset;"/></b>
+                        <div id="previousCategory">
+                           <b>Previous category</b> <br>
                         </div>                  
                      </div>
-                     <div class="form-group col hide">
+                     <div class="form-group col">
                         <label for="form_no">Member Number*</label>
                         <input type="text" class="form-control" name="member_no" id="member_no" placeholder="Member no" />
                      </div>
@@ -141,69 +141,6 @@
    </div>
 </div>
 @endsection
-@section('js')
-   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-   <script>
-      $(function(){
-
-         $('#mobile').autocomplete({
-            source:function(request, response) {
-
-               $.getJSON('{{url('member-list')}}?term='+request.term, function(data){
-
-                  var array = $.map(data, function(row) {
-                     return {                        
-                        value:row.mobile, //After search input this
-                        label:row.mobile, //Search column 
-
-                        id:row.id,
-                        name:row.name,
-                        email:row.email,
-                        password:row.password,
-                        confirm_password:row.confirm_password,
-                        address:row.address,
-                        gender:row.gender,
-                        blood:row.blood,
-                        dob:row.dob,
-                        member_no:row.member_no,                        
-                     }
-                  })
-                  response($.ui.autocomplete.filter(array, request.term));
-               })
-            },
-            minLength:1,
-            delay:500,
-            select:function(event, ui){
-
-               // var id = ui.item.email;
-               
-               console.log(ui.item);
-               $('#id').val(ui.item.id);
-               $('#mobile').val(ui.item.mobile);
-               $('#name').val(ui.item.name);
-               $('#email').val(ui.item.email);
-               $('#password').prop('disabled', true);
-               $('#confirm_password').prop('disabled', true);
-               $('#address').val(ui.item.address);
-               $('#gender').val(ui.item.gender);
-               $('#blood').val(ui.item.blood);
-               $('#dob').val(ui.item.dob);
-
-               var x = document.getElementById("category_id").options.namedItem(2).id;
-               $('#'+x).val(x).removeClass('active').attr({'background-color': 'green', 'disabled': 'disabled'});
-               
-               // Or direct
-               // $('#'+ui.item.category_id).val(ui.item.category_id).removeClass('active').css('display', 'none');
-
-               $('#previousCategory').removeClass('active').css('display', 'block');
-               $('#oldMember').val(ui.item.category_id).removeClass('active').css('display', 'block');
-
-               $('#member_no').val(ui.item.member_no);
-            }
-         })
-      })
-   </script>
-
+@section('js')  
+   @include('admin.member.autoComplete')
 @endsection

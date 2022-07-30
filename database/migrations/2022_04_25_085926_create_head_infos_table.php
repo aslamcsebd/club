@@ -15,6 +15,7 @@ class CreateHeadInfosTable extends Migration
     {
         Schema::create('head_infos', function (Blueprint $table) {
             $table->id();
+            $table->string('created_by')->nullable();
             $table->string('name');
             $table->string('head_type');
             $table->string('material', 20);
