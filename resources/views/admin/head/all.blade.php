@@ -33,7 +33,7 @@
                            <td>{!!$headInfo->parent_head!!}</td>                         
                            <td>{!!$headInfo->material!!}</td>              
                            <td>
-                              <span class="bg-primary userType">Root</span>
+                              <span class="bg-primary userType">{!!$headInfo->created_by!!}</span>
                            </td>
                            <td>{{date('d-M-Y', strtotime($headInfo->created_at))}}</td>
                            <td width="15">  
@@ -49,7 +49,7 @@
                            <td width="15">
                               <div class="btn-group">
                                  <a href="{{ url('editHead', [$headInfo->id, 'head_infos', 'tapName'])}}" class="btn btn-sm btn-outline-info py-1">Edit</a>                                
-                                 <a href="{{ url('itemDelete', [$headInfo->id, 'head_infos', 'tapName'])}}" class="btn btn-sm btn-outline-danger py-1" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                 <a href="{{ url('itemDelete', ['head_infos', $headInfo->id, 'tapName'])}}" class="btn btn-danger btn-sm btn-info" onclick="return confirm('Are you want to delete this?')">Delete</a>
                               </div>
                            </td>
                         </tr>

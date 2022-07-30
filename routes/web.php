@@ -10,6 +10,8 @@ Route::middleware(['auth'])->group(function(){
       Route::get('/registation/new', 'MemberController@new')->name('member.new');
       //Auto complete respons
       Route::get('/member-list', 'MemberController@memberList')->name('memberList');
+      Route::get('/disable-list', 'MemberController@disable')->name('disable');
+      
       Route::post('/add-new-member', 'MemberController@addMember')->name('addMember');
       Route::get('/member/all', 'MemberController@all')->name('member.all');  
       Route::get('/member/online', 'MemberController@online')->name('member.online');  

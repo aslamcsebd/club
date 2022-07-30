@@ -127,7 +127,7 @@ class SettingController extends Controller{
       $column = $data[$name];
       $tab = 'customField';
 
-      if($name=='field' || $name=='dropdown'){
+      if($name=='text' || $name=='dropdown'){
          $addColumn = DB::select("ALTER TABLE $table ADD $column VARCHAR(255) after status");
       }else{
          $addColumn = DB::select("ALTER TABLE $table ADD $column date DEFAULT NULL after status");

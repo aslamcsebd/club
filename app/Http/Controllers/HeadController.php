@@ -8,6 +8,7 @@ use Validator;
 use Redirect;
 use DB;
 use Carbon\Carbon;
+use Auth;
 
 use App\Models\UserType;
 use App\Models\HeadParent;
@@ -37,6 +38,7 @@ class HeadController extends Controller{
       ($request->filled('material') ? $material=$request->material : $material='No');
 
       HeadInfo::create([
+         'created_by' => Auth::user()->name,
          'name' => $request->name,
          'head_type' => $request->head_type,
          'material' => $material,
