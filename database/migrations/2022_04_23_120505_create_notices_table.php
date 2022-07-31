@@ -19,7 +19,8 @@ class CreateNoticesTable extends Migration
             $table->string('title');
             $table->text('description'); 
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

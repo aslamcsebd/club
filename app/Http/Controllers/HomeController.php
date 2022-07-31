@@ -49,3 +49,4 @@ class HomeController extends Controller{
       return back()->with('success', $model.' delete successfully')->withInput(['tab' => $tab]);
    }
 }
+

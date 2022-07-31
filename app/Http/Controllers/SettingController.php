@@ -220,7 +220,6 @@ class SettingController extends Controller{
    public function addGeneral(Request $request){
 
       $tab = 'general';
-
       if($request->id==null){
          $validator = Validator::make($request->all(),[
             'company_name'=>'required',

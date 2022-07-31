@@ -19,7 +19,8 @@ class CreateFilesTable extends Migration
             $table->string('name');
             $table->string('file');
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

@@ -28,11 +28,15 @@
                            <td width="30">{{$loop->iteration}}</td>
                            <td>{!!$file->name!!}</td>
                            <td>
-                              <span class="bg-primary {{ ($file->user_type) ? 'userType' : '' }}">{!!$file->user_type!!}</span>
+                              @foreach($file->userType as $user)
+                                 <span class="bg-primary userType">{{$user->name}}</span>
+                              @endforeach
                            </td>
                            <td>
-                              <span class="bg-primary {{ ($file->member_type) ? 'userType' : '' }}">{!!$file->member_type!!}</span>
-                           </td>
+                              @foreach($file->memberType as $member)
+                                 <span class="bg-primary userType">{{$member->name}}</span>
+                              @endforeach
+                           </td> 
                            <td>
                               <span class="bg-primary userType">{!!$file->created_by!!}</span>
                            </td>

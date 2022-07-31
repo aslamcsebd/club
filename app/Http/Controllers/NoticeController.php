@@ -42,24 +42,24 @@ class NoticeController extends Controller{
          'description' => $request->description
       ]);
 
-      //user list
-      $user_id = $request->input('user_id');
-      if ($user_id){
-         foreach ($user_id as $id) {
+      //User type list
+      $userType_id = $request->input('userType_id');
+      if ($userType_id){
+         foreach ($userType_id as $id) {
             NoticeRecipientList::insertGetId([
                'notice_id' => $noticeId,
-               'user_id' => $id
+               'userType_id' => $id
             ]);
          }
-      }
-
-      // Member list
-      $member_id = $request->input('member_id');
-      if ($member_id){
-         foreach ($member_id as $id) {
+      }      
+      
+      // Member category list
+      $memberCategory_id = $request->input('memberCategory_id');
+      if ($memberCategory_id){
+         foreach ($memberCategory_id as $id) {
             NoticeRecipientList::insertGetId([
                'notice_id' => $noticeId,
-               'member_id' => $id
+               'memberCategory_id' => $id
             ]);
          }
       }
@@ -69,8 +69,7 @@ class NoticeController extends Controller{
 
    // Show all notice
    public function all(){
-      $data['notices'] = Notice::with('allUser')->get();
-
+      $data['notices'] = Notice::with('userType', 'memberType')->get();
       return view('admin.notice.all', $data);
    }
 

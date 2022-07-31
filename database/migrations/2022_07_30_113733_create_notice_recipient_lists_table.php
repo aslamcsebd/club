@@ -16,8 +16,8 @@ class CreateNoticeRecipientListsTable extends Migration
         Schema::create('notice_recipient_lists', function (Blueprint $table) {
             $table->id();
             $table->integer('notice_id')->nullable();
-            $table->integer('user_id')->nullable();
-            $table->integer('member_id')->nullable();
+            $table->integer('userType_id')->nullable();
+            $table->integer('memberCategory_id')->nullable();
             $table->timestamps();
         });
     }

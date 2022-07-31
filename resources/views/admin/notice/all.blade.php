@@ -26,13 +26,17 @@
                      @foreach($notices as $notice)
                         <tr>
                            <td width="30">{{$loop->iteration}}</td>
-                           <td>{!!$notice->title!!}</td>
+                           <td>{!!$notice->title!!}</td>                        
                            <td>
-                              <span class="bg-primary {{ ($notice->user_type) ? 'userType' : '' }}">{!!$notice->user_type!!}</span>
+                              @foreach($notice->userType as $user)
+                                 <span class="bg-primary userType">{{$user->name}}</span>
+                              @endforeach
                            </td>
                            <td>
-                              <span class="bg-primary {{ ($notice->member_type) ? 'userType' : '' }}">{!!$notice->member_type!!}</span>
-                           </td>
+                              @foreach($notice->memberType as $member)
+                                 <span class="bg-primary userType">{{$member->name}}</span>
+                              @endforeach
+                           </td>                           
                            <td>
                               <span class="bg-primary userType">{!!$notice->created_by!!}</span>
                            </td>

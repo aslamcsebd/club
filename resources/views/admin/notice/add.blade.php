@@ -23,20 +23,20 @@
                         <label for="address">Recipient Type[User]*</label>
                      </div>
                      <div class="form-group col-4">
-                        <select class="multiple-checkboxes" multiple="multiple" name="user_id[]">
+                        <select class="multiple-checkboxes" multiple="multiple" name="userType_id[]">
                            @foreach($userTypes as $user)
                               <option value="{{$user->id}}">{{$user->name}}</option>
                            @endforeach
                         </select>
                      </div>
                   </div>
-               
+                  
                   <div class="row">
                      <div class="form-group col-4">
                         <label for="address">Recipient Type[Member]*</label> 
                      </div>
                      <div class="form-group col-4">
-                        <select class="multiple-checkboxes" multiple="multiple" name="member_id[]">
+                        <select class="multiple-checkboxes" multiple="multiple" name="memberCategory_id[]">
                            @foreach($memberTypes as $member)
                               <option value="{{$member->id}}">{{$member->name}}</option>
                            @endforeach

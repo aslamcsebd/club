@@ -23,7 +23,7 @@ class MemberController extends Controller{
    public function new(){
       $data['customFields'] = CustomField::where('type', '!=', null)->where('status', 1)->get();
       $data['memberCategory'] = MemberCategory::where('status', 1)->get();
-      return view('admin.member.registration', $data);      
+      return view('admin.member.registration', $data);
    }
 
    //Auto complete respons
@@ -51,9 +51,7 @@ class MemberController extends Controller{
    // Add new member
    public function addMember(Request $request){
       
-      if(request('id')==null){
-         // dd('new member');
-         
+      if(request('id')==null){         
          $validator = Validator::make($request->all(),[
             'name'=>'required',
             'email'=>'required|unique:members',
@@ -151,16 +149,6 @@ class MemberController extends Controller{
       
       return view('admin.user.view', $data);
    }
-
-   // Status [Active vs Inactive]
-   // public function itemStatus($id, $model, $tab){
-   //    //Much code because save() function not working...
-   //    $itemId = DB::table($model)->find($id);
-   //    ($itemId->status == true) ? $action=$itemId->status = false : $action=$itemId->status = true;     
-   //    DB::table($model)->where('id', $id)->update(['status' => $action]);
-   //    return back()->with('success', $model.' status change')->withInput(['tab' => $tab]);
-   // }
-
 
    // Status2 [Required vs not required]
    public function itemStatus2($model, $field, $id, $tab){

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Models\UserType;
 use App\Models\MemberCategory;
 use App\Models\File;
+use App\Models\FileRecipientList;
 
 class FileController extends Controller{
 
@@ -27,7 +28,7 @@ class FileController extends Controller{
 
       $validator = Validator::make($request->all(),[
          'name'=>'required',
-         'file' => 'required|max:10240|mimes:pdf,doc,docx,txt,odt,xls,xlsx,jpeg,jpg,pngdoc,docx'
+         'file' => 'required|max:10240|mimes:pdf,doc,docx,txt,odt,xls,xlsx,jpeg,jpg,png,pngdoc,docx'
       ]);
       //Maximum file size: 10 MB.
 
@@ -36,57 +37,51 @@ class FileController extends Controller{
          return Redirect::back()->withErrors($validator);
       }
 
-      $path="";
+      $path="files/";
       if ($request->hasFile('file')){
          if($files=$request->file('file')){
             $file = $request->file;
             $fullName=time().".".$file->getClientOriginalExtension();
-            $files->move(filePath($path), $fullName);
-            $fileLink = filePath($path). $fullName;
+            $files->move(public_path($path), $fullName);
+            $fileLink = $path . $fullName;
          }
       }else{
          $fileLink = '';
-      }
+      }     
 
-      $user_type = $request->input('user_type');
-      if ($user_type){
-         $array = [];
-         $serial = 0;
-         foreach ($user_type as $field) {
-            $array[$serial] = $field;
-            $serial = $serial + 1;
-         }      
-         $user_type = implode(', ', $array);         
-      }else{
-         $user_type = '';
-      }
-
-      $member_type = $request->input('member_type');
-      if ($member_type){
-         $array = [];
-         $serial = 0;
-         foreach ($member_type as $field) {
-            $array[$serial] = $field;
-            $serial = $serial + 1;
-         }      
-         $member_type = implode(', ', $array);         
-      }else{
-         $member_type = '';
-      }
-
-      File::create([
+      $fileId = File::insertGetId([
          'created_by' => Auth::user()->name,
          'name' => $request->name,
-         'file' => $fileLink,
-         'user_type' => $user_type,
-         'member_type' => $member_type,
+         'file' => $fileLink
       ]);
+
+      //User type list
+      $userType_id = $request->input('userType_id');
+      if ($userType_id){
+         foreach ($userType_id as $id) {
+            FileRecipientList::insertGetId([
+               'file_id' => $fileId,
+               'userType_id' => $id
+            ]);
+         }
+      }      
+      
+      // Member category list
+      $memberCategory_id = $request->input('memberCategory_id');
+      if ($memberCategory_id){
+         foreach ($memberCategory_id as $id) {
+            FileRecipientList::insertGetId([
+               'file_id' => $fileId,
+               'memberCategory_id' => $id
+            ]);
+         }
+      }
       return back()->with('success','New file upload successfully');
    }
 
    // Show all file
    public function all(){
-      $data['files'] = File::all();
+      $data['files'] = File::with('userType', 'memberType')->get();
       return view('admin.file.all', $data);
    }
 
