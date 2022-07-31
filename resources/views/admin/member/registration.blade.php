@@ -9,6 +9,7 @@
    <div class="row justify-content-center">
       <div class="col-md-12">
          <div class="card">
+            
             <h6 class="card-header bg-success text-center py-2">Register new member</h6>
             <form action="{{ Route('addMember') }}" method="post" enctype="multipart/form-data">
                @csrf
