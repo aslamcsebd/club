@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use App\Models\UserType;
 use App\Models\MemberCategory;
 use App\Models\Notice;
+use App\Models\NoticeRecipientList;
 
 class NoticeController extends Controller{
 
@@ -24,8 +25,7 @@ class NoticeController extends Controller{
    }
 
    // Add notice
-   public function add(Request $request){
-
+   public function add(Request $request) {
       $validator = Validator::make($request->all(),[
          'title'=>'required',
          'description'=>'required'
@@ -36,45 +36,41 @@ class NoticeController extends Controller{
          return Redirect::back()->withErrors($validator);
       }
 
-      $user_type = $request->input('user_type');
-      if ($user_type){
-         $array = [];
-         $serial = 0;
-         foreach ($user_type as $field) {
-            $array[$serial] = $field;
-            $serial = $serial + 1;
-         }      
-         $user_type = implode(', ', $array);         
-      }else{
-         $user_type = '';
-      }
-
-      $member_type = $request->input('member_type');
-      if ($member_type){
-         $array = [];
-         $serial = 0;
-         foreach ($member_type as $field) {
-            $array[$serial] = $field;
-            $serial = $serial + 1;
-         }      
-         $member_type = implode(', ', $array);         
-      }else{
-         $member_type = '';
-      }
-
-      Notice::create([
+      $noticeId = Notice::insertGetId([
          'created_by' => Auth::user()->name,
          'title' => $request->title,
-         'description' => $request->description,
-         'user_type' => $user_type,
-         'member_type' => $member_type,
+         'description' => $request->description
       ]);
+
+      //user list
+      $user_id = $request->input('user_id');
+      if ($user_id){
+         foreach ($user_id as $id) {
+            NoticeRecipientList::insertGetId([
+               'notice_id' => $noticeId,
+               'user_id' => $id
+            ]);
+         }
+      }
+
+      // Member list
+      $member_id = $request->input('member_id');
+      if ($member_id){
+         foreach ($member_id as $id) {
+            NoticeRecipientList::insertGetId([
+               'notice_id' => $noticeId,
+               'member_id' => $id
+            ]);
+         }
+      }
+
       return back()->with('success','New notice add successfully');
    }
 
    // Show all notice
    public function all(){
-      $data['notices'] = Notice::all();
+      $data['notices'] = Notice::with('allUser')->get();
+
       return view('admin.notice.all', $data);
    }
 

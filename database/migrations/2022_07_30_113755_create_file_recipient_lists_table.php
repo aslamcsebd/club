@@ -15,8 +15,9 @@ class CreateFileRecipientListsTable extends Migration
     {
         Schema::create('file_recipient_lists', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id')->nullable();
-            $table->string('member_id')->nullable();
+            $table->integer('file_id')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->integer('member_id')->nullable();
             $table->timestamps();
         });
     }

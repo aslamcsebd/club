@@ -8,10 +8,10 @@ class Notice extends Model {
    protected $guarded = [];
 
    public function allUser(){
-      return $this->hasMany(AllUser::class, 'user_id', 'id');
+      return $this->belongsToMany(AllUser::class, 'notice_recipient_lists', 'notice_id', 'user_id');
    }
 
-   public function memberCategory(){
-      return $this->hasMany(MemberCategory::class, 'member_id', 'id');
+   public function member(){
+      return $this->belongsToMany(Member::class, NoticeRecipientList::class, 'notice_id', 'member_id');
    }
 }

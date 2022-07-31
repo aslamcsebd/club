@@ -18,8 +18,6 @@ class CreateFilesTable extends Migration
             $table->string('created_by')->nullable();
             $table->string('name');
             $table->string('file');
-            $table->string('user_type')->nullable();
-            $table->string('member_type')->nullable();
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
             $table->timestamps();
         });

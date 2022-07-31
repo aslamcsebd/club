@@ -12,6 +12,6 @@ class Member extends Model {
    }
 
    public function memberCategory(){
-      return $this->hasMany(MemberCategoryList::class, 'member_id', 'id');
+      return $this->belongsToMany(MemberCategory::class, 'member_category_lists', 'member_id', 'category_id');
    }
 }

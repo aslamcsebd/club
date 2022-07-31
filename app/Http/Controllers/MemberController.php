@@ -36,8 +36,8 @@ class MemberController extends Controller{
    // Status change
    public function disable(Request $request){
       $id = $request->id;
-      $obj = Member::with('memberCategory.memberCategory')->find($id);
-      
+      $obj = Member::with('memberCategoryList.memberCategory')->find($id);
+      // $obj = Member::with('memberCategory')->find($id);         
       return response()->json(['message' =>  $obj]);
    }
 

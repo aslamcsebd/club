@@ -59,9 +59,9 @@
                     data: {'id': id},
                     success: function (data) {
                         
-                        Object.keys(data.message.member_category).forEach(key => {
-                            var id = data.message.member_category[key].member_category.id;
-                            var name = data.message.member_category[key].member_category.name;
+                        Object.keys(data.message.member_category_list).forEach(key => {
+                            var id = data.message.member_category_list[key].member_category.id;
+                            var name = data.message.member_category_list[key].member_category.name;
 
                             $('#'+id).val(id).removeClass('active').css({'display': 'none'});
                             

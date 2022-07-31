@@ -17,22 +17,30 @@
                      <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Name" required>
                   </div>
 
-                  <div class="form-group">
-                     <label for="address">Recipient Type[User]*</label> &nbsp;
-                     <select class="multiple-checkboxes" multiple="multiple" name="user_type[]">
-                        @foreach($userTypes as $user)
-                           <option value="{{$user->name}}">{{$user->name}}</option>
-                        @endforeach
-                     </select>
+                  <div class="row">
+                     <div class="form-group col-4">
+                        <label for="address">Recipient Type[User]*</label>
+                     </div>
+                     <div class="form-group col-4">
+                        <select class="multiple-checkboxes" multiple="multiple" name="user_type[]">
+                           @foreach($userTypes as $user)
+                              <option value="{{$user->name}}">{{$user->name}}</option>
+                           @endforeach
+                        </select>
+                     </div>
                   </div>
-
-                  <div class="form-group">
-                     <label for="address">Recipient Type[Member]*</label> &nbsp;
-                     <select class="multiple-checkboxes" multiple="multiple" name="member_type[]">
-                        @foreach($memberTypes as $member)
-                           <option value="{{$member->name}}">{{$member->name}}</option>
-                        @endforeach
-                     </select>
+                  
+                  <div class="row">
+                     <div class="form-group col-4">
+                        <label for="address">Recipient Type[Member]*</label>
+                     </div>
+                     <div class="form-group col-4">
+                        <select class="multiple-checkboxes" multiple="multiple" name="member_type[]">
+                           @foreach($memberTypes as $member)
+                              <option value="{{$member->name}}">{{$member->name}}</option>
+                           @endforeach
+                        </select>
+                     </div>
                   </div>
                   
                   <div class="form-group mt-2">
@@ -47,7 +55,7 @@
                   </div>
                </div>
                <div class="card-footer">
-                  <button type="submit" class="btn btn-primary">Save</button>
+                  <button type="submit" class="btn btn-primary">Submit</button>
                </div>
             </form>
          </div>
