@@ -15,10 +15,10 @@
                   <div class="row">
                      <div class="form-group col">
                         <label for="type">User Type <span class="text-danger">*</span></label> 
-                        <select name="user_type" id="type" required="required" class="custom-select">
+                        <select name="user_type_id" id="type" required="required" class="custom-select">
                            <option value="" disabled="disabled" selected="selected">Select User Type</option>
                            @foreach($user_types as $user)
-                              <option value="{{$user->name}}">{{$user->name}}</option>
+                              <option value="{{$user->id}}">{{$user->name}}</option>
                            @endforeach
                         </select>
                      </div>

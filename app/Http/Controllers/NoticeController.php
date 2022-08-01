@@ -75,7 +75,7 @@ class NoticeController extends Controller{
 
    // Show single notice
    public function viewSingleNotice($id, $model, $tab){
-      $data['single'] =  $itemId = DB::table($model)->find($id);   
+      $data['single'] =  $itemId = Notice::with('userType', 'memberType')->find($id);   
       return view('admin.notice.view', $data);
    }
 

@@ -1,10 +1,9 @@
-
 <!-- Auto complete -->
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-    <script>
+<!-- <script>
         $(function() {
             $('#mobile').autocomplete({
                 source:function(request, response) {
@@ -73,4 +72,64 @@
                 }
             })
         })
-    </script>
+    </script> -->
+
+
+<script>
+    $(function() {
+
+        $(document).on('click', function() {
+            $.ajax({
+                type: 'GET', //THIS NEEDS TO BE GET
+                url: '{{url("member-list")}}?term=' + $('#mobile').val(),
+                dataType: 'json',
+                success: function(data) {
+                    $('#id').val(data.message ? data.message.id : '');
+                    $('#name').val(data.message ? data.message.name : '');
+                    $('#email').val(data.message ? data.message.email : '');
+                    $('#password').prop('disabled', true);
+                    $('#confirm_password').prop('disabled', true);
+                    $('#address').val(data.message ? data.message.address : '');
+                    $('#gender').val(data.message ? data.message.gender : '');
+                    $('#blood').val(data.message ? data.message.blood : '');
+                    $('#dob').val(data.message ? data.message.dob : '');
+                    $('#previousCategory').removeClass('active').css('display', 'block');
+                    $('#oldMember').val(data.message ? data.message.category_id : '').removeClass('active').css('display', 'block');
+                    $('#member_no').val(data.message ? data.message.member_no : '');
+
+                    var id = data.message ? data.message.id : null;
+
+                    // Disable field
+                    $.ajax({
+                        type: "GET",
+                        dataType: "json",
+                        url: '{{ url("disable-list") }}',
+                        data: {
+                            'id': id
+                        },
+                        success: function(data) {
+
+                            $('#previousCategory').html('');
+                            if (data.message != null) {
+                                Object.keys(data.message.member_category_list).forEach(key => {
+                                    var id = data.message.member_category_list[key].member_category.id;
+                                    var name = data.message.member_category_list[key].member_category.name;
+                                    console.log(name);
+                                    $('#' + id).removeClass('active').css({'display': 'none'});
+
+                                    var html = '<span class="bg-primary userType">' + name + '</span>&nbsp';
+                                    $('#previousCategory').append(html);
+                                });
+                            }else{
+                                $('.m_c_id').addClass('active').css({'display': 'block'});
+                            }
+                        }
+                    });
+                },
+                error: function() {
+                    console.log(data);
+                }
+            });
+        })
+    })
+</script>

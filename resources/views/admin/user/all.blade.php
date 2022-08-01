@@ -44,7 +44,7 @@
                            <tr>
                               <td width="30">{{$si}}</td> @php $si++;@endphp
                               <td>{!!$user->name!!}</td>
-                              <td> <span class="bg-primary userType">{!!$user->user_type!!}</span></td>
+                              <td> <span class="bg-primary userType">{!!$user->userType->name!!}</span></td>
                               <td>{!!$user->email!!}</td>
                               <td>{!!$user->mobile!!}</td>
                               <td>{!! date('d-M-Y', strtotime($user->dob)) !!} <br>

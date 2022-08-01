@@ -15,7 +15,7 @@ class CreateAllUsersTable extends Migration
     {
         Schema::create('all_users', function (Blueprint $table) {
             $table->id();
-            $table->string('user_type')->nullable();
+            $table->integer('user_type_id')->nullable();
             $table->string('name')->nullable();
             $table->string('email')->nullable();
             $table->string('mobile')->nullable();

@@ -118,7 +118,7 @@
                               <select class="form-control" name="category_id" id="category_id" required>
                                  <option value="">Select member category</option>
                                  @foreach($memberCategory as $member)
-                                    <option value="{{$member->id}}" id="{{$member->id}}">{{$member->name}}</option>
+                                    <option value="{{$member->id}}" id="{{$member->id}}" class="m_c_id">{{$member->name}}</option>
                                  @endforeach
                               </select>
                               <div id="previousCategory" class="hide">

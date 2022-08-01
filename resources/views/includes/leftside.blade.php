@@ -17,13 +17,13 @@
                   <li class="nav-item">
                      <a href="{{ route('member.new') }}" class="nav-link {{ (request()->routeIs('member.new*'))  ? 'active' : '' }}">
                        {{-- <i class="far fa-address-book nav-icon"></i> --}}
-                        <p>Add member</p>
+                        <p>Add register</p>
                      </a>
                   </li>
                   <li class="nav-item">
                      <a href="{{ route('member.all') }}" class="nav-link {{ (request()->routeIs('member.all*'))  ? 'active' : '' }}">
                         {{-- <i class="far fa-address-book nav-icon"></i> --}}
-                        <p>All member</p>
+                        <p>All register</p>
                      </a>
                   </li>
                   <li class="nav-item">

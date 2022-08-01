@@ -42,7 +42,9 @@
                         <label>To[User]</label>
                      </td>
                      <td>
-                        <span class="bg-primary {{ ($single->user_type) ? 'userType' : '' }}">{{$single->user_type}}</span>
+                        @foreach($single->userType as $user)
+                           <span class="bg-primary userType">{{$user->name}}</span>
+                        @endforeach                        
                      </td>
                   </tr>
                   <tr>
@@ -50,8 +52,10 @@
                         <label>To[Member]</label>
                      </td>
                      <td>
-                        <span class="bg-primary {{ ($single->member_type) ? 'userType' : '' }}">{{$single->member_type}}</span>
-                     </td>
+                        @foreach($single->memberType as $member)
+                           <span class="bg-primary userType">{{$member->name}}</span>
+                        @endforeach
+                     </td>   
                   </tr>
                </table>             
             </div>

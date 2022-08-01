@@ -26,7 +26,7 @@ class UserController extends Controller{
    public function addUser(Request $request){
       
       $validator = Validator::make($request->all(),[
-         'user_type'=>'required',
+         'user_type_id'=>'required',
          'name'=>'required',
          'email'=>'required|unique:all_users',
          'mobile'=>'required',
@@ -57,7 +57,7 @@ class UserController extends Controller{
       }
 
       AllUser::create([
-         'user_type' => $request->user_type,
+         'user_type_id' => $request->user_type_id,
          'name' => $request->name,
          'email' => $request->email,
          'mobile' => $request->mobile,
@@ -73,12 +73,12 @@ class UserController extends Controller{
 
    // Show all/group user
    public function all(){
-      $data['userCategory'] = AllUser::get()->groupBy('user_type');
+      $data['userCategory'] = AllUser::with('userType')->get()->groupBy('user_type_id');
 
       $user_type = request('name');
       $data['users'] = AllUser::when($user_type, function($query) use ($user_type){
-         return $query->where('user_type', $user_type);
-      })->get()->groupBy('user_type');
+         return $query->where('user_type_id', $user_type_id);
+      })->get()->groupBy('user_type_id');
 
       return view('admin.user.all', $data);
    }

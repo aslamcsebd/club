@@ -28,8 +28,10 @@ class MemberController extends Controller{
 
    //Auto complete respons
    public function memberList(Request $request){
+      // dd(request()->all());
       if($request->has('term')){
-         return Member::where('mobile', 'like', '%'.$request->input('term').'%')->get();
+         $obj = Member::where('mobile', $request->input('term'))->first();
+         return response()->json(['message' =>  $obj]);
       }
    }
 

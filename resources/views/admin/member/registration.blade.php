@@ -14,7 +14,7 @@
             <form action="{{ Route('addMember') }}" method="post" enctype="multipart/form-data">
                @csrf
                <div class="card-body">
-                  <input type="hidden" name="id" id="id">
+                  <input type="" name="id" id="id">
 
                   <div class="row">
                      <div class="form-group col-6">
@@ -26,7 +26,7 @@
                         <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Enter name" required>
                      </div>
                   </div>
-                  <div class="row">
+                  <!-- <div class="row">
                      <div class="form-group col-12">
                         <label for="email">Email*</label>
                         <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" autocomplete="name" required>
@@ -74,9 +74,9 @@
                           <option value="Unknown">Unknown</option>
                         </select>
                      </div>
-                  </div>
+                  </div> -->
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                      <label for="dob">Date of Birth*</label>
                      <input type="text" class="form-control datepicker" name="dob" id="dob" placeholder="Day-Month-Year" required/>
                   </div>  
@@ -87,7 +87,7 @@
                      <small class="form-text text-muted bg-info p-1 col-6">
                         <i>Image format: jpeg, png, jpg, gif, svg. Maximum size : 2 MB.</i>
                      </small>
-                  </div>
+                  </div> -->
 
                   @foreach($customFields as $field)
                      @php $title = $field->name; @endphp
@@ -118,7 +118,7 @@
                         <select class="form-control" name="category_id" id="category_id" required>
                            <option value="">Select member category</option>
                            @foreach($memberCategory as $member)
-                              <option value="{{$member->id}}" id="{{$member->id}}">{{$member->name}}</option>
+                              <option value="{{$member->id}}" id="{{$member->id}}" class="m_c_id">{{$member->name}}</option>
                            @endforeach
                         </select>
                         <div id="previousCategory">
