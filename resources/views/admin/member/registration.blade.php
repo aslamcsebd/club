@@ -14,7 +14,7 @@
             <form action="{{ Route('addMember') }}" method="post" enctype="multipart/form-data">
                @csrf
                <div class="card-body">
-                  <input type="" name="id" id="id">
+                  <input type="hidden" name="id" id="id">
 
                   <div class="row">
                      <div class="form-group col-6">

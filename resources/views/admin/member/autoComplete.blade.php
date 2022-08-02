@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <!-- <script>
         $(function() {
             $('#mobile').autocomplete({
@@ -92,22 +92,22 @@
                 dataType: 'json',
                 success: function(data) {
                     $('#id').val(data.message ? data.message.id : '');
-                    $('#name').val(data.message ? data.message.name : '').css('display', (data.message ? 'none' : 'block'));
-                    $('#email').val(data.message ? data.message.email : '');                  
+                    $('#name').val(data.message ? data.message.name : '').attr('readonly', (data.message ? true : false));
+                    $('#email').val(data.message ? data.message.email : '').attr('readonly', (data.message ? true : false));                  
                     
                     $('#password').prop('disabled', (data.message ? true : false));
                     $('#confirm_password').prop('disabled', (data.message ? true : false));
 
-                    $('#address').val(data.message ? data.message.address : '');
-                    $('#gender').val(data.message ? data.message.gender : '');
-                    $('#blood').val(data.message ? data.message.blood : '');
-                    $('#dob').val(data.message ? data.message.dob : '');
+                    $('#address').val(data.message ? data.message.address : '').attr('readonly', (data.message ? true : false));
+                    $('#gender').val(data.message ? data.message.gender : '').attr('readonly', (data.message ? true : false));
+                    $('#blood').val(data.message ? data.message.blood : '').attr('readonly', (data.message ? true : false));
+                    $('#dob').val(data.message ? data.message.dob : '').attr('readonly', (data.message ? true : false));
                     
-                    $('#customField').removeClass('active').css('display', (data.message ? 'none' : 'block'));
+                    $("#customField .form-control").prop('disabled', (data.message ? true : false));
 
                     $('#previousCategory').removeClass('active').css('display', 'block');
                     $('#oldMember').val(data.message ? data.message.category_id : '').removeClass('active').css('display', 'block');
-                    $('#member_no').val(data.message ? data.message.member_no : '');
+                    $('#member_no').val(data.message ? data.message.member_no : '').attr('readonly', (data.message ? true : false));
 
                     var id = data.message ? data.message.id : null;
 

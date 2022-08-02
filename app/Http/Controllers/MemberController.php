@@ -105,12 +105,13 @@ class MemberController extends Controller{
             'member_add_from' => $member_add_from
          ]);
    
-         $insertId = MemberCategoryList::insert([
+         $insertId2 = MemberCategoryList::insert([
             'member_id' => $insertId,
             'category_id' => $request->category_id
          ]);
          
          $customFields = CustomField::where('type', '!=', null)->where('status', 1)->get();
+       
          foreach ($customFields as $field) {
             $title = $field->name;
             DB::table('members')->where('id', $insertId)->update([

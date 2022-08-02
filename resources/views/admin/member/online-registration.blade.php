@@ -15,6 +15,7 @@
 
                      <div class="card-body">
                         <input type="hidden" name="member_add_from" value="Online">
+                        <input type="hidden" name="id" id="id">
 
                         <div class="row">
                            <div class="form-group col-6">
@@ -88,29 +89,30 @@
                               <i>Image format: jpeg, png, jpg, gif, svg. Maximum size : 2 MB.</i>
                            </small>
                         </div>
-
-                        @foreach($customFields as $field)
-                           @php $title = $field->name; @endphp
-                           @if($field->type=='dropdown')
-                              <div class="form-group">
-                                 <label class="capitalize" for="{{$title}}">{{$title}}*</label>
-                                 @php
-                                    $values = App\Models\CustomField::where('name', $title)->where('type', '=', null)->get();
-                                 @endphp
-                                 <select class="form-control" name="{{$title}}" id="{{$title}}" {{($field->required==1)? 'required':''}}>
-                                    <option value="">Select dropdown</option>
-                                    @foreach($values as $value)
-                                       <option value="{{$value->child}}">{{$value->child}}</option>
-                                    @endforeach
-                                 </select>
-                              </div>
-                           @else
-                              <div class="form-group">
-                                 <label class="capitalize" for="{{$title}}">{{$title}}*</label>
-                                 <input type="{{($field->type=='date')? 'date':'text'}}" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}" {{($field->required==1)? 'required':''}}>
-                              </div>
-                           @endif
-                        @endforeach
+                        <div id="customField">
+                           @foreach($customFields as $field)
+                              @php $title = $field->name; @endphp
+                              @if($field->type=='dropdown')
+                                 <div class="form-group">
+                                    <label class="capitalize" for="{{$title}}">{{$title}}*</label>
+                                    @php
+                                       $values = App\Models\CustomField::where('name', $title)->where('type', '=', null)->get();
+                                    @endphp
+                                    <select class="form-control" name="{{$title}}" id="{{$title}}" {{($field->required==1)? 'required':''}}>
+                                       <option value="">Select dropdown</option>
+                                       @foreach($values as $value)
+                                          <option value="{{$value->child}}">{{$value->child}}</option>
+                                       @endforeach
+                                    </select>
+                                 </div>
+                              @else
+                                 <div class="form-group">
+                                    <label class="capitalize" for="{{$title}}">{{$title}}*</label>
+                                    <input type="{{($field->type=='date')? 'date':'text'}}" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}" {{($field->required==1)? 'required':''}}>
+                                 </div>
+                              @endif
+                           @endforeach
+                        </div>
                         <hr>
                         <div class="row">
                            <div class="form-group col">
