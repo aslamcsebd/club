@@ -7,7 +7,7 @@
 
 <div class="content-wrapper p-3">
    <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col-md-12">
          <div class="card border border-danger">
             <div class="card-header p-1 bg-secondary">
                <div class="card-title ml-2">All Users</div>
@@ -19,7 +19,11 @@
                      <a href="{{ Route('user.all') }}" class="dropdown-item">All</a>
                      @foreach($userCategory as $key=>$user)
                         <a href="{{ Route('user.get', $key) }}" class="dropdown-item">
-                           {!!$key!!} [{{$user->count()}}]
+                           @foreach($user as $key=>$user2)
+                              @if($loop->first)
+                                 {{$user2->userType->name}}[{{$user->count()}}]
+                              @endif
+                           @endforeach
                         </a>
                      @endforeach
                   </div>
@@ -36,6 +40,7 @@
                      <th>Mobile</th>
                      <th>DOB</th>
                      <th>Status</th>
+                     <th>Action</th>
                   </thead>
                   <tbody>
                      @php $si=1;@endphp
@@ -60,6 +65,13 @@
                                     {{ $user->status == 1 ? 'checked' : '' }}
 
                                  />
+                              </td>
+                              <td width="15">
+                                 <div class="btn-group">
+                                    <a href="{{ url('editCategory', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-sm btn-outline-info">Edit</a>                                         
+
+                                    <a href="{{ url('itemDelete', ['member_categories', $category->id, 'memberCategory'])}}" class="btn btn-danger btn-sm btn-info" onclick="return confirm('Are you want to delete this?')">Delete</a>
+                                 </div>
                               </td>
                            </tr>
                         @endforeach

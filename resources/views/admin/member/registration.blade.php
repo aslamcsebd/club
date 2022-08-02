@@ -26,7 +26,7 @@
                         <input type="text" class="form-control" name="name" id="name"  value="{{ old('name') }}" placeholder="Enter name" required>
                      </div>
                   </div>
-                  <!-- <div class="row">
+                  <div class="row">
                      <div class="form-group col-12">
                         <label for="email">Email*</label>
                         <input type="email" class="form-control" name="email" id="email" value="{!! old('email') !!}" placeholder="Enter email" autocomplete="name" required>
@@ -74,9 +74,9 @@
                           <option value="Unknown">Unknown</option>
                         </select>
                      </div>
-                  </div> -->
+                  </div>
 
-                  <!-- <div class="form-group">
+                  <div class="form-group">
                      <label for="dob">Date of Birth*</label>
                      <input type="text" class="form-control datepicker" name="dob" id="dob" placeholder="Day-Month-Year" required/>
                   </div>  
@@ -87,30 +87,32 @@
                      <small class="form-text text-muted bg-info p-1 col-6">
                         <i>Image format: jpeg, png, jpg, gif, svg. Maximum size : 2 MB.</i>
                      </small>
-                  </div> -->
+                  </div>
 
-                  @foreach($customFields as $field)
-                     @php $title = $field->name; @endphp
-                     @if($field->type=='dropdown')
-                        <div class="form-group">
-                           <label class="capitalize" for="{{$title}}">{{$title}}*</label>
-                           @php
-                              $values = App\Models\CustomField::where('name', $title)->where('type', '=', null)->get();
-                           @endphp
-                           <select class="form-control" name="{{$title}}" id="{{$title}}" {{($field->required==1)? 'required':''}}>
-                              <option value="">Select dropdown</option>
-                              @foreach($values as $value)
-                                 <option value="{{$value->child}}">{{$value->child}}</option>
-                              @endforeach
-                           </select>
-                        </div>
-                     @else
-                        <div class="form-group">
-                           <label class="capitalize" for="{{$title}}">{{$title}}*</label>
-                           <input type="{{($field->type=='date')? 'date':'text'}}" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}" {{($field->required==1)? 'required':''}}>
-                        </div>
-                     @endif
-                  @endforeach
+                  <div id="customField">
+                     @foreach($customFields as $field)
+                        @php $title = $field->name; @endphp
+                        @if($field->type=='dropdown')
+                           <div class="form-group">
+                              <label class="capitalize" for="{{$title}}">{{$title}}*</label>
+                              @php
+                                 $values = App\Models\CustomField::where('name', $title)->where('type', '=', null)->get();
+                              @endphp
+                              <select class="form-control" name="{{$title}}" id="{{$title}}" {{($field->required==1)? 'required':''}}>
+                                 <option value="">Select dropdown</option>
+                                 @foreach($values as $value)
+                                    <option value="{{$value->child}}">{{$value->child}}</option>
+                                 @endforeach
+                              </select>
+                           </div>
+                        @else
+                           <div class="form-group">
+                              <label class="capitalize" for="{{$title}}">{{$title}}*</label>
+                              <input type="{{($field->type=='date')? 'date':'text'}}" class="form-control" name="{{$title}}" id="{{$title}}" placeholder="Enter {{$title}}" {{($field->required==1)? 'required':''}}>
+                           </div>
+                        @endif
+                     @endforeach
+                  </div>
                   <hr>
                   <div class="row">
                      <div class="form-group col">

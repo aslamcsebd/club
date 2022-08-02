@@ -6,7 +6,7 @@
 @include('includes.alertMessage')
 <div class="content-wrapper p-3">
    <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col-md-12">
          <div class="card border border-danger">
             <div class="card-header p-1">
                <a href="{{ route('file.new') }}" class="btn btn-sm btn-success text-light">Add file</a>

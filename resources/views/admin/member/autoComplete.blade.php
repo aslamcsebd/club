@@ -2,7 +2,7 @@
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <!-- <script>
         $(function() {
             $('#mobile').autocomplete({
@@ -77,22 +77,34 @@
 
 <script>
     $(function() {
+        var typed = false;
+
+        $('#mobile').on('keyup', function(){
+            typed = true;
+        });
 
         $(document).on('click', function() {
-            $.ajax({
+            if(typed==true)
+            {
+                $.ajax({
                 type: 'GET', //THIS NEEDS TO BE GET
                 url: '{{url("member-list")}}?term=' + $('#mobile').val(),
                 dataType: 'json',
                 success: function(data) {
                     $('#id').val(data.message ? data.message.id : '');
-                    $('#name').val(data.message ? data.message.name : '');
-                    $('#email').val(data.message ? data.message.email : '');
-                    $('#password').prop('disabled', true);
-                    $('#confirm_password').prop('disabled', true);
+                    $('#name').val(data.message ? data.message.name : '').css('display', (data.message ? 'none' : 'block'));
+                    $('#email').val(data.message ? data.message.email : '');                  
+                    
+                    $('#password').prop('disabled', (data.message ? true : false));
+                    $('#confirm_password').prop('disabled', (data.message ? true : false));
+
                     $('#address').val(data.message ? data.message.address : '');
                     $('#gender').val(data.message ? data.message.gender : '');
                     $('#blood').val(data.message ? data.message.blood : '');
                     $('#dob').val(data.message ? data.message.dob : '');
+                    
+                    $('#customField').removeClass('active').css('display', (data.message ? 'none' : 'block'));
+
                     $('#previousCategory').removeClass('active').css('display', 'block');
                     $('#oldMember').val(data.message ? data.message.category_id : '').removeClass('active').css('display', 'block');
                     $('#member_no').val(data.message ? data.message.member_no : '');
@@ -123,6 +135,8 @@
                             }else{
                                 $('.m_c_id').addClass('active').css({'display': 'block'});
                             }
+
+                            typed = false;
                         }
                     });
                 },
@@ -130,6 +144,8 @@
                     console.log(data);
                 }
             });
+            }
+           
         })
     })
 </script>

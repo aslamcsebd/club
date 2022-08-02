@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function(){
       Route::get('/user/new', 'UserController@new')->name('user.new');
       Route::post('/user/add', 'UserController@addUser')->name('addUser');
       Route::get('/user/all', 'UserController@all')->name('user.all');   
-      Route::get('/user/get/{name}', 'UserController@all')->name('user.get');   
+      Route::get('/user/get/{user_type_id}', 'UserController@all')->name('user.get');   
       Route::get('userView/{id}/{model}/{tab}','UserController@userView')->name('userView');
 
       Route::get('userDelete/{id}/{model}/{tab}','UserController@userDelete')->name('userDelete');

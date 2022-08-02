@@ -75,8 +75,8 @@ class UserController extends Controller{
    public function all(){
       $data['userCategory'] = AllUser::with('userType')->get()->groupBy('user_type_id');
 
-      $user_type = request('name');
-      $data['users'] = AllUser::when($user_type, function($query) use ($user_type){
+      $user_type_id = request('user_type_id');
+      $data['users'] = AllUser::when($user_type_id, function($query) use ($user_type_id){
          return $query->where('user_type_id', $user_type_id);
       })->get()->groupBy('user_type_id');
 
