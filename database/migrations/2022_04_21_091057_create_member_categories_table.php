@@ -24,6 +24,18 @@ class CreateMemberCategoriesTable extends Migration
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
             $table->timestamps();
         });
+
+        $member_category = array('Student', 'Teacher', 'Driver', 'Staf');
+        foreach($member_category as $member){
+            DB::table('member_categories')->insert([
+                'created_by' => 'Aslam',
+                'name' => $member,            
+                'paymentType' => 'One Time',
+                'reg_fee' => 1000,
+                'percentage' => 10,
+                'monthly' => ''
+            ]);
+        }
     }
 
     /**

@@ -20,6 +20,14 @@ class CreateHeadParentsTable extends Migration
             $table->tinyInteger('status')->default('1')->comment('0=Inactive, 1=Active');
             $table->timestamps();
         });
+
+        $head_parents = array('Student', 'teacher', 'sub-admin', 'staf');
+        foreach($head_parents as $user){
+            DB::table('head_parents')->insert([
+                'created_by' => 'Aslam',
+                'name' => $user
+            ]);
+        }
     }
 
     /**

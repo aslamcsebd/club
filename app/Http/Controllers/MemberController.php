@@ -72,17 +72,17 @@ class MemberController extends Controller{
             return Redirect::back()->withErrors($validator);
          }
    
-         $path="member/";
+         $path="images/member/";
          $default="default.jpg";
          if ($request->hasFile('photo')){
             if($files=$request->file('photo')){
                $photo = $request->photo;
                $fullName=time().".".$photo->getClientOriginalExtension();
-               $files->move(imagePath($path), $fullName);
-               $photoLink = imagePath($path). $fullName;
+               $files->move(public_path($path), $fullName);
+               $photoLink = $path. $fullName;
             }
          }else{
-            $photoLink = imagePath($default);
+            $photoLink = $path . $default;
          }
    
          if($request->has('member_add_from')){

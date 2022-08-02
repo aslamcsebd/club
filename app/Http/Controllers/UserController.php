@@ -43,17 +43,17 @@ class UserController extends Controller{
          return Redirect::back()->withErrors($validator);
       }
 
-      $path="user/";
+      $path="images/user/";
       $default="default.jpg";
       if ($request->hasFile('photo')){
          if($files=$request->file('photo')){
             $photo = $request->photo;
             $fullName=time().".".$photo->getClientOriginalExtension();
-            $files->move(imagePath($path), $fullName);
-            $photoLink = imagePath($path). $fullName;
+            $files->move(public_path($path), $fullName);
+            $photoLink = $path. $fullName;
          }
       }else{
-         $photoLink = imagePath($default);
+         $photoLink = $path . $default;
       }
 
       AllUser::create([
