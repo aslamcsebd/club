@@ -6,23 +6,36 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use DB;
 use App\Models\Member;
+
+use App\Models\Notice;
+use App\Models\File;
+use App\Models\HeadInfo;
+use App\Models\AllUser;
+
 use App\Models\MemberCategory;
 use App\Models\CustomField;
 use App\Models\UserType;
-use App\Models\File;
-use App\Models\HeadInfo;
+use App\Models\HeadParent;
 
 class HomeController extends Controller{
     
    // public function __construct(){ $this->middleware('auth'); }
   
    public function index(){
-      $data['member'] = Member::all();      
+      $data['member'] = Member::all();    
+      $data['online'] = Member::where('member_add_from', 'Online')->get();
+
+      $data['notice'] = Notice::all();      
+      $data['files'] = File::all();   
+      $data['headInfos'] = HeadInfo::all();
+
+      $data['allUser'] = AllUser::all();      
+      
       $data['memberCategory'] = MemberCategory::all();      
       $data['customField'] = CustomField::all();      
       $data['userType'] = UserType::all();      
-      $data['files'] = File::all();      
-      $data['headInfos'] = HeadInfo::all();      
+      $data['headParent'] = HeadParent::all();   
+
       return view('home', $data);
    }
 

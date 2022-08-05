@@ -6,7 +6,7 @@
 @include('includes.alertMessage')
 <div class="content-wrapper p-3">
    <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col-md-12">
          <div class="card">
             <h6 class="card-header bg-success text-center py-2">Register new user</h6>
             <form action="{{ Route('addUser') }}" method="post" enctype="multipart/form-data">

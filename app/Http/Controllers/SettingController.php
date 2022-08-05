@@ -287,4 +287,16 @@ class SettingController extends Controller{
       }
 
    }   
+
+
+   // Go settings with tabname
+   public function settings2($tab) {
+      $data['categories'] = MemberCategory::all();
+      $data['customFields'] = CustomField::where('type', '!=', null)->get();
+      $data['userTypes'] = UserType::all();
+      $data['headParents'] = HeadParent::all();
+      $data['general'] = General::first();
+
+      return Redirect::route('settings')->with(['data' => $data])->withInput(['tab' => $tab]);
+   }
 }

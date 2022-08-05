@@ -65,6 +65,9 @@ Route::middleware(['auth'])->group(function(){
 
       Route::post('/add-general', 'SettingController@addGeneral')->name('addGeneral');
 
+      // Go settings with tabname
+      Route::get('/settings2/{tab}', 'SettingController@settings2')->name('settings2');
+
    // All status change   
       // Route::get('itemStatus/{id}/{model}/{tab}','MemberController@itemStatus')->name('itemStatus');
       Route::get('/status/update', 'HomeController@changeStatus')->name('status');
